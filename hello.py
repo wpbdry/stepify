@@ -90,7 +90,7 @@ def process_signup(u):
 
 def show_main_page():
     return 'You are logged in as ' + check_login() + '. <a href="logout">Log out</a>'
-    
+
 
 # ROUTES ###
 
@@ -99,7 +99,7 @@ def hello_world():
     if check_login() is False:
         return render_template('signup-login.html')
     else:
-        return show_main_page
+        return show_main_page()
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
