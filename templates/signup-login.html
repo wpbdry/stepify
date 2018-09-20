@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Stepify | Sign in</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/main.css') }}" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    <div class="popup" id="signup">
+        <h2>
+            Sign up
+        </h2>
+        <form action="/signup" method="post">
+            Username
+            <br>
+            <input type="text" name="username">
+            <br>
+            <div class="one-of-two">
+                Password
+                <br>
+                <input type="password" name="password">
+            </div>
+            <div class="two-of-two">
+                Repeat password
+                <br>
+                <input type="password">
+            </div>
+            <br>
+            <input type="submit" value="Sign up">
+        </form>
+        <button id="show-login" class="center">
+            or log in
+        </button> 
+    </div>
+    
+    <div class="popup" id="login">
+        <h2>
+            Log in
+        </h2>
+        <form action="/login" method="post">
+            Username
+            <br>
+            <input type="text" name="username">
+            <br>
+            Password
+            <br>
+            <input type="password" name="password">
+            <br>
+            <input type="submit" value="Log in">
+        </form>
+        <button class="center" id="show-signup">
+            or sign up
+        </button> 
+    </div>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/signup-login.js') }}"></script>
+</body>
+</html>

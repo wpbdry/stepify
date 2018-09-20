@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Stepify | Getting setup</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/main.css') }}" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+    <!--hidden form-->
+    <form id="hidden-form" class="hidden" action="/choose-your-study-program" method="post">
+        <input id="hidden-input" type="text" name="study-program">
+        <input type="submit" value="">
+    </form>
+    
+    <div>
+        Select your study program
+    </div>
+    <div class="study-program" id="id">
+        Interaction Design
+    </div>
+    <div class="study-program" id="se">
+        Software Engineering
+    </div>
+    <div class="study-program" id="pm">
+        Product Management
+    </div>
+    <div  class="study-program" id="undecided">
+        I haven't decided yet
+    </div>
+    
+    <script type="text/javascript" src="{{ url_for('static', filename='js/studyprograms.js') }}"></script>
+</body>
+</html>

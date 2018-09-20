@@ -1,0 +1,95 @@
+
+@media screen and (max-device-width: 480px){
+    body{
+        -webkit-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+    }
+}
+
+body {
+    font-family: sans-serif;
+    background-color: #FAFAFA;
+}
+
+.popup {
+    width: 633px;
+    height: 633px;
+    border-radius: 19px;
+    background-color: #fff;
+    padding: 52px;
+    box-shadow: 4px 4px 4px grey;
+    
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+form {
+    color: #BDBDBD;
+    font-size: 18px;
+}
+
+input {
+    width: 96%;
+    height: 53.83px;
+    background-color: #FAFAFA;
+    border: none;
+    margin-top: 5px;
+    margin-bottom: 40px;
+    font-size: 18px;
+    padding: 12px;
+}
+
+.one-of-two {
+    display: inline-block;
+    width: 44%;
+}
+
+.two-of-two {
+    display: inline-block;
+    width: 44%;
+    margin-left: 3%;
+}
+
+input[type="submit"] {
+    width: 174.05px;
+    display: table;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    background-color: #1485FC;
+    border-radius: 6px;
+    box-shadow: 4px 4px 4px grey;
+}
+
+input[type="submit"]:hover {
+    cursor: pointer;
+}
+
+.center {
+    display: table;
+    margin: 0 auto;
+}
+
+a {
+    color: #BDBDBD;
+}
+
+.study-program:hover {
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
