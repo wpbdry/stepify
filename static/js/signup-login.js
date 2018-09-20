@@ -27,3 +27,8 @@ $(document).ready(function(){
     
     /*GOTTA STILL ADD CHECKING PASSWORDS BEFORE SUBMIT*/
 });
+
+function signUpSubmit(e) {
+    console.log(this);
+    console.log(e);
+}

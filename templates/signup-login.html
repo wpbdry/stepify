@@ -11,7 +11,7 @@
 </head>
 <body>
     
-    <div class="popup" id="signup">
+    <div class="popup" id="signup" onsubmit="signUpSubmit()">
         <h2>
             Sign up
         </h2>
@@ -23,12 +23,12 @@
             <div class="one-of-two">
                 Password
                 <br>
-                <input type="password" name="password">
+                <input type="password" name="password" id="pw1">
             </div>
             <div class="two-of-two">
                 Repeat password
                 <br>
-                <input type="password">
+                <input type="password" id="pw2">
             </div>
             <br>
             <input type="submit" value="Sign up">

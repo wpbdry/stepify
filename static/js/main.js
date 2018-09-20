@@ -10,6 +10,9 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
     $, console
 */
 
+//tasks variable already defined in html template
+
 $(document).ready(function(){
+    console.log(tasks);
     
 });
