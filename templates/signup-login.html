@@ -10,9 +10,15 @@
     <!-- <link rel= "stylesheet" type= "text/css" href="{{ url_for('static', filename='css/main.css') }}" /> -->
     <link rel="stylesheet" href="../static/css/main.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
 </head>
 <body>
-    
+
     <div class="popup" id="signup">
         <h2>
             Sign up
@@ -37,9 +43,9 @@
         </form>
         <button id="show-login" class="center">
             or log in
-        </button> 
+        </button>
     </div>
-    
+
     <div class="popup" id="login">
         <h2>
             Log in
@@ -57,9 +63,9 @@
         </form>
         <button class="center" id="show-signup">
             or sign up
-        </button> 
+        </button>
     </div>
-    
+
     <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/signup-login.js') }}"></script> -->
     <script src="../static/js/signup-login.js"></script>
 </body>
