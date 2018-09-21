@@ -104,6 +104,7 @@ a {
 
 .hidden {
     display: none;
+    background-color: pink;
 }
 
 
@@ -186,10 +187,16 @@ a {
   margin: 3rem !important;
   height: 17rem;
   width: 17rem;
+  text-align: center;
 }
 
 .grid-x {
   max-width: 1200px;
   display: block;
   margin: auto;
+}
+
+#top-block {
+    display: block;
+   margin-top: 5%;  
 }

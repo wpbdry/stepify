@@ -18,7 +18,11 @@
     </script>
 </head>
 <body>
-  <div class="grid-x">
+        <form class="hidden" id="hidden-form" action="/choose-your-study-program" method="post">
+            <input id="hidden-input" type="text" name="study-program">
+            <input type="submit" value="">
+        </form>
+  <div id="top-block" class="grid-x">
     <div id="select-study-program">
         <div id="logo-select-study-program"><img src="../static/img/logo.png" alt=""></div>
         <div id="text-select-study-program"><h5>select your study program</h5></div>
@@ -27,7 +31,7 @@
   <div class="grid-x">
     <div class="cell medium-4">
       <div class="callout id">
-        <h2>Interaction desgin</h2>
+        <h2>Interaction design</h2>
       </div>
     </div>
     <div class="cell medium-4">
@@ -39,6 +43,8 @@
         <h2>Product management</h2>
       </div></div>
   </div>
+  <div id="not-decided">
+        <a href="intro_screen_01.html">Not decided</a>
 </body>
 </html>
 
