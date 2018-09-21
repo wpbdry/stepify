@@ -1,8 +1,11 @@
 
 # SETUP ###
 
+import sys
+
+from flask import Flask, render_template, request, redirect, Response
 import psycopg2
-from flask import Flask, request, render_template, redirect
+
 app = Flask(__name__)
 
 # CONNECT TO DB ###
@@ -12,13 +15,45 @@ conn = psycopg2.connect(host="localhost", port="5433", dbname="stepify", user="p
 
 # PREDEFINED FUNCTIONS ###
 
+# Find user data
+
+
+def find_user_from_all_data(u):  # find user by user info array and returns id
+    cur = conn.cursor()
+    cur.execute("SELECT id FROM stepify.users WHERE username = '" + u['username'] + "';")
+    uid = cur.fetchone()
+    if uid:
+        uid = uid[0]
+    cur.close()
+    return uid
+
+
+def find_user_from_uname(un):  # find user by username and returns id
+    cur = conn.cursor()
+    cur.execute("SELECT id FROM stepify.users WHERE username = '" + un + "'")
+    uid = cur.fetchone()
+    if uid:
+        uid = uid[0]
+    cur.close()
+    return uid
+
+
 # Main page functionality
 
 
 def show_main_page():
-    tasks = [['task1', 'task! deets'], ['task 2', 'task 2 details'], ['task 3: fuck off', 'Details: leave this place.']]
-    return render_template("main.html", tasks='Tasks coming soon')
-    # return 'You are logged in as ' + check_login() + '. <a href="/logout">Log out</a>'
+    # get user id
+    uname = check_login()
+    uid = str(find_user_from_uname(uname))
+
+    # get list of tasks
+    cur = conn.cursor()
+    cur.execute("SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details FROM stepify.tasks JOIN stepify.users_tasks ON stepify.users_tasks.task_id = stepify.tasks.id WHERE stepify.users_tasks.user_id = '" + uid + "' AND stepify.users_tasks.completion = 'no';")
+    sql_tasks = cur.fetchall()
+    cur.close()
+
+    # load page and send tasks to js
+    return render_template("main.html", tasks=sql_tasks, username=check_login())
 
 
 # Login / sign up functionality
@@ -36,16 +71,6 @@ def check_login():  # Returns username if user is logged in and returns False if
         return usern[0]
 
 
-def find_user(u):  # find user by username and returns id
-    cur = conn.cursor()
-    cur.execute("SELECT id FROM stepify.users WHERE username = '" + u['username'] + "'")
-    uid = cur.fetchone()
-    if uid:
-        uid = uid[0]
-    cur.close()
-    return uid
-
-
 def log_user_in(un):  # record that user is logged in
     ip = request.remote_addr  # user's current ip
     cur = conn.cursor()
@@ -56,18 +81,33 @@ def log_user_in(un):  # record that user is logged in
 
 def log_user_out(un):
     ip = request.remote_addr  # user's current ip
+    # Check if user is logged in
     cur = conn.cursor()
-    cur.execute("DELETE FROM stepify.logins WHERE username = '" + un + "' AND ip = '" + ip + "'")
-    conn.commit()
+    cur.execute("SELECT username FROM stepify.logins WHERE ip = '" + ip + "';")
+    logged_in_uname = cur.fetchone()
     cur.close()
+
+    # if someone is logged in, fix the uname
+    if logged_in_uname:
+        logged_in_uname = logged_in_uname[0]
+
+    # if logged in, log out
+    if logged_in_uname == un:
+        cur = conn.cursor()
+        cur.execute("DELETE FROM stepify.logins WHERE username = '" + un + "' AND ip = '" + ip + "'")
+        conn.commit()
+        cur.close()
+
+    else:
+        return redirect("/")
 
 
 def process_login(u):
-    if find_user(u) is None:  # if user in not registered
+    if find_user_from_all_data(u) is None:  # if user in not registered
         return u['username'] + ' is not yet registered. <a href="signup">Sign up now</a>'
     else:
         cur = conn.cursor()
-        uid = find_user(u)
+        uid = find_user_from_all_data(u)
         cur.execute("SELECT password FROM stepify.users WHERE id = " + str(uid))  # get correct password
         pw = cur.fetchone()[0]
         cur.close()
@@ -81,7 +121,7 @@ def process_login(u):
 
 
 def process_signup(u):
-    if find_user(u) is None:
+    if find_user_from_all_data(u) is None:
         # Sign user up
         cur = conn.cursor()
         cur.execute("INSERT INTO stepify.users (username, password) VALUES (%s, %s)", (u['username'], u['password']))
@@ -112,10 +152,7 @@ def set_user_sp_and_tasks(study_program):
     cur.close()
 
     # then get user's id (in users table)
-    cur = conn.cursor()
-    cur.execute("SELECT id FROM stepify.users WHERE username = '" + un + "';")
-    user_id = cur.fetchone()[0]
-    cur.close()
+    user_id = find_user_from_uname(un)
 
     # then link the tasks to the user in the users_tasks table
     for task_id in task_ids:
@@ -149,7 +186,7 @@ UPDATE stepify.users_tasks SET completion = 'yes' WHERE user_id = '15' AND task_
 # ROUTES ###
 
 @app.route('/')
-def hello_world():
+def stepify():
     if check_login() is False:
         return render_template('signup-login.html')
     else:
@@ -174,11 +211,13 @@ def sign_up():
     # the code below is executed if the request method was GET
     return render_template('404.html', error=error)
 
+
 @app.route('/logout')
 def logout_page():
     un = check_login()
     log_user_out(un)
     return render_template('signup-login.html')
+
 
 @app.route('/choose-your-study-program', methods=['POST', 'GET'])
 def sp():
@@ -190,3 +229,22 @@ def sp():
 
     # the code below is executed if the request method was GET
     return render_template('studyprograms.html', error=error)
+
+
+@app.route('/task-done', methods=['POST', 'GET'])
+def task_done():
+    error = None
+    if request.method == 'POST':
+        task_id = str(request.json)
+        # mark task completion as yes in db
+        # get user id
+        uname = check_login()
+        uid = str(find_user_from_uname(uname))
+
+        cur = conn.cursor()
+        cur.execute("UPDATE stepify.users_tasks SET completion = 'yes' WHERE user_id = '" + uid + "' AND task_id = '" + task_id + "';")
+        conn.commit()
+        cur.close()
+
+    # the code below is executed if the request method was GET
+    return render_template('404.html', error=error)

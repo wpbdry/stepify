@@ -8,8 +8,8 @@
     <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
     <link rel="stylesheet" href="main.css">
     <script>
-        
-        var tasks = "{{ tasks }}"; //creates variable which will later be used in js file
+        var pyTasks = "{{ tasks }}"; //gets variable from python which will later be used in js file
+        var pyUsername = "{{ username }}";
     </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     
@@ -21,8 +21,11 @@
     <div id="to-to-list">
     </div>
     
-    <a href="/logout">Log out</a>
-    
+    <a href="/logout">
+        Log out
+        <span id="logged-in-username">
+        </span>
+    </a>
     
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
