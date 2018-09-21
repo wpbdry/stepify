@@ -7,6 +7,12 @@
     <link rel="stylesheet" href="../static/css/main.css">
     <script src="../static/js/studyprograms.js"></script>
     <title>Stepify</title>
+    <script src="js/vendor/jquery.js"></script>
+    <script src="js/vendor/what-input.js"></script>
+    <script src="js/vendor/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
 </head>
 <body>
     <div id="main-container">
@@ -46,12 +52,12 @@
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
-    
+
     <form id="hidden-form" class="hidden" action="/choose-your-study-program" method="post">
         <input id="hidden-input" type="text" name="study-program">
         <input type="submit" value="">
     </form>
-    
+
     <div>
         Select your study program
     </div>
@@ -67,7 +73,7 @@
     <div  class="study-program" id="undecided">
         I haven't decided yet
     </div>
-    
+
     <script type="text/javascript" src="{{ url_for('static', filename='js/studyprograms.js') }}"></script>
 </body>
 </html> -->
