@@ -184,5 +184,12 @@ a {
   border-style: none;
   box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.22);
   margin: 3rem !important;
+  height: 17rem;
+  width: 17rem;
+}
 
+.grid-x {
+  max-width: 1200px;
+  display: block;
+  margin: auto;
 }
