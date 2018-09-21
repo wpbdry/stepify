@@ -30,7 +30,7 @@ body {
     background-color: #fff;
     padding: 52px;
     box-shadow: 4px 4px 4px grey;
-    
+
     position: absolute;
     top:0;
     bottom: 0;
@@ -178,4 +178,11 @@ a {
     margin-left: 50%;
     transform: translateX(-50%);
     text-align: center;
+}
+.callout {
+  border-radius: 14px;
+  border-style: none;
+  box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.22);
+  margin: 3rem !important;
+
 }
