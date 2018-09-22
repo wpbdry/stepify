@@ -1,17 +1,45 @@
 
 # SETUP ###
 
-import sys
-
 from flask import Flask, render_template, request, redirect, Response
 import psycopg2
 
 app = Flask(__name__)
 
-# CONNECT TO DB ###
+# FUNCTIONS TO CONNECT TO DB (IMPORTANT THAT WE ALWAYS  CLOSE CONN. DB ONLY ALLOWS 5 CONNECTIONS ###
 
-# Connect to an existing database
-conn = psycopg2.connect(host="localhost", port="5433", dbname="stepify", user="postgres", password="password")
+
+# For SELECT statements. returns cursor.fetchall() if type is 'all' or cursor.fetchone if type is 'one'
+def db_query(sql, type):
+    conn = psycopg2.connect(host="horton.elephantsql.com",
+                            port="5432",
+                            dbname="wxwcglba",
+                            user="wxwcglba",
+                            password="gpdpTataCu14tbTM7ABFYFyuO8Kuq5f2")
+    cur = conn.cursor()
+    cur.execute(sql)
+    r = 'Invalid type parsed'
+    if type == 'all':
+        r = cur.fetchall()
+    elif type == 'one':
+        r = cur.fetchone()
+    cur.close()
+    conn.close()
+    return r
+
+
+def db_write(sql): # For changing data. returns nothing.
+    conn = psycopg2.connect(host="horton.elephantsql.com",
+                            port="5432",
+                            dbname="wxwcglba",
+                            user="wxwcglba",
+                            password="gpdpTataCu14tbTM7ABFYFyuO8Kuq5f2")
+    cur = conn.cursor()
+    cur.execute(sql)
+    conn.commit()
+    cur.close()
+    conn.close()
+
 
 # PREDEFINED FUNCTIONS ###
 
@@ -19,22 +47,17 @@ conn = psycopg2.connect(host="localhost", port="5433", dbname="stepify", user="p
 
 
 def find_user_from_all_data(u):  # find user by user info array and returns id
-    cur = conn.cursor()
-    cur.execute("SELECT id FROM stepify.users WHERE username = '" + u['username'] + "';")
-    uid = cur.fetchone()
+    uid = db_query("SELECT id FROM stepify.users WHERE username = '" + u['username'] + "';", "one")
     if uid:
         uid = uid[0]
-    cur.close()
     return uid
 
 
 def find_user_from_uname(un):  # find user by username and returns id
-    cur = conn.cursor()
-    cur.execute("SELECT id FROM stepify.users WHERE username = '" + un + "'")
-    uid = cur.fetchone()
+    uid = db_query("SELECT id FROM stepify.users WHERE username = '" + un + "'",
+                   "one")
     if uid:
         uid = uid[0]
-    cur.close()
     return uid
 
 
@@ -47,10 +70,8 @@ def show_main_page():
     uid = str(find_user_from_uname(uname))
 
     # get list of tasks
-    cur = conn.cursor()
-    cur.execute("SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details FROM stepify.tasks JOIN stepify.users_tasks ON stepify.users_tasks.task_id = stepify.tasks.id WHERE stepify.users_tasks.user_id = '" + uid + "' AND stepify.users_tasks.completion = 'no';")
-    sql_tasks = cur.fetchall()
-    cur.close()
+    sql_tasks = db_query("SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details FROM stepify.tasks JOIN stepify.users_tasks ON stepify.users_tasks.task_id = stepify.tasks.id WHERE stepify.users_tasks.user_id = '" + uid + "' AND stepify.users_tasks.completion = 'no';",
+                         "all")
 
     # load page and send tasks to js
     return render_template("main.html", tasks=sql_tasks, username=check_login())
@@ -61,10 +82,8 @@ def show_main_page():
 
 def check_login():  # Returns username if user is logged in and returns False if not
     uip = request.remote_addr  # user's current ip
-    cur = conn.cursor()
-    cur.execute("SELECT username FROM stepify.logins WHERE ip = '" + uip + "'")
-    usern = cur.fetchone()
-    cur.close()
+    usern = db_query("SELECT username FROM stepify.logins WHERE ip = '" + uip + "'",
+                     "one")
     if usern is None:
         return False
     else:
@@ -73,19 +92,14 @@ def check_login():  # Returns username if user is logged in and returns False if
 
 def log_user_in(un):  # record that user is logged in
     ip = request.remote_addr  # user's current ip
-    cur = conn.cursor()
-    cur.execute("INSERT INTO stepify.logins (username, ip) VALUES (%s, %s)", (un, ip))
-    conn.commit()
-    cur.close()
+    db_write("INSERT INTO stepify.logins (username, ip) VALUES ('" + un + "', '" + ip + "');")
 
 
 def log_user_out(un):
     ip = request.remote_addr  # user's current ip
     # Check if user is logged in
-    cur = conn.cursor()
-    cur.execute("SELECT username FROM stepify.logins WHERE ip = '" + ip + "';")
-    logged_in_uname = cur.fetchone()
-    cur.close()
+    logged_in_uname = db_query("SELECT username FROM stepify.logins WHERE ip = '" + ip + "';",
+                               "one")
 
     # if someone is logged in, fix the uname
     if logged_in_uname:
@@ -93,10 +107,7 @@ def log_user_out(un):
 
     # if logged in, log out
     if logged_in_uname == un:
-        cur = conn.cursor()
-        cur.execute("DELETE FROM stepify.logins WHERE username = '" + un + "' AND ip = '" + ip + "'")
-        conn.commit()
-        cur.close()
+        db_write("DELETE FROM stepify.logins WHERE username = '" + un + "' AND ip = '" + ip + "'")
 
     else:
         return redirect("/")
@@ -106,11 +117,9 @@ def process_login(u):
     if find_user_from_all_data(u) is None:  # if user in not registered
         return u['username'] + ' is not yet registered. <a href="signup">Sign up now</a>'
     else:
-        cur = conn.cursor()
         uid = find_user_from_all_data(u)
-        cur.execute("SELECT password FROM stepify.users WHERE id = " + str(uid))  # get correct password
-        pw = cur.fetchone()[0]
-        cur.close()
+        pw = db_query("SELECT password FROM stepify.users WHERE id = " + str(uid),
+                      "one")[0]  # get correct password
         if pw == u['password']:  # if password is correct
             # Log user in
             log_user_in(u['username'])
@@ -123,10 +132,7 @@ def process_login(u):
 def process_signup(u):
     if find_user_from_all_data(u) is None:
         # Sign user up
-        cur = conn.cursor()
-        cur.execute("INSERT INTO stepify.users (username, password) VALUES (%s, %s)", (u['username'], u['password']))
-        conn.commit()
-        cur.close()
+        db_write("INSERT INTO stepify.users (username, password) VALUES ('" + u['username'] + "', '" + u['password'] + "');")
         # Log user in
         log_user_in(u['username'])
         # Move on to choose your study program
@@ -138,50 +144,49 @@ def process_signup(u):
 def set_user_sp_and_tasks(study_program):
     un = check_login()
     # record user's study program
-    cur = conn.cursor()
-    cur.execute("UPDATE stepify.users SET study_program = '" + study_program + "' WHERE username = '" + un + "'")
-    conn.commit()
-    cur.close()
+    db_write("UPDATE stepify.users SET study_program = '" + study_program + "' WHERE username = '" + un + "'")
+
+
+
 
     # set user's tasks based on study program
+
+    conn = psycopg2.connect(host="horton.elephantsql.com",
+                            port="5432",
+                            dbname="wxwcglba",
+                            user="wxwcglba",
+                            password="gpdpTataCu14tbTM7ABFYFyuO8Kuq5f2")
+
+
+
 
     # first get a list of tasks (as ids) relevant to this study program
     cur = conn.cursor()
     cur.execute("SELECT id FROM stepify.tasks WHERE " + study_program + " = 'yes';")
     task_ids = cur.fetchall()
     cur.close()
+    print('task_ids: ', task_ids)
 
     # then get user's id (in users table)
     user_id = find_user_from_uname(un)
 
     # then link the tasks to the user in the users_tasks table
     for task_id in task_ids:
+        print('user_id: ', user_id, 'task_id: ', task_id, 'task_id[0]: ', task_id[0])
         cur = conn.cursor()
-        cur.execute("INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES (%s, %s, 'no')", (user_id, task_id))
+        cur.execute("INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('" + str(user_id) + "', '" + str(task_id[0]) + "', 'no')")
         conn.commit()
         cur.close()
 
 
-# TO DO ORDER
-# set up tasks tables in db (done)
-# - discuss and implement study program selection / relevant tasks thing (currently doesn't work for haven't decided yet)
-# figure out sql query to get the relevant info back for a specific user (tasks not done)
-# send the return from sql query directly to js
-# restructure it in js
-# dynamically update html with the restructured data
 
-"""
-/*Select all tasks for a user*/
-SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details, stepify.users_tasks.completion
-	FROM stepify.tasks
-	JOIN stepify.users_tasks
-		ON stepify.users_tasks.task_id = stepify.tasks.id
-	WHERE stepify.users_tasks.user_id = '15'
-		AND stepify.users_tasks.completion = 'no'
-		
-/*Mark a specific task as done for a specific user*/
-UPDATE stepify.users_tasks SET completion = 'yes' WHERE user_id = '15' AND task_id = '8'
-"""
+
+    conn.close()
+
+
+
+
+
 
 # ROUTES ###
 
@@ -191,6 +196,7 @@ def stepify():
         return render_template('signup-login.html')
     else:
         return show_main_page()
+
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -241,10 +247,7 @@ def task_done():
         uname = check_login()
         uid = str(find_user_from_uname(uname))
 
-        cur = conn.cursor()
-        cur.execute("UPDATE stepify.users_tasks SET completion = 'yes' WHERE user_id = '" + uid + "' AND task_id = '" + task_id + "';")
-        conn.commit()
-        cur.close()
+        db_write("UPDATE stepify.users_tasks SET completion = 'yes' WHERE user_id = '" + uid + "' AND task_id = '" + task_id + "';")
 
     # the code below is executed if the request method was GET
     return render_template('404.html', error=error)
