@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b92fe423-bc22-4358-9aae-a437ccfcba17" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/hello.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/signup-login.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/signup-login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/signup-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/signup-login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/db-setup.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create-example-tasks.sql" beforeDir="false" afterPath="$PROJECT_DIR$/create-example-tasks.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db-setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/db-setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stepify.py" beforeDir="false" afterPath="$PROJECT_DIR$/stepify.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/troubleshooting.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,38 +16,44 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/back_end$db_setup.coverage" NAME="db-setup Coverage Results" MODIFIED="1537428388545" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/back_end$db_setup.coverage" NAME="db-setup Coverage Results" MODIFIED="1537627061632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/back_end$troubleshooting.coverage" NAME="troubleshooting Coverage Results" MODIFIED="1537622891042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FUSProjectUsageTrigger">
     <session id="-712068891">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
-          <entry key="project.open.time.1" value="1" />
+          <entry key="project.closed" value="6" />
+          <entry key="project.open.time.1" value="2" />
+          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="html" value="6" />
+          <entry key="html" value="8" />
           <entry key="js" value="1" />
-          <entry key="py" value="12" />
+          <entry key="py" value="22" />
+          <entry key="sql" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="HTML" value="6" />
+          <entry key="DBN-SQL" value="4" />
+          <entry key="HTML" value="8" />
           <entry key="JavaScript" value="1" />
-          <entry key="Python" value="12" />
+          <entry key="Python" value="22" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
+          <entry key="DBN-SQL" value="523" />
           <entry key="HTML" value="21" />
-          <entry key="Python" value="3673" />
+          <entry key="Python" value="6563" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.js.language.service.starts" />
@@ -54,26 +61,54 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="html" value="21" />
-          <entry key="py" value="3673" />
+          <entry key="py" value="6563" />
+          <entry key="sql" value="523" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stepify.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3660">
-              <caret line="244" column="135" selection-start-line="244" selection-start-column="135" selection-end-line="244" selection-end-column="135" />
+            <state relative-caret-position="302">
+              <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
               <folding>
-                <element signature="e#14#24#0" expanded="true" />
+                <marker date="1537628836959" expanded="true" signature="841:1262" ph="..." />
+                <marker date="1537628836959" expanded="true" signature="7277:7412" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/db-setup.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="502">
+              <caret line="53" column="27" selection-start-line="53" selection-end-line="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/db-setup.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="SQL Script" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -82,6 +117,12 @@
       <find>find_user_from_uname</find>
       <find>find_user_from_all_data</find>
       <find>/login</find>
+      <find>%s</find>
+      <find>all</find>
+      <find>'one'</find>
+      <find>&quot;one&quot;</find>
+      <find>db_query</find>
+      <find>redi</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -92,9 +133,13 @@
       <list>
         <option value="$PROJECT_DIR$/templates/studyprograms.html" />
         <option value="$PROJECT_DIR$/templates/main.html" />
-        <option value="$PROJECT_DIR$/db-setup.py" />
         <option value="$PROJECT_DIR$/hello.py" />
+        <option value="$PROJECT_DIR$/set-up-elephantsql.py" />
+        <option value="$PROJECT_DIR$/troubleshooting.py" />
+        <option value="$PROJECT_DIR$/create-example-tasks.sql" />
         <option value="$PROJECT_DIR$/stepify.py" />
+        <option value="$PROJECT_DIR$/db-setup.py" />
+        <option value="$PROJECT_DIR$/db-setup.sql" />
       </list>
     </option>
   </component>
@@ -176,6 +221,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="troubleshooting" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="back-end" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/troubleshooting.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="back-end" type="Python.FlaskServer" factoryName="Flask server">
       <module name="back-end" />
       <option name="target" value="$PROJECT_DIR$/hello.py" />
@@ -194,10 +261,12 @@
     <list>
       <item itemvalue="Flask server.back-end" />
       <item itemvalue="Python.db-setup" />
+      <item itemvalue="Python.troubleshooting" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.db-setup" />
+        <item itemvalue="Python.troubleshooting" />
       </list>
     </recent_temporary>
   </component>
@@ -222,7 +291,7 @@
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info id="Job Explorer" order="2" />
       <window_info id="Project Explorer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.26037195" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.27110156" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Console" order="0" />
       <window_info anchor="bottom" id="Docker" order="1" show_stripe_button="false" />
@@ -234,7 +303,7 @@
       <window_info anchor="bottom" id="Message" order="7" />
       <window_info anchor="bottom" id="DB Execution Console" order="8" />
       <window_info anchor="bottom" id="Find" order="9" weight="0.3299363" />
-      <window_info anchor="bottom" id="Run" order="10" weight="0.3299363" />
+      <window_info anchor="bottom" id="Run" order="10" weight="0.3490446" />
       <window_info anchor="bottom" id="Debug" order="11" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="12" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="13" weight="0.4" />
@@ -306,30 +375,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/hello.py">
+    <entry file="file://$PROJECT_DIR$/hello.py" />
+    <entry file="file://$PROJECT_DIR$/set-up-elephantsql.py" />
+    <entry file="file://$PROJECT_DIR$/troubleshooting.py" />
+    <entry file="file://$PROJECT_DIR$/create-example-tasks.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="172" column="12" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
-          <folding>
-            <element signature="e#15#30#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="315">
+          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db-setup.py">
+    <entry file="file://$PROJECT_DIR$/templates/calendar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="15" />
+        <state relative-caret-position="240">
+          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stepify.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3660">
-          <caret line="244" column="135" selection-start-line="244" selection-start-column="135" selection-end-line="244" selection-end-column="135" />
+        <state relative-caret-position="302">
+          <caret line="126" column="30" selection-start-line="126" selection-start-column="30" selection-end-line="126" selection-end-column="30" />
           <folding>
-            <element signature="e#14#24#0" expanded="true" />
+            <marker date="1537628836959" expanded="true" signature="841:1262" ph="..." />
+            <marker date="1537628836959" expanded="true" signature="7277:7412" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ideas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="795">
+          <caret line="53" selection-start-line="53" selection-end-line="56" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db-setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="502">
+          <caret line="53" column="27" selection-start-line="53" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db-setup.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
         </state>
       </provider>
     </entry>

@@ -70,7 +70,7 @@ def show_main_page():
     uid = str(find_user_from_uname(uname))
 
     # get list of tasks
-    sql_tasks = db_query("SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details FROM stepify.tasks JOIN stepify.users_tasks ON stepify.users_tasks.task_id = stepify.tasks.id WHERE stepify.users_tasks.user_id = '" + uid + "' AND stepify.users_tasks.completion = 'no';",
+    sql_tasks = db_query("SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details FROM stepify.tasks JOIN stepify.users_tasks ON stepify.users_tasks.task_id = stepify.tasks.id WHERE stepify.users_tasks.user_id = '" + uid + "' AND stepify.users_tasks.completion = FALSE;",
                          "all")
 
     # load page and send tasks to js
@@ -124,7 +124,7 @@ def process_login(u):
             # Log user in
             log_user_in(u['username'])
             # Display welcome message
-            return show_main_page()
+            return redirect('/')
         else:  # if password is wrong
             return 'Oops, wrong password. <a href="login">Back</a>'
 
@@ -146,46 +146,18 @@ def set_user_sp_and_tasks(study_program):
     # record user's study program
     db_write("UPDATE stepify.users SET study_program = '" + study_program + "' WHERE username = '" + un + "'")
 
-
-
-
     # set user's tasks based on study program
 
-    conn = psycopg2.connect(host="horton.elephantsql.com",
-                            port="5432",
-                            dbname="wxwcglba",
-                            user="wxwcglba",
-                            password="gpdpTataCu14tbTM7ABFYFyuO8Kuq5f2")
-
-
-
-
     # first get a list of tasks (as ids) relevant to this study program
-    cur = conn.cursor()
-    cur.execute("SELECT id FROM stepify.tasks WHERE " + study_program + " = 'yes';")
-    task_ids = cur.fetchall()
-    cur.close()
-    print('task_ids: ', task_ids)
+    task_ids = db_query("SELECT id FROM stepify.tasks WHERE " + study_program + " = 'yes';",
+                        "all")
 
     # then get user's id (in users table)
     user_id = find_user_from_uname(un)
 
     # then link the tasks to the user in the users_tasks table
     for task_id in task_ids:
-        print('user_id: ', user_id, 'task_id: ', task_id, 'task_id[0]: ', task_id[0])
-        cur = conn.cursor()
-        cur.execute("INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('" + str(user_id) + "', '" + str(task_id[0]) + "', 'no')")
-        conn.commit()
-        cur.close()
-
-
-
-
-    conn.close()
-
-
-
-
+        db_write("INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('" + str(user_id) + "', '" + str(task_id[0]) + "', FALSE);")
 
 
 # ROUTES ###
@@ -222,7 +194,7 @@ def sign_up():
 def logout_page():
     un = check_login()
     log_user_out(un)
-    return render_template('signup-login.html')
+    return redirect("/")
 
 
 @app.route('/choose-your-study-program', methods=['POST', 'GET'])
@@ -231,7 +203,7 @@ def sp():
     if request.method == 'POST':
         p = request.form['study-program']
         set_user_sp_and_tasks(p)
-        return show_main_page()
+        return redirect("/welcome")
 
     # the code below is executed if the request method was GET
     return render_template('studyprograms.html', error=error)
@@ -247,7 +219,27 @@ def task_done():
         uname = check_login()
         uid = str(find_user_from_uname(uname))
 
-        db_write("UPDATE stepify.users_tasks SET completion = 'yes' WHERE user_id = '" + uid + "' AND task_id = '" + task_id + "';")
+        db_write("UPDATE stepify.users_tasks SET completion = TRUE WHERE user_id = '" + uid + "' AND task_id = '" + task_id + "';")
 
     # the code below is executed if the request method was GET
     return render_template('404.html', error=error)
+
+
+@app.route('/welcome')
+def welcome():
+    return render_template('welcome.html')
+
+
+@app.route('/slack')
+def slack():
+    return render_template('slack.html')
+
+
+@app.route('/google-calendar')
+def calendar():
+    return render_template('calendar.html')
+
+
+@app.route('/code-wiki')
+def wiki():
+    return render_template('wiki.html')
