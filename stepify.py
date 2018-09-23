@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 
 # For SELECT statements. returns cursor.fetchall() if type is 'all' or cursor.fetchone if type is 'one'
-def db_query(sql, type):
+def db_query(sql, r_type):
     conn = psycopg2.connect(host="horton.elephantsql.com",
                             port="5432",
                             dbname="wxwcglba",
@@ -19,16 +19,16 @@ def db_query(sql, type):
     cur = conn.cursor()
     cur.execute(sql)
     r = 'Invalid type parsed'
-    if type == 'all':
+    if r_type == 'all':
         r = cur.fetchall()
-    elif type == 'one':
+    elif r_type == 'one':
         r = cur.fetchone()
     cur.close()
     conn.close()
     return r
 
 
-def db_write(sql): # For changing data. returns nothing.
+def db_write(sql):  # For changing data. returns nothing.
     conn = psycopg2.connect(host="horton.elephantsql.com",
                             port="5432",
                             dbname="wxwcglba",
@@ -44,13 +44,6 @@ def db_write(sql): # For changing data. returns nothing.
 # PREDEFINED FUNCTIONS ###
 
 # Find user data
-
-
-def find_user_from_all_data(u):  # find user by user info array and returns id
-    uid = db_query("SELECT id FROM stepify.users WHERE username = '" + u['username'] + "';", "one")
-    if uid:
-        uid = uid[0]
-    return uid
 
 
 def find_user_from_uname(un):  # find user by username and returns id
@@ -70,8 +63,7 @@ def show_main_page():
     uid = str(find_user_from_uname(uname))
 
     # get list of tasks
-    sql_tasks = db_query("SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details FROM stepify.tasks JOIN stepify.users_tasks ON stepify.users_tasks.task_id = stepify.tasks.id WHERE stepify.users_tasks.user_id = '" + uid + "' AND stepify.users_tasks.completion = FALSE;",
-                         "all")
+    sql_tasks = db_query(open("get-tasks.sql", "r").read() % (uid,), "all")
 
     # load page and send tasks to js
     return render_template("main.html", tasks=sql_tasks, username=check_login())
@@ -114,15 +106,16 @@ def log_user_out(un):
 
 
 def process_login(u):
-    if find_user_from_all_data(u) is None:  # if user in not registered
-        return u['username'] + ' is not yet registered. <a href="signup">Sign up now</a>'
+    un = u['username']
+    if find_user_from_uname(un) is None:  # if user in not registered
+        return un + ' is not yet registered. <a href="signup">Sign up now</a>'
     else:
-        uid = find_user_from_all_data(u)
+        uid = find_user_from_uname(un)
         pw = db_query("SELECT password FROM stepify.users WHERE id = " + str(uid),
                       "one")[0]  # get correct password
         if pw == u['password']:  # if password is correct
             # Log user in
-            log_user_in(u['username'])
+            log_user_in(un)
             # Display welcome message
             return redirect('/')
         else:  # if password is wrong
@@ -130,15 +123,18 @@ def process_login(u):
 
 
 def process_signup(u):
-    if find_user_from_all_data(u) is None:
+    un = u['username']
+    if find_user_from_uname(un) is None:
         # Sign user up
-        db_write("INSERT INTO stepify.users (username, password) VALUES ('" + u['username'] + "', '" + u['password'] + "');")
+        db_write(
+            "INSERT INTO stepify.users (username, password) VALUES ('"
+            + un + "', '" + u['password'] + "');")
         # Log user in
-        log_user_in(u['username'])
+        log_user_in(un)
         # Move on to choose your study program
         return redirect("/choose-your-study-program")
     else:
-        return 'Sorry, ' + u['username'] + ' is already taken. <a href="/">Go back</a>'
+        return 'Sorry, ' + un + ' is already taken. <a href="/">Go back</a>'
 
 
 def set_user_sp_and_tasks(study_program):
@@ -157,7 +153,9 @@ def set_user_sp_and_tasks(study_program):
 
     # then link the tasks to the user in the users_tasks table
     for task_id in task_ids:
-        db_write("INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('" + str(user_id) + "', '" + str(task_id[0]) + "', FALSE);")
+        db_write(
+            "INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('"
+            + str(user_id) + "', '" + str(task_id[0]) + "', FALSE);")
 
 
 # ROUTES ###
@@ -219,7 +217,9 @@ def task_done():
         uname = check_login()
         uid = str(find_user_from_uname(uname))
 
-        db_write("UPDATE stepify.users_tasks SET completion = TRUE WHERE user_id = '" + uid + "' AND task_id = '" + task_id + "';")
+        db_write(
+            "UPDATE stepify.users_tasks SET completion = TRUE WHERE user_id = '"
+            + uid + "' AND task_id = '" + task_id + "';")
 
     # the code below is executed if the request method was GET
     return render_template('404.html', error=error)
