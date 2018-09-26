@@ -1,5 +1,47 @@
-.callout {
-  border-radius: 14px;
-  border: none;
+body {
+  background-color: #fafafa;
+  color: #212121;
+}
 
+h2 {
+  font-size: 2rem;
+}
+
+.square {
+  border-radius: 14px;
+  border-style: none;
+  box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.22);
+  height: 17rem;
+  width: 17rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
+}
+}
+
+
+.grid-x {
+  max-width: 1200px;
+  display: block;
+  margin: auto;
+  padding: 0;
+}
+
+.id {
+ background-color: #593DFF;
+ text-align: left !important;
+}
+
+
+.se {
+  background-color: #00BEFF;
+  text-align: left !important;
+}
+
+
+.pm {
+  background-color: #1485FC;
+  text-align: left !important;
+}
 }

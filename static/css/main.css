@@ -181,14 +181,7 @@ a {
     text-align: center;
 }
 .callout {
-  border-radius: 14px;
-  border-style: none;
-  box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.22);
-  margin: 3rem !important;
-  height: 17rem;
-  width: 17rem;
-  text-align: center;
-}
+
 
 .grid-x {
   max-width: 1200px;
@@ -198,5 +191,5 @@ a {
 
 #top-block {
     display: block;
-   margin-top: 5%;  
+   margin-top: 5%;
 }
