@@ -5,29 +5,32 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Stepify</title>
-    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
-    <link rel="stylesheet" href="main.css">
-    <script>
-        var pyTasks = "{{ tasks }}"; //gets variable from python which will later be used in js file
-        var pyUsername = "{{ username }}";
-    </script>
+    <link rel="icon" href="../static/img/logo.png">
+    <link rel="stylesheet" href="../static/css/app.css">
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/foundation.css">
+    <link rel="stylesheet" href="../static/css/foundation.min.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+    <script src="../static/js/vendor/jquery.js"></script>
+    <script src="../static/js/vendor/what-input.js"></script>
+    <script src="../static/js/vendor/foundation.min.js"></script>
+    <script src="../static/js/vendor/foundation.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
 </head>
 <body>
-    <h1>THIS IS A CHANGE</h1>
-    <h2>
-        To do
-    </h2>
-    <div id="to-to-list">
+    <div class="grid-x">
+      <div class="cell medium-6 TDpanel">
+        <h2>
+          To do
+        </h2>
+        <div id="to-to-list">
+        </div>
+      </div>
+      <div class="cell medium-6 TDPanel">TWO</div>
     </div>
-
-    <a href="/logout">
-        Log out
-        <span id="logged-in-username">
-        </span>
-    </a>
-
-    <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <a href="/logout">Log out</a>
+    <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
