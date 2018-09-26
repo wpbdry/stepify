@@ -20,6 +20,13 @@
     </script>
 </head>
 <body>
+
+  <!--Hidden form. This is needed for the js to function correctly-->
+  <form id="hidden-form" class="hidden" action="/choose-your-study-program" method="post">
+    <input id="hidden-input" type="text" name="study-program">
+    <input type="submit" value="">
+  </form>
+
   <div class="grid-x">
     <div id="imagegrid" class="medium-2 cell">
       <img src="../static/img/logo.png" alt="">
