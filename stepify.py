@@ -145,7 +145,7 @@ def set_user_sp_and_tasks(study_program):
     # set user's tasks based on study program
 
     # first get a list of tasks (as ids) relevant to this study program
-    task_ids = db_query("SELECT id FROM stepify.tasks WHERE " + study_program + " = 'yes';",
+    task_ids = db_query("SELECT id FROM stepify.tasks WHERE " + study_program + " = TRUE;",
                         "all")
 
     # then get user's id (in users table)
