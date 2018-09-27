@@ -1,4 +1,4 @@
-SELECT stepify.tasks.id, stepify.tasks.task_name, stepify.tasks.task_details
+SELECT stepify.tasks.id, stepify.tasks.title, stepify.tasks.details
     FROM stepify.tasks
     JOIN stepify.users_tasks
         ON stepify.users_tasks.task_id = stepify.tasks.id
