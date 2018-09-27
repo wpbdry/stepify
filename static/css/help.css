@@ -71,7 +71,6 @@ h5 {
   100%{background-color: #ba68c8}
 }
 
-body {
-  animation-name: paula;
-  animation-duration: 5s;
+.cell {
+  border-style: solid;
 }

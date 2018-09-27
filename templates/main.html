@@ -23,17 +23,22 @@
     </script>
 </head>
 <body>
-    
-    <div class="grid-x">
-      <div class="cell medium-6 TDpanel">
-        <h2>
-          To do
-        </h2>
-        <div id="to-to-list">
-        </div>
-          
+  <div class="grid-x">
+    <div class="medium-1 cell">
+      <h6>small</h6>
+    </div>
+    <div class="medium-6 cell">
+      <h2>first</h2>
+    </div>
+    <div class="medium-5 cell">
+      <h2>second</h2>
+    </div>
+
+  </div>
+
+
         <!--THE DIV ABOVE ("#TO-DO-LIST") GETS POPULATED BY JavaScript IN THE FOLLOWING WAY
-        
+
         <div id="to-to-list">
             <div class="to-do-item" id="1">
                 <button class="to-do-checkbox" id="1-b">
@@ -55,12 +60,8 @@
         I have to do this in the JavaScript.
 
         -->
-          
-      </div>
-      <div class="cell medium-6 TDPanel"></div>
-    </div>
     <a href="/logout">Log out</a>
-    
+
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
