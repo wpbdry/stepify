@@ -185,3 +185,28 @@ body {
 #descriptionDiv {
   margin-top: 4rem;
 }
+
+.weirdLeafIcon {
+  background-color: #43a047;
+  height: 1rem;
+  width: 4rem;
+  border-radius: 0.1rem;
+  margin-bottom: 1rem;
+}
+
+.button {
+  background-color: #1976d2;
+  margin-top: 1rem;
+  color: #fafafa;
+  font-weight: 700;
+  padding: 1rem;
+  border-radius: 3px;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.22);
+  transition: ease-in-out all 300ms;
+}
+
+.button:hover {
+  background-color: #2196f3;
+  box-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.33);
+  transform: scaleX(1.03) scaleY(1.03);
+}
