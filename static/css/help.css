@@ -111,11 +111,29 @@ body {
 #firstpanel h1 {
   text-align: left;
   font-family: Nunito Sans, sans-serif;
-  color: #212121;
+  color: #2577CD;
+  font-size: 1.5rem;
 }
 
 #firstpanel h2 {
   text-align: left !important;
   font-family: Nunito Sans, sans-serif;
   color: #212121;
+}
+
+.progress {
+  border-radius: 30px;
+  background-color: #1485FC;
+  height: 0.75rem;
+}
+
+.progress-meter {
+  border-radius: 30px;
+  background-color: #1485FC;
+  height: 0.75rem;
+}
+
+#date {
+  font-size: 1rem;
+  color: #bdbdbd;
 }
