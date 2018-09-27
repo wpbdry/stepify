@@ -76,7 +76,11 @@ h5 {
 }
 
 .progressDiv {
-  background-color: #90caf9;
+  background-color: #e3f2fd;
+  margin: 2rem;
+  padding: 2rem;
+  border-radius: 7px;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.11);
 }
 
 .progressDiv h2 {
@@ -87,6 +91,31 @@ h5 {
 
 body {
   background-color: #fafafa;
+  font-family: Nunito Sans, sans-serif;
+  color: #212121;
+  height: 100%;
+}
+
+#leftBar {
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.22);
+}
+
+#leftBar .cell {
+  border-style: solid;
+}
+
+#firstpanel {
+  padding: 4rem;
+}
+
+#firstpanel h1 {
+  text-align: left;
+  font-family: Nunito Sans, sans-serif;
+  color: #212121;
+}
+
+#firstpanel h2 {
+  text-align: left !important;
   font-family: Nunito Sans, sans-serif;
   color: #212121;
 }

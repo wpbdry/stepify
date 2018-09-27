@@ -26,10 +26,20 @@
 </head>
 <body>
   <div class="grid-x">
-    <div class="medium-1 cell">
-      <h6>small</h6>
+    <div class="medium-1 cell" id="leftBar">
+      <div class="grid-y">
+        <div class="medium-2 cell">
+          <img src=".../static/img/logo.png" alt="logo">
+        </div>
+        <div class="medium-8 cell">
+
+        </div>
+        <div class="medium-2 cell">
+          <a href="/logout">Log out</a>
+        </div>
+      </div>
     </div>
-    <div class="medium-6 cell">
+    <div class="medium-6 cell" id="firstpanel">
       <h1>Welcome, Name</h1>
       <h2>Date</h2>
       <div class="progressDiv">
@@ -37,7 +47,7 @@
         <p>Lorem Ipsum dolor sit amet et urna semper</p>
       </div>
     </div>
-    <div class="medium-5 cell">
+    <div class="medium-5 cell" id="secondpanel">
       <h2>second</h2>
     </div>
 
@@ -67,7 +77,7 @@
         I have to do this in the JavaScript.
 
         -->
-    <a href="/logout">Log out</a>
+
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
