@@ -74,3 +74,19 @@ h5 {
 .cell {
   border-style: solid;
 }
+
+.progressDiv {
+  background-color: #90caf9;
+}
+
+.progressDiv h2 {
+  text-align: left !important;
+  font-family: Nunito Sans,sans-serif;
+  color: #1976d2;
+}
+
+body {
+  background-color: #fafafa;
+  font-family: Nunito Sans, sans-serif;
+  color: #212121;
+}
