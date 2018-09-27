@@ -86,7 +86,8 @@ h5 {
 .progressDiv h2 {
   text-align: left !important;
   font-family: Nunito Sans,sans-serif;
-  color: #1976d2;
+  color: #1976d2 !important;
+  font-size: 1.5rem;
 }
 
 body {
@@ -111,8 +112,8 @@ body {
 #firstpanel h1 {
   text-align: left;
   font-family: Nunito Sans, sans-serif;
-  color: #2577CD;
-  font-size: 1.5rem;
+  color: #212121;
+  font-size: 2rem;
 }
 
 #firstpanel h2 {
@@ -154,6 +155,13 @@ body {
   font-weight: 700;
 }
 
+#secondpanel h2 {
+  font-size: 1.5rem;
+  font-family: Nunito Sans, sans-serif;
+  text-align: left;
+  color: #212121;
+}
+
 .icon_stan {
   height: 1.5rem;
   width: 1.5rem;
@@ -172,4 +180,8 @@ body {
   border-radius: 0.1rem;
   margin-top: 1rem;
   width: 5rem;
+}
+
+#descriptionDiv {
+  margin-top: 4rem;
 }
