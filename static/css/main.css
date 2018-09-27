@@ -23,23 +23,6 @@ body {
     width: 100vw;
 }
 
-.popup {
-    width: 633px;
-    height: 633px;
-    border-radius: 19px;
-    background-color: #fff;
-    padding: 52px;
-    box-shadow: 4px 4px 4px grey;
-
-    position: absolute;
-    top:0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-
-    margin: auto;
-}
-
 h2 {
     font-size: 28px;
     font-weight: 400;
@@ -192,4 +175,34 @@ a {
 #top-block {
     display: block;
    margin-top: 5%;
+}
+
+/* _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- */
+/* _-_-_-_-_-_-_-_Select your study program_-_-_-_-_- */
+/* _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- */
+
+
+.popup {
+    width: 633px;
+    height: 633px;
+    border-radius: 19px;
+    background-color: #fff;
+    padding: 52px;
+    box-shadow: 4px 4px 4px grey;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+}
+
+#signup{
+
+}
+
+#show-signup{
+    
 }
