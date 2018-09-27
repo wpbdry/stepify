@@ -57,12 +57,6 @@ h5 {
   text-decoration: underline;
 }
 
-.grid-x {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 #errorpage h1 {
   text-align: center;
   font-family: Nunito Sans, sans-serif;
