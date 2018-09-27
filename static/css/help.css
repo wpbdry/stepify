@@ -137,3 +137,39 @@ body {
   font-size: 1rem;
   color: #bdbdbd;
 }
+
+.logomain {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#secondpanel {
+  padding: 4rem;
+}
+
+#secondpanel h1 {
+  font-size: 1.5rem;
+  font-family: Nunito Sans, sans-serif;
+  font-weight: 700;
+}
+
+.icon_stan {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-style: solid;
+  border-color: #e91e63;
+  border-radius: 0.1rem;
+  background-color: #ad1457;
+  border-width: 1rem;
+  margin-bottom: 1rem;
+}
+
+.icon_weather {
+  background-color: #64b5f6;
+  color: #1976d2;
+  padding: 0.5rem;
+  border-radius: 0.1rem;
+  margin-top: 1rem;
+  width: 5rem;
+}
