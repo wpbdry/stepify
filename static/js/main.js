@@ -12,14 +12,16 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
 
 //define function to convert data sent from flask into javascript arrays
 function jsify (s) {
-    s = s.replace(/&#39;/g, "\"").replace(/\(/g, "[").replace(/\)/g, "]");
-    s = JSON.parse(s);
+    var st = s.replace(/&#39;/g, "\"").replace(/\(/g, "[").replace(/\)/g, "]");
+    st = JSON.parse(s);
     return(s);
 }
 
-//pyTasks variable already defined in html template
+//pyTasks, pyTotalTasks, and pyDoneTasks variables are already defined in html template
 
 $(document).ready(function(){
+    
+    console.log(pyTasks);
     
     /*DYNAMICALLY ADD HTML DIVS TO SHOW TASKS*/
     var tasks = jsify(pyTasks);
@@ -51,6 +53,11 @@ $(document).ready(function(){
         
         $("#to-to-list").append(item);
     }
+    
+    /*SET PROGRESS BAR*/
+    //For now...
+    console.log("Total tasks: " + pyTotalTasks);
+    console.log("Completed tasks: " + pyDoneTasks);
     
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
     

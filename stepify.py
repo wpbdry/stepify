@@ -64,9 +64,19 @@ def show_main_page():
 
     # get list of tasks
     sql_tasks = db_query(open("get-tasks.sql", "r").read() % (uid,), "all")
+    # get data for progress bar
+    sql_total_tasks = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "'", "one")
+    sql_tasks_done = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "' AND completion = TRUE", "one")
 
     # load page and send tasks to js
-    return render_template("main.html", tasks=sql_tasks, username=check_login())
+    # also send completed tasks and total tasks to that front end can calculate progress
+    return render_template(
+        "main.html",
+        tasks=sql_tasks,
+        username=check_login(),
+        total_tasks=sql_total_tasks,
+        tasks_done=sql_tasks_done
+    )
 
 
 # Login / sign up functionality
