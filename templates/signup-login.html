@@ -6,10 +6,11 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Stepify | Sign up</title>
     <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/vendor/what-input.js') }}"></script>
@@ -18,56 +19,102 @@
     <script>
       $(document).foundation();
     </script>
+    <style>
+      .signup-headlines {
+        line-height: normal;
+        font-size: 18px;
+        color: #BDBDBD;
+      }
+      .signup-main-headline {
+        line-height: normal;
+        font-size: 28px;
+        text-align: center;
+
+        color: #000000;
+        mix-blend-mode: normal;
+        opacity: 0.86;
+      }
+      .signup-input {
+        background-color: #FAFAFA;
+        height: 54px;
+        outline: none;
+        border: none;
+        box-shadow: inset 0px 0px 0px 0px red;
+      }
+      .card {
+        background: #FFFFFF !important;
+        box-shadow: 0px 2px 54px rgba(0, 0, 0, 0.0628963) !important;
+        border-radius: 19px !important;
+      }
+    </style>
 </head>
 <body>
 
-    <div class="popup" id="signup">
-        <h2>
-            Sign up
-        </h2>
-        <form action="/signup" method="post" id="signup-form">
-            Username
-            <br>
-            <input type="text" name="username">
-            <br>
-            <div class="one-of-two">
-                Password
-                <br>
-                <input type="password" name="password" id="p1">
+    <div id="signup">
+          <div class="grid-x" style="height: 100%; padding-top: 5%">
+            <div class="cell auto"></div>
+            <div class="cell small-12 medium-8 large-6 xlarge-4">
+              <div class="card" style="padding: 10%">
+                  <div style="float: left;" class="center">
+                    <img style="float: left; width: 40px" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+                    <span class="signup-main-headline" style="float: left; padding-top: 5px; padding-left: 5px">
+                      Sign up
+                    </span>
+                  </div>
+                  <form action="/signup" method="post" id="signup-form">
+                    <p class="signup-headlines">Username</p>
+                    <input class="signup-input" type="text" name="username">
+                    <div class="grid-x grid-margin-x">
+                      <div class="cell auto">
+                        <p class="signup-headlines">Password</p>
+                        <input class="signup-input" type="password" name="password" id="p1">
+                      </div>
+                      <div class="cell auto">
+                        <p class="signup-headlines">Repeat password</p>
+                        <input class="signup-input" type="password" id="p2">
+                      </div>
+                    </div>
+                    <div id="pw-error">
+                    </div>
+                    <input class="button center" style="width: 145px" type="submit" value="Sign up">
+                  </form>
+                  <a id="show-login" class="center">
+                    or log in
+                  </a>
+              </div>
+              </div>
+              <div class="cell auto"></div>
             </div>
-            <div class="two-of-two">
-                Repeat password
-                <br>
-                <input type="password" id="p2">
-            </div>
-            <div id="pw-error">
-            </div>
-            <br>
-            <input type="submit" value="Sign up">
-        </form>
-        <button id="show-login" class="center">
-            or log in
-        </button>
+      </div>
     </div>
 
-    <div class="popup" id="login">
-        <h2>
-            Log in
-        </h2>
-        <form action="/login" method="post">
-            Username
-            <br>
-            <input type="text" name="username">
-            <br>
-            Password
-            <br>
-            <input type="password" name="password">
-            <br>
-            <input type="submit" value="Log in">
-        </form>
-        <button class="center" id="show-signup">
-            or sign up
-        </button>
+    <div id="login">
+      <div class="grid-x" style="height: 100%; padding-top: 5%">
+        <div class="cell auto"></div>
+        <div class="cell small-12 medium-8 large-6 xlarge-4">
+          <div class="card" style="padding: 10%">
+            <div style="float: left;" class="center">
+              <img style="float: left; width: 40px" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+              <span class="signup-main-headline" style="float: left; padding-top: 5px; padding-left: 5px">
+                Stepify
+              </span>
+            </div>
+              <form action="/login" method="post">
+                <p class="signup-headlines">Username</p>
+                <input class="signup-input" type="text" name="username">
+                <p class="signup-headlines">Password</p>
+                <input class="signup-input" type="password" name="password">
+                <div id="pw-error">
+                </div>
+                <input class="button center" style="width: 145px" type="submit" value="Log in">
+              </form>
+              <a id="show-signup" class="center">
+                or sign in
+              </a>
+          </div>
+          </div>
+          <div class="cell auto"></div>
+        </div>
     </div>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/signup-login.js') }}"></script>
