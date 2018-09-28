@@ -75,20 +75,6 @@ input {
     margin-left: 3%;
 }
 
-input[type="submit"] {
-    width: 174.05px;
-    display: table;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    background-color: #1485FC;
-    border-radius: 6px;
-    box-shadow: 4px 4px 4px grey;
-}
-
-input[type="submit"]:hover {
-    cursor: pointer;
-}
-
 .center {
     display: table;
     margin: 0 auto;
