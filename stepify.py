@@ -33,7 +33,7 @@ def db_write(sql):  # For changing data. returns nothing.
                             port="5432",
                             dbname="wxwcglba",
                             user="wxwcglba",
-                            password="gpdpTataCu14tbTM7ABFYFyuO8Kuq5f2")
+                            password=open("db-password.txt", "r").read())
     cur = conn.cursor()
     cur.execute(sql)
     conn.commit()
