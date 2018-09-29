@@ -22,10 +22,10 @@ function objectFromString (s) {
 $(document).ready(function(){
     
     
-    console.log(objectFromString(tasksString));
-    console.log(totalTasks);
-    console.log(doneTasks);
-    console.log(username);
+    console.log('Incomplete tasks: ', objectFromString(tasksString));
+    console.log('total tasks ', totalTasks);
+    console.log('complete tasks ', doneTasks);
+    console.log('currently logged in user ', username);
     
     
     //console.log(tasksString)

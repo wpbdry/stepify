@@ -11,6 +11,8 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
 */
 
 $(document).ready(function(){
+    /*Switch between login and sign up*/
+    
     $("#login").css("display", "none");
     $("#pw-error").css("display", "none");
     
@@ -26,17 +28,41 @@ $(document).ready(function(){
         document.title = "Stepify | Sign up";
     });
     
-    /*GOTTA STILL ADD CHECKING PASSWORDS BEFORE SUBMIT*/
 });
 
-/*Check that passowrds match before allowing submit*/
+/* HANDLE FORM SUBMIT*/
+
+//function takes string, key, and returns encrypted string
+function encrypt(s, k) {
+    //get key in usable format
+    var key = forge.pki.publicKeyFromPem(k);
+    //encrypt string
+    var encrypted = key.encrypt(
+        s,
+        "RSA-OAEP",
+        {
+            md: forge.md.sha256.create(),
+            mgf1: forge.mgf1.create()
+        }
+    );
+    //encode as base64 for web transfer
+    var base64 = forge.util.encode64(encrypted);
+    //return
+    return(base64);
+}
 
 $("#signup-form").submit(function(e){
+    //Check that passwords match before allowing submit
     e.preventDefault();
     var p1 = $("#p1").val();
     var p2 = $("#p2").val();
     //if they are the same, submit
     if (p1 == p2) {
+        //Encrypt password
+        var enc = encrypt(p1, publicKey);
+        console.log(enc);
+        //Submit
+        $("#p1").val(enc);
         $("#signup-form")[0].submit();
     }
     // otherwise display error text

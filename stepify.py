@@ -2,7 +2,8 @@
 # SETUP ###
 
 from flask import Flask, render_template, request, redirect, Response, jsonify
-import dbconnect
+import rsa
+import signup_login
 
 app = Flask(__name__)
 
@@ -46,7 +47,8 @@ def show_main_page():
 
 
 # Login / sign up functionality
-
+"""
+UNDER DEVELOPMENT IN A DIFFERENT FILE
 
 def check_login():  # Returns username if user is logged in and returns False if not
     uip = request.remote_addr  # user's current ip
@@ -133,15 +135,25 @@ def set_user_sp_and_tasks(study_program):
             "INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('"
             + str(user_id) + "', '" + str(task_id[0]) + "', FALSE);")
 
+"""
 
 # ROUTES ###
 
+
 @app.route('/')
+def stepify():
+    return render_template(
+        "signup-login.html",
+        key=rsa.create_keys()
+    )
+
+"""
 def stepify():
     if check_login() is False:
         return render_template('signup-login.html')
     else:
         return show_main_page()
+"""
 
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -158,7 +170,7 @@ def login():
 def sign_up():
     error = None
     if request.method == 'POST':
-        return process_signup(request.form)
+        return signup_login.process_signup(request.form)
 
     # the code below is executed if the request method was GET
     return render_template('404.html', error=error)
