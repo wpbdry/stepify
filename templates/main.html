@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en">
+<html lang="en" charset="utf-8">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Stepify</title>
@@ -21,9 +21,10 @@
       $(document).foundation();
     </script>
     <script>
-        var pyTasks = "{{ tasks }}";
-        var pyTotalTasks = "{{ total_tasks }}";
-        var pyDoneTasks = "{{ done_tasks }}";
+        var tasksString = '{{ tasks|tojson }}';
+        var totalTasks = "{{ total_tasks }}";
+        var doneTasks = "{{ done_tasks }}";
+        var username = "{{ username }}";
     </script>
 </head>
 <body>

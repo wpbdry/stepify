@@ -1,8 +1,10 @@
 
 # SETUP ###
 
-from flask import Flask, render_template, request, redirect, Response
+from flask import Flask, render_template, request, redirect, Response, jsonify
 import psycopg2
+from psycopg2.extras import RealDictCursor
+import json
 
 app = Flask(__name__)
 
@@ -28,12 +30,13 @@ def db_query(sql, r_type):
     return r
 
 
+# For other SQL queries
 def db_write(sql):  # For changing data. returns nothing.
     conn = psycopg2.connect(host="horton.elephantsql.com",
                             port="5432",
                             dbname="wxwcglba",
                             user="wxwcglba",
-                            password="gpdpTataCu14tbTM7ABFYFyuO8Kuq5f2")
+                            password=open("db-password.txt", "r").read())
     cur = conn.cursor()
     cur.execute(sql)
     conn.commit()
@@ -41,12 +44,25 @@ def db_write(sql):  # For changing data. returns nothing.
     conn.close()
 
 
+# SQL query that returns table as json string
+# copied from https://www.peterbe.com/plog/from-postgres-to-json-strings
+def db_json(sql):
+    conn = psycopg2.connect(host="horton.elephantsql.com",
+                            port="5432",
+                            dbname="wxwcglba",
+                            user="wxwcglba",
+                            password=open("db-password.txt", "r").read())
+    cur = conn.cursor(cursor_factory=RealDictCursor)
+    cur.execute(sql)
+    return json.dumps(cur.fetchall())
+
+
 # PREDEFINED FUNCTIONS ###
 
 # Find user data
 
 
-def find_user_from_uname(un):  # find user by username and returns id
+def find_user_from_uname(un):  # finds user by username and returns id
     uid = db_query("SELECT id FROM stepify.users WHERE username = '" + un + "'",
                    "one")
     if uid:
@@ -63,19 +79,20 @@ def show_main_page():
     uid = str(find_user_from_uname(uname))
 
     # get list of tasks
-    sql_tasks = db_query(open("get-tasks.sql", "r").read() % (uid,), "all")
+    tasks = db_json(open("get-tasks.sql", "r").read() % uid)
     # get data for progress bar
-    sql_total_tasks = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "'", "one")
-    sql_tasks_done = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "' AND completion = TRUE", "one")
-
-    # load page and send tasks to js
+    total_tasks = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "'", "one")[0]
+    done_tasks = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "' AND completion = TRUE", "one")[0]
+    
+    # load page and send task info to js
     # also send completed tasks and total tasks to that front end can calculate progress
+    print(tasks)
     return render_template(
         "main.html",
-        tasks=sql_tasks,
+        tasks=tasks,
         username=check_login(),
-        total_tasks=sql_total_tasks,
-        tasks_done=sql_tasks_done
+        total_tasks=total_tasks,
+        done_tasks=done_tasks
     )
 
 
