@@ -2,59 +2,9 @@
 # SETUP ###
 
 from flask import Flask, render_template, request, redirect, Response, jsonify
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import json
+import dbconnect
 
 app = Flask(__name__)
-
-# FUNCTIONS TO CONNECT TO DB (IMPORTANT THAT WE ALWAYS  CLOSE CONN. DB ONLY ALLOWS 5 CONNECTIONS ###
-
-
-# For SELECT statements. returns cursor.fetchall() if type is 'all' or cursor.fetchone if type is 'one'
-def db_query(sql, r_type):
-    conn = psycopg2.connect(host="horton.elephantsql.com",
-                            port="5432",
-                            dbname="wxwcglba",
-                            user="wxwcglba",
-                            password=open("db-password.txt", "r").read())
-    cur = conn.cursor()
-    cur.execute(sql)
-    r = 'Invalid type parsed'
-    if r_type == 'all':
-        r = cur.fetchall()
-    elif r_type == 'one':
-        r = cur.fetchone()
-    cur.close()
-    conn.close()
-    return r
-
-
-# For other SQL queries
-def db_write(sql):  # For changing data. returns nothing.
-    conn = psycopg2.connect(host="horton.elephantsql.com",
-                            port="5432",
-                            dbname="wxwcglba",
-                            user="wxwcglba",
-                            password=open("db-password.txt", "r").read())
-    cur = conn.cursor()
-    cur.execute(sql)
-    conn.commit()
-    cur.close()
-    conn.close()
-
-
-# SQL query that returns table as json string
-# copied from https://www.peterbe.com/plog/from-postgres-to-json-strings
-def db_json(sql):
-    conn = psycopg2.connect(host="horton.elephantsql.com",
-                            port="5432",
-                            dbname="wxwcglba",
-                            user="wxwcglba",
-                            password=open("db-password.txt", "r").read())
-    cur = conn.cursor(cursor_factory=RealDictCursor)
-    cur.execute(sql)
-    return json.dumps(cur.fetchall())
 
 
 # PREDEFINED FUNCTIONS ###
@@ -63,7 +13,7 @@ def db_json(sql):
 
 
 def find_user_from_uname(un):  # finds user by username and returns id
-    uid = db_query("SELECT id FROM stepify.users WHERE username = '" + un + "'",
+    uid = dbconnect.query("SELECT id FROM stepify.users WHERE username = '" + un + "'",
                    "one")
     if uid:
         uid = uid[0]
@@ -79,14 +29,13 @@ def show_main_page():
     uid = str(find_user_from_uname(uname))
 
     # get list of tasks
-    tasks = db_json(open("get-tasks.sql", "r").read() % uid)
+    tasks = dbconnect.query_json(open("get-tasks.sql", "r").read() % uid)
     # get data for progress bar
-    total_tasks = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "'", "one")[0]
-    done_tasks = db_query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "' AND completion = TRUE", "one")[0]
-    
+    total_tasks = dbconnect.query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "'", "one")[0]
+    done_tasks = dbconnect.query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "' AND completion = TRUE", "one")[0]
+
     # load page and send task info to js
     # also send completed tasks and total tasks to that front end can calculate progress
-    print(tasks)
     return render_template(
         "main.html",
         tasks=tasks,
@@ -101,7 +50,7 @@ def show_main_page():
 
 def check_login():  # Returns username if user is logged in and returns False if not
     uip = request.remote_addr  # user's current ip
-    usern = db_query("SELECT username FROM stepify.logins WHERE ip = '" + uip + "'",
+    usern = dbconnect.query("SELECT username FROM stepify.logins WHERE ip = '" + uip + "'",
                      "one")
     if usern is None:
         return False
@@ -111,13 +60,13 @@ def check_login():  # Returns username if user is logged in and returns False if
 
 def log_user_in(un):  # record that user is logged in
     ip = request.remote_addr  # user's current ip
-    db_write("INSERT INTO stepify.logins (username, ip) VALUES ('" + un + "', '" + ip + "');")
+    dbconnect.write("INSERT INTO stepify.logins (username, ip) VALUES ('" + un + "', '" + ip + "');")
 
 
 def log_user_out(un):
     ip = request.remote_addr  # user's current ip
     # Check if user is logged in
-    logged_in_uname = db_query("SELECT username FROM stepify.logins WHERE ip = '" + ip + "';",
+    logged_in_uname = dbconnect.query("SELECT username FROM stepify.logins WHERE ip = '" + ip + "';",
                                "one")
 
     # if someone is logged in, fix the uname
@@ -126,7 +75,7 @@ def log_user_out(un):
 
     # if logged in, log out
     if logged_in_uname == un:
-        db_write("DELETE FROM stepify.logins WHERE username = '" + un + "' AND ip = '" + ip + "'")
+        dbconnect.write("DELETE FROM stepify.logins WHERE username = '" + un + "' AND ip = '" + ip + "'")
 
     else:
         return redirect("/")
@@ -138,7 +87,7 @@ def process_login(u):
         return un + ' is not yet registered. <a href="signup">Sign up now</a>'
     else:
         uid = find_user_from_uname(un)
-        pw = db_query("SELECT password FROM stepify.users WHERE id = " + str(uid),
+        pw = dbconnect.query("SELECT password FROM stepify.users WHERE id = " + str(uid),
                       "one")[0]  # get correct password
         if pw == u['password']:  # if password is correct
             # Log user in
@@ -153,7 +102,7 @@ def process_signup(u):
     un = u['username']
     if find_user_from_uname(un) is None:
         # Sign user up
-        db_write(
+        dbconnect.write(
             "INSERT INTO stepify.users (username, password) VALUES ('"
             + un + "', '" + u['password'] + "');")
         # Log user in
@@ -167,12 +116,12 @@ def process_signup(u):
 def set_user_sp_and_tasks(study_program):
     un = check_login()
     # record user's study program
-    db_write("UPDATE stepify.users SET study_program = '" + study_program + "' WHERE username = '" + un + "'")
+    dbconnect.write("UPDATE stepify.users SET study_program = '" + study_program + "' WHERE username = '" + un + "'")
 
     # set user's tasks based on study program
 
     # first get a list of tasks (as ids) relevant to this study program
-    task_ids = db_query("SELECT id FROM stepify.tasks WHERE " + study_program + " = TRUE;",
+    task_ids = dbconnect.query("SELECT id FROM stepify.tasks WHERE " + study_program + " = TRUE;",
                         "all")
 
     # then get user's id (in users table)
@@ -180,7 +129,7 @@ def set_user_sp_and_tasks(study_program):
 
     # then link the tasks to the user in the users_tasks table
     for task_id in task_ids:
-        db_write(
+        dbconnect.write(
             "INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('"
             + str(user_id) + "', '" + str(task_id[0]) + "', FALSE);")
 
@@ -244,7 +193,7 @@ def task_done():
         uname = check_login()
         uid = str(find_user_from_uname(uname))
 
-        db_write(
+        dbconnect.write(
             "UPDATE stepify.users_tasks SET completion = TRUE WHERE user_id = '"
             + uid + "' AND task_id = '" + task_id + "';")
 
