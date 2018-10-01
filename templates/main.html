@@ -6,17 +6,20 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <title>Stepify</title>
     <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/foundation.min.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/vendor/uikit.min.css') }}">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700" rel="stylesheet">
     <script src="{{ url_for('static', filename='js/vendor/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/vendor/what-input.js') }}"></script>
     <script src="{{ url_for('static', filename='js/vendor/foundation.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/vendor/foundation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vendor/uikit.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/vendor/uikit-icons.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <script>
       $(document).foundation();
     </script>
@@ -28,29 +31,78 @@
 </head>
 <body>
   <div class="grid-x grid-frame" style="height: 100%">
-    <div class="small-4 medium-2 large-1 cell" id="leftBar">
-      <div class="grid-y">
+    <div class="small-4 medium-2 large-1 cell" data-sticky-container id="leftBar">
+      <div class="grid-y uk-padding" data-sticky data-options="marginTop:0;" style="display: fixed">
         <div class="medium-2 cell">
           <div class="logomain">
-            <img src=".../static/img/logo.png" alt="">
+            <img style="width: 40px" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
           </div>
         </div>
         <div class="medium-8 cell">
 
         </div>
         <div class="medium-2 cell">
-          <a href="/logout">Log out</a>
+          <div class="uk-padding" style="position: absolute;bottom: 0;left: 0;">
+            <a href="/logout" uk-icon="icon: sign-out; ratio: 4" style="width: 30px"></a>
+          </div>
         </div>
       </div>
     </div>
-    <div class="medium-6 cell" id="firstpanel">
+    <div class="medium-6 small-12 cell" id="firstpanel">
       <h1>Welcome, Felix Koepp</h1>
-      <h2 id="date">Tuesday, 18.09.2018</h2>
-      <div class="progressDiv">
+      <p id="date" class="uk-text-meta">Tuesday, 18.09.2018</p>
+      <div class="progressDiv uk-card">
+        <div class="uk-card-badge" id="percentage">75 %</div>
         <h2>Your progress</h2>
-        <p>Lorem Ipsum dolor sit amet et urna semper</p>
-        <div class="progress" role="progressbar" tabindex="0" aria-valuenow="50" aria-valuemin="0" aria-valuetext="50 percent" aria-valuemax="100">
-          <div class="progress-meter" style="width: 65%"></div>
+        <p class="uk-text-meta">Lorem Ipsum dolor sit amet et urna semper</p>
+        <progress class="uk-progress" value="70" max="100"></progress>
+      </div>
+      <div class="">
+        <h1>Upcoming Tasks:</h1>
+        <h2>Today</h2>
+        <div class="uk-padding-small uk-padding-remove-top tasklist">
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+        </div>
+        <h2>Tomorrow</h2>
+        <div class="uk-padding-small tasklist">
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+        </div>
+        <h2>Upcoming</h2>
+        <div class="uk-padding-small tasklist">
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+          </div>
         </div>
       </div>
     </div>
@@ -62,19 +114,19 @@
           <div class="icon_weather">weather</div>
         </div>
         <div class="medium-8 cell" id="descriptionDiv">
-          <div class="grid-x">
+          <div class="grid-x tasklist">
             <div class="medium-6 cell">
               <h2>Description</h2>
             </div>
-            <div class="medium-6 cell">
-              Completed<input type="checkbox">
+            <div class="uk-margin-top uk-margin uk-grid-small uk-child-width-auto uk-grid">
+              <label><input class="uk-checkbox" type="checkbox" checked> completed</label>
             </div>
           </div>
           <div class="grid-x">
             <div class="weirdLeafIcon"></div>
           </div>
           <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-          <a href="#" class="button">Explore next task</a>
+          <a href="#" class="button">Explore next task <span uk-icon="icon: chevron-right"></span></a>
         </div>
       </div>
     </div>

@@ -135,8 +135,9 @@ body {
 }
 
 #date {
-  font-size: 1rem;
-  color: #bdbdbd;
+  line-height: normal;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.278957);
 }
 
 .logomain {
