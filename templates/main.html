@@ -56,15 +56,18 @@
       <div class="progressDiv uk-card">
         <div class="uk-card-badge" id="percentage">75 %</div>
         <h2>Your progress</h2>
-        <p class="uk-text-meta">Lorem Ipsum dolor sit amet et urna semper</p>
+        <p class="uk-text-meta">Three quarters done! Way to go!</p>
         <progress class="uk-progress" value="70" max="100"></progress>
       </div>
       <div class="">
-        <h1>Upcoming Tasks:</h1>
+        <h1 class="no-bottom-margin">Upcoming Tasks:</h1>
         <h2>Today</h2>
         <div class="uk-padding-small uk-padding-remove-top tasklist">
           <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
+            <label><input class="uk-checkbox" type="checkbox" checked> <span id="first-task" class="uk-margin-medium-left">Signup to stepify</span></label>
+          </div>
+          <div class="uk-grid-small uk-child-width-auto uk-grid">
+            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left no-bottom-margin">Meet to go to secret place.*</span></label>
           </div>
           <div class="uk-grid-small uk-child-width-auto uk-grid">
             <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
@@ -72,9 +75,7 @@
           <div class="uk-grid-small uk-child-width-auto uk-grid">
             <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
           </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-medium-left">signup to stepify</span></label>
-          </div>
+          <div id="required-1"><h6 class="required-text">(*=required)</h6></div>
         </div>
         <h2>Tomorrow</h2>
         <div class="uk-padding-small tasklist">
@@ -111,23 +112,25 @@
     <div class="medium-5 cell" id="secondpanel">
       <div class="grid-y">
         <div class="medium-4 cell">
-          <div class="icon_stan"></div>
-          <h1>Meet to go to secret place trip</h1>
-          <div class="icon_weather"><img src="../static/img/weather-icons/Sun.svg" alt="">Sunny! 24°</div>
+          <div class="icon_stan"><img src="../static/img/platform-icons/personal-logo.svg" alt="go-there-yourself" style="width:3rem;height:3rem;"></div>
+
+          <h1 class="no-top-margin">Meet to go to secret place trip <span><h6 class="required-text">(required)</h6></span></h1>
+
+          <div class="icon_weather"><img src="../static/img/weather-icons/sun.svg" alt="">Sunny! 24°</div>
         </div>
         <div class="medium-8 cell" id="descriptionDiv">
           <div class="grid-x tasklist">
-            <div class="medium-6 cell">
-              <h2>Description</h2>
+            <div class="medium-6 cell less-height">
+              <h2>Description:</h2>
             </div>
             <div class="uk-margin-top uk-margin uk-grid-small uk-child-width-auto uk-grid">
               <label><input class="uk-checkbox" type="checkbox" checked> completed</label>
             </div>
           </div>
           <div class="grid-x">
-            <div class="weirdLeafIcon"></div>
+            <div class="weirdLeafIcon"><img src="../static/img/property-icons/outside-meeting.svg" alt=""><img src="../static/img/property-icons/pet-friendly.svg" alt=""><img src="../static/img/property-icons/vegan.svg" alt=""></div>
           </div>
-          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+          <p> We will all meet just outside of the Factory main entrance. Nextgen C<>DE t-shirts and wristbands will be handed out. We will board 3 buses that will take us to a secret destination were we will spend the next couple of days. We will be back by Thursday at 6pm.</p>
           <a href="#" class="button">Explore next task <span uk-icon="icon: chevron-right"></span></a>
         </div>
       </div>
