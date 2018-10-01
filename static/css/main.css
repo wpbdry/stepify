@@ -14,13 +14,18 @@
 html {
     font-family: sans-serif;
     background-color: #FAFAFA;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    overflow-x: hidden;
 }
 
 body {
     font-family: sans-serif;
     background-color: #FAFAFA;
-    height: 50vh;
-    width: 100vw;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
 }
 
 h2 {
@@ -56,20 +61,6 @@ input {
     display: inline-block;
     width: 44%;
     margin-left: 3%;
-}
-
-input[type="submit"] {
-    width: 174.05px;
-    display: table;
-    margin: 0 auto;
-    margin-bottom: 20px;
-    background-color: #1485FC;
-    border-radius: 6px;
-    box-shadow: 4px 4px 4px grey;
-}
-
-input[type="submit"]:hover {
-    cursor: pointer;
 }
 
 .center {
@@ -163,20 +154,13 @@ a {
     transform: translateX(-50%);
     text-align: center;
 }
-.callout {
-
-
-.grid-x {
-  max-width: 1200px;
-  display: block;
-  margin: auto;
-}
 
 #top-block {
     display: block;
    margin-top: 5%;
 }
 
+<<<<<<< HEAD
 /* _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- */
 /* _-_-_-_-_-_-_-_Select your study program_-_-_-_-_- */
 /* _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_- */
@@ -206,3 +190,58 @@ a {
 #show-signup{
     
 }
+=======
+.tasklist label {
+  line-height: normal !important;
+  font-size: 18px !important;
+  color: #1a1a1a !important;
+  cursor: pointer;
+}
+
+input.uk-checkbox {
+  border-radius: 6px !important;
+  height: 21px !important;
+  width: 21px !important;
+  border: 1px solid #1485FC !important;
+}
+input.uk-checkbox:checked {
+  background-color: #1485FC;
+}
+
+#percentage {
+  font-style: normal;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 18px;
+  color: #2577CD;
+}
+
+#firstpanel {
+  overflow-y: scroll;
+}
+
+/* custom scrollbar */
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 8px;
+    cursor:pointer;
+    background-color: #E8E8E8;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #1485FC;
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: #1485FC;
+}
+>>>>>>> 155facbf871e26cfe2d1d90b3bc46332f9fb7d01

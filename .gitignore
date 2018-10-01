@@ -1,0 +1,18 @@
+
+
+# ignore pycharm folders
+
+__pycache__/
+
+.idea/
+
+
+
+# ignore sensitive files
+
+db-password.txt
+
+
+# ignore apple junk
+
+.DS_Store

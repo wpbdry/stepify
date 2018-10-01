@@ -10,18 +10,44 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
     $, console
 */
 
-//define function to convert data sent from flask into javascript arrays
-function jsify (s) {
-    s = s.replace(/&#39;/g, "\"").replace(/\(/g, "[").replace(/\)/g, "]");
-    s = JSON.parse(s);
-    return(s);
-}
+//tasksString, totalTasks, doneTasks, and username variables are already defined in html template
 
-//pyTasks variable already defined in html template
+//define function to convert data received from flask with '{{ data|tojson }}' into JS array / object
+function objectFromString (s) {
+    var st = s.slice(1, tasksString.length - 1); //gets rid or leading and ending "
+    ob = JSON.parse(st);
+    return(ob);
+}
 
 $(document).ready(function(){
     
+    
+    console.log(objectFromString(tasksString));
+    console.log(totalTasks);
+    console.log(doneTasks);
+    console.log(username);
+    
+    
+    //console.log(tasksString)
+    
+    //var tasks = JSON.stringify(tasksString);
+    //console.log(tasks);
+    //console.log(typeof tasks);
+    //console.log(tasks);
+    //tasks = tasks.replace(/&#34;/g, '"');1
+    //tasksObj = JSON.parse(tasks);
+    
+    //console.log(tasksObj[0]);
+    
+    //tasks = JSON.
+    //tasks.toString();
+    //console.log(tasksString.replace(/&#34;/g, '"'));
+    //tasks = JSON.stringify(tasks);//jsify(tasksString));
+    //console.log("tasks: " + tasks); 
+   
+    
     /*DYNAMICALLY ADD HTML DIVS TO SHOW TASKS*/
+    /*
     var tasks = jsify(pyTasks);
     
     for (i = 0; i < tasks.length; i++) {
@@ -52,6 +78,12 @@ $(document).ready(function(){
         $("#to-to-list").append(item);
     }
     
+    /*SET PROGRESS BAR*/
+    //For now...
+    //console.log("Total tasks: " + totalTasks);
+    //console.log("Completed tasks: " + doneTasks);
+    
+    
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
     
     $(".to-do-checkbox").click(function (e) {
@@ -78,7 +110,7 @@ $(document).ready(function(){
     });
     
     /*UPDATE LOGOUT USERNAME SPAN*/
-    var username = pyUsername
+    //var username = pyUsername
     
     $("#logged-in-username").text(username);
     
