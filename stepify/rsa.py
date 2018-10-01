@@ -7,37 +7,37 @@ from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 from Crypto.Hash import SHA256
 from base64 import b64decode
+import os
 
 
 # Create key set and return public key
-def create_keys():
+def generate_keys(ident):
 
     # Create key pair
-    key_pair = RSA.generate(1024) # 1024 means the keysize will be 1024 bits
+    key_pair = RSA.generate(1024)  # 1024 means the key size will be 1024 bits
 
     # write private key to file
-    private_key = open("private-key.pem", "wb")
+    private_name = 'stepify/keys/privatekey_' + ident + '.pem'
+    private_key = open(private_name, "wb+")
     private_key.write(key_pair.exportKey())
     private_key.close()
 
-    # write puclic key to file
-    public_key = open("public-key.pem", "wb")
-    public_key.write(key_pair.publickey().exportKey())
-    public_key.close()
-
-    # return public key
-    return open("public-key.pem", "r").read()
+    # Return public key
+    public_key = key_pair.publickey().exportKey()
+    return public_key.decode("utf-8")
 
 
 # Decipher encryption
-def decrypt(s):
+def decrypt(s_id, pw):
 
     # get private key from file and convert to usable format
-    private_key = open("private-key.pem", "r").read()
+    key_file = 'stepify/keys/privatekey_' + s_id + '.pem'
+    private_key = open(key_file, "r").read()
+    os.remove(key_file)  # delete file
     key = RSA.importKey(private_key)
     cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
-    # decode from base64 an decrypt
-    decrypted_message = cipher.decrypt(b64decode(s))
+    # decode from base64 and decrypt
+    decrypted_message = cipher.decrypt(b64decode(pw))
 
     # convert from binary to normal string and return
     try:
@@ -53,4 +53,3 @@ def decrypt(s):
             Thank you!<br><br>
             <a href='/'>Go back</a>
     """
-

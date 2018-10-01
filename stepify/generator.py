@@ -17,6 +17,6 @@ def generate_session_id():
         ident = generate_char_id(6)
 
         # Check if a file with that name already exists
-        name = 'keys/' + ident + '_private_key.pem'
+        name = 'stepify/keys/' + ident + '_private_key.pem'
         if not os.path.isfile(name):
             return ident

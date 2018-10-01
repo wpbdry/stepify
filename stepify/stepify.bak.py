@@ -49,7 +49,7 @@ def show_main_page():
 
 
 # Login / sign up functionality
-"""
+
 UNDER DEVELOPMENT IN A DIFFERENT FILE
 
 def check_login():  # Returns username if user is logged in and returns False if not
@@ -137,7 +137,7 @@ def set_user_sp_and_tasks(study_program):
             "INSERT INTO stepify.users_tasks (user_id, task_id, completion) VALUES ('"
             + str(user_id) + "', '" + str(task_id[0]) + "', FALSE);")
 
-"""
+
 
 # ROUTES ###
 
