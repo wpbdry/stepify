@@ -19,18 +19,16 @@ def find_user_by_uname(un):
     return uid
 
 
-# Function to log a user in. Super securly
+# Function to log a user in. Super securely
 #def log_user_in(un):
 
     # Get an encrypted cookie from JS
 
     # Decrypt the cookie
 
-    # Store the cookie in the
+    # Hash the cookie with salt and pepper
 
-
-
-  #  dbconnect.write("INSERT INTO stepify.logins (username, ip) VALUES ('" + un + "', '" + ip + "');")
+    # Store the hashed cookie in db
 
 
 # Serve sign up page
