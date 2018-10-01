@@ -1,4 +1,6 @@
 
+# -*- coding: utf-8 -*-
+
 # Creds for most of this code go to https://medium.com/@DannyAziz97/rsa-encryption-with-js-python-7e031cbb66bb
 
 from Crypto.PublicKey import RSA
@@ -33,24 +35,22 @@ def decrypt(s):
     # get private key from file and convert to usable format
     private_key = open("private-key.pem", "r").read()
     key = RSA.importKey(private_key)
-
-    # decrypt
     cipher = PKCS1_OAEP.new(key, hashAlgo=SHA256)
-
-    # decode from base64
+    # decode from base64 an decrypt
     decrypted_message = cipher.decrypt(b64decode(s))
 
-    # convert back to normal string and return
+    # convert from binary to normal string and return
     try:
         return decrypted_message.decode('utf-8')
-    # Which doesn't work with all characters. This is a bug.
+
+    # Which doesn't actually work with non ascii characters. This is a bug.
     except:
         return """
-            Oops... well, this is embarrassing.<br><br>
+            Oops... Well, this is embarrassing.<br><br>
             You have used an invalid character in your password.
             Sorry, this is a bug we are trying to fix.<br>
-            For now, please just try again and don't use any character in your password
-            that you think might have cause this error.<br>
+            For now, please just try again and don't use any non-ASCII characters in your password<br>
             Thank you!<br><br>
             <a href='/'>Go back</a>
     """
+

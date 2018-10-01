@@ -1,4 +1,6 @@
 
+# -*- coding: utf-8 -*-
+
 # SETUP ###
 
 from flask import Flask, render_template, request, redirect, Response, jsonify
