@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="94px" height="66px" viewBox="0 0 94 66" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Wiki</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-295.000000, -516.000000)" fill="#000000">
+            <g id="Wiki" transform="translate(295.000000, 516.000000)">
+                <g id="Group" transform="translate(0.000000, 0.594416)">
+                    <polygon id="Path-5" fill-rule="nonzero" points="0.620598423 32.0098539 34.2897296 64.7063123 45.4099441 53.1726102 23.0152712 32.0098539 45.4099441 11.0359346 34.2897296 0.111068698"></polygon>
+                    <polygon id="Path-5" fill-rule="nonzero" transform="translate(71.015271, 32.408691) scale(-1, 1) translate(-71.015271, -32.408691) " points="48.6205984 32.0098539 82.2897296 64.7063123 93.4099441 53.1726102 71.0152712 32.0098539 93.4099441 11.0359346 82.2897296 0.111068698"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

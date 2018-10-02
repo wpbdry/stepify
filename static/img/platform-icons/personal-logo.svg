@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="106px" height="97px" viewBox="0 0 106 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Personal Logo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="57.4916597%" y1="100%" x2="18.6833667%" y2="-19.7161756%" id="linearGradient-1">
+            <stop stop-color="#A538FF" offset="0%"></stop>
+            <stop stop-color="#FF3AD6" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-301.000000, -730.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+            <g id="Personal-Logo" transform="translate(301.000000, 730.000000)">
+                <path d="M0,96.8038871 C0,100.213008 20.8566853,58.1008302 33.9649746,54.0100146 C47.0732638,49.919199 53.4568752,73.2050386 68.5626675,75.4069509 C83.6684598,77.6088631 105.420213,61.4337365 105.985443,60.4221018 C106.550673,59.4104672 90.5841605,71.4319528 70.5550879,67.0584569 C50.5260152,62.6849611 55.7186416,30.3407866 33.9649746,38.2358838 C12.2113075,46.130981 3.67088649e-16,93.394766 0,96.8038871 Z" id="Path-6"></path>
+                <circle id="Oval" cx="38.5" cy="10.5" r="10.5"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

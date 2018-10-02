@@ -1,3 +1,4 @@
+
 .callout h2{
   text-align: left;
   color: #fafafa;
@@ -105,6 +106,7 @@ body {
   border-style: solid;
 }
 
+
 #firstpanel {
   padding: 4rem;
 }
@@ -148,6 +150,7 @@ body {
 
 #secondpanel {
   padding: 4rem;
+  overflow: scroll;
 }
 
 #secondpanel h1 {
@@ -164,23 +167,25 @@ body {
 }
 
 .icon_stan {
-  height: 1.5rem;
+  /* height: 1.5rem;
   width: 1.5rem;
   border-style: solid;
-  border-color: #e91e63;
+  border-color: blue;
   border-radius: 0.1rem;
-  background-color: #ad1457;
+  background-color: none;
   border-width: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1rem; */
 }
 
 .icon_weather {
+  display: inline-block;
+  white-space: nowrap;
   background-color: #64b5f6;
   color: #1976d2;
   padding: 0.5rem;
-  border-radius: 0.1rem;
+  border-radius: 0.5rem;
   margin-top: 1rem;
-  width: 5rem;
+  /* width: 10rem; */
 }
 
 #descriptionDiv {
@@ -188,11 +193,15 @@ body {
 }
 
 .weirdLeafIcon {
-  background-color: #43a047;
+  /* background-color: #43a047;
   height: 1rem;
   width: 4rem;
-  border-radius: 0.1rem;
-  margin-bottom: 1rem;
+  border-radius: 0.1rem;*/
+  margin-top: 0.5rem; 
+}
+.weirdLeafIcon img{
+  height: 2rem;
+  margin: 5px;
 }
 
 .button {
@@ -210,4 +219,27 @@ body {
   background-color: #2196f3;
   box-shadow: 0 0 1.2rem rgba(0, 0, 0, 0.33);
   transform: scaleX(1.03) scaleY(1.03);
+}
+
+#first-task{
+  text-decoration: line-through;
+  color: #757575;
+}
+
+.required-text{
+  font-style: italic;
+  color: #757575;
+  margin: 0px;
+}
+
+.no-top-margin{
+  margin-top: 20px !important;
+}
+
+.less-height{
+  height: 0px;
+}
+
+#required-1{
+  margin-top: 50px;
 }
