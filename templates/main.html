@@ -34,8 +34,8 @@
 </head>
 <body>
   <div class="grid-x grid-frame" style="height: 100%">
-    <div class="small-4 show-for-medium cell" style="max-width: 100px" data-sticky-container id="leftBar">
-      <div class="grid-y uk-padding" data-sticky data-options="marginTop:0;" style="display: fixed">
+    <div class="small-4 show-for-medium cell" style="width: 73px; background-color: #ffff; z-index: 1 " data-sticky-container id="leftBar">
+      <div class="grid-y uk-margin-top" data-sticky data-options="marginTop:0;" style="display: fixed">
         <div class="auto cell">
           <div class="logomain">
             <img style="width: 40px; height: auto" class="center" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
@@ -45,13 +45,14 @@
 
         </div>
         <div class="medium-2 cell">
-          <div class="uk-margin-bottom" style="position: absolute;bottom: 0;">
+          <div class="uk-margin-bottom uk-margin-left" style="position: absolute;bottom: 0;">
             <a href="/logout" class="center" uk-icon="icon: sign-out; ratio: 4" style="width: 30px"></a>
           </div>
         </div>
       </div>
     </div>
     <div class="auto cell" id="firstpanel">
+      <a href="" class="uk-card-badge" uk-icon="icon: close"></a>
       <h1>Welcome, Felix Koepp</h1>
       <p id="date" class="uk-text-meta">Tuesday, 18.09.2018</p>
       <div class="progressDiv uk-card">
