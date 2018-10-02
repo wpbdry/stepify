@@ -230,3 +230,7 @@ input.uk-checkbox:checked {
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: #1485FC;
 }
+
+.uk-progress {
+  height: 10px;
+}

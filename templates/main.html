@@ -32,19 +32,19 @@
 </head>
 <body>
   <div class="grid-x grid-frame" style="height: 100%">
-    <div class="small-4 medium-2 large-1 cell" data-sticky-container id="leftBar">
+    <div class="small-4 cell" style="max-width: 100px" data-sticky-container id="leftBar">
       <div class="grid-y uk-padding" data-sticky data-options="marginTop:0;" style="display: fixed">
-        <div class="medium-2 cell">
+        <div class="auto cell">
           <div class="logomain">
-            <img style="width: 40px" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+            <img style="width: 40px; height: auto" class="center" src="{{ url_for('static', filename='img/logo.png') }}" alt="">
           </div>
         </div>
         <div class="medium-8 cell">
 
         </div>
         <div class="medium-2 cell">
-          <div class="uk-padding" style="position: absolute;bottom: 0;left: 0;">
-            <a href="/logout" uk-icon="icon: sign-out; ratio: 4" style="width: 30px"></a>
+          <div class="uk-margin-bottom" style="position: absolute;bottom: 0;">
+            <a href="/logout" class="center" uk-icon="icon: sign-out; ratio: 4" style="width: 30px"></a>
           </div>
         </div>
       </div>
