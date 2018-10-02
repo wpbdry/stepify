@@ -2,6 +2,14 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
+import datetime
+
+
+# Used to convert datetime return from db to something that json can handle
+def datetime_to_string(dt):
+    if isinstance(dt, datetime.datetime):
+        return dt.__str__()
+
 
 # FUNCTIONS TO CONNECT TO DB (IMPORTANT THAT WE ALWAYS CLOSE CONN. DB ONLY ALLOWS UP TO 5 CONNECTIONS ###
 
@@ -49,7 +57,7 @@ def query_json(sql):
                             password=open("db-password.txt", "r").read())
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute(sql)
-    r = json.dumps(cur.fetchall())
+    r = json.dumps(cur.fetchall(), default=datetime_to_string)
     cur.close()
     conn.close()
     return r
