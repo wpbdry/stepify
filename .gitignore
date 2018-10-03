@@ -15,4 +15,4 @@ db-password.txt
 
 # ignore apple junk
 
-.DS_Store
+#.DS_Store
