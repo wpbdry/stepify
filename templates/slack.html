@@ -1,14 +1,85 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Title</title>
+    <title>Stepify</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/foundation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/foundation.min.css') }}">
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/foundation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/foundation.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/what-input.js') }}"></script>
+    <script> $(document).foundation(); </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">   
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/slack.css') }}">
+ 
 </head>
+
 <body>
-    Slack page
-    <a href="/google-calendar">Next</a>
-</body>
+<div class="grid-container"></div>
+<div class="grid-x">
+    <div class="empty small-4"></div>
+    <div class="empty small-4">
+        <div class="lines-container">
+            <div class="grid-x content-center">
+                
+                    <div class="cell small-1 edit-1"></div>
+                    <a href="/google-calendar" class="cell small-1 edit-2"></a>
+                    <a href="/code-wiki" class="cell small-1 edit-2"></a>
+
+            </div>
+        </div>
+    </div>  
+    <div class="empty small-4"></div>
+</div>
+</div>
+
+<div class="grid-x content-center">
+    <div class="empty small-4"></div>
+    <div class="slack-logo small-4">
+       <img src="{{ url_for('static', filename='img/cal-slack-wiki/Slack-Logo.svg') }}" style="width:13rem">
+    </div>
+    <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+        <div class="empty small-4"></div>
+        <div class="slack-logo small-4">
+           <img src="{{ url_for('static', filename='img/cal-slack-wiki/Slack-Illustration.svg') }}" style="margin-bottom:5rem; margin-top: 2rem; width:20rem">
+        </div>
+        <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+        <div class="empty small-4"></div>
+        <div class="text-field small-4">
+           <p>You've probably heard of Slack. This is our main channel of communication and you will most likely be using it quite a bit at CODE. Watch for our tips & tricks as you use the website.</p>
+        </div>
+        <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+            <div class="empty small-4"> </div>
+
+            <div class="text-field small-4">
+                <a href="/google-calendar" class="button" id="button-adjustments">
+                    Next Step
+                </a>
+            </div>
+
+            <div class="empty small-4"></div>
+    </div>
+
+</div>
+
+
+
+</div>
+</body> 
 </html>
+
+

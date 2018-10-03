@@ -1,17 +1,84 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Title</title>
+    <title>Stepify</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/foundation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/foundation.min.css') }}">
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/foundation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/foundation.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/what-input.js') }}"></script>
+    <script> $(document).foundation(); </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">   
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
+ 
 </head>
+
 <body>
-    
-    Calendar page
-    <a href="/code-wiki">
-        Next
-    </a>
-</body>
+<div class="grid-container"></div>
+<div class="grid-x">
+    <div class="empty small-4"></div>
+    <div class="empty small-4">
+        <div class="lines-container">
+            <div class="grid-x content-center">
+                
+                    <a href="/slack" class="cell small-1 edit-1"></a>
+                    <div class="cell small-1 edit-2"></div>
+                    <a href="/code-wiki" class="cell small-1 edit-3"></a>
+
+            </div>
+        </div>
+    </div>  
+    <div class="empty small-4"></div>
+</div>
+</div>
+
+<div class="grid-x content-center">
+    <div class="empty small-4"></div>
+    <div class="calendar-logo small-4">
+       <img src="{{ url_for('static', filename='img/cal-slack-wiki/Calendar-logo.svg') }}" style="width:12rem">
+    </div>
+    <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+        <div class="empty small-4"></div>
+        <div class="slack-logo small-4">
+           <img src="{{ url_for('static', filename='img/cal-slack-wiki/Calendar-Illustration.svg') }}" style="margin-bottom:3rem; margin-top:0; width:20rem">
+        </div>
+        <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+        <div class="empty small-4"></div>
+        <div class="text-field small-4">
+           <p>At Code we use Google Calendar to arrange our schedules. It comes in very handy also for creating events, checking availability of C<>DE spaces, reserving them and comparing your calendar with others to find times when you can meet.</p>
+        </div>
+        <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+            <div class="empty small-4"> </div>
+
+            <div class="text-field small-4">
+                    <a href="/code-wiki" class="button" id="button-adjustments">
+                        Next Step
+                    </a>
+                        
+            </div>
+
+            <div class="empty small-4"></div>
+    </div>
+
+</div>
+
+
+
+</div>
+</body> 
 </html>

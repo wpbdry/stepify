@@ -1,15 +1,84 @@
 <!DOCTYPE html>
-
-
 <html lang="en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Title</title>
+    <title>Stepify</title>
+    <link rel="icon" href="{{ url_for('static', filename='img/logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/app.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/foundation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cal-slack-wiki/foundation.min.css') }}">
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/foundation.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/foundation.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cal-slack-wiki/what-input.js') }}"></script>
+    <script> $(document).foundation(); </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">   
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}">
+ 
 </head>
+
 <body>
-    
-    Wiki page
-    <a href="/">Next</a>
-</body>
+<div class="grid-container"></div>
+<div class="grid-x">
+    <div class="empty small-4"></div>
+    <div class="empty small-4">
+        <div class="lines-container">
+            <div class="grid-x content-center">
+                
+                    <a href="/slack" class="cell small-1 edit-1"></a>
+                    <a href="/google-calendar" class="cell small-1 edit-2"></a>
+                    <div class="cell small-1 edit-3"></div>
+
+            </div>
+        </div>
+    </div>  
+    <div class="empty small-4"></div>
+</div>
+</div>
+
+<div class="grid-x content-center">
+    <div class="empty small-4"></div>
+    <div class="slack-logo small-4">
+       <img src="{{ url_for('static', filename='img/cal-slack-wiki/Code-Logo.svg') }}" style="width:11rem">
+    </div>
+    <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+        <div class="empty small-4"></div>
+        <div class="slack-logo small-4">
+           <img src="{{ url_for('static', filename='img/cal-slack-wiki/Code-Illustration.svg') }}" style="margin-bottom:5rem; margin-top: 2rem; width:20rem">
+        </div>
+        <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+        <div class="empty small-4"></div>
+        <div class="text-field small-4">
+           <p>Finally, we have our own Wiki. Here you should be able to find all that you need about everything C<>DE related. Make sure you use the search feature!</p>
+        </div>
+        <div class="empty small-4"></div>
+</div>
+
+<div class="grid-x content-center">
+            <div class="empty small-4"> </div>
+
+            <div class="text-field small-4">
+                    <a href="/" class="button" id="button-adjustments">
+                        Next Step
+                    </a>
+                        
+            </div>
+
+            <div class="empty small-4"></div>
+    </div>
+
+</div>
+
+
+
+</div>
+</body> 
 </html>
