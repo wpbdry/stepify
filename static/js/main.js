@@ -35,25 +35,26 @@ function closeRightPanel () {
   $('#secondpanel-empty').toggle();
 }
 
+
 //Create function to append html elements
     function appendTasks (tasksList, elementSelector) {
         
         /*
         ELEMENT STRUCTURE
         <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task">
-            <label>
-                <input class="uk-checkbox task-checkbox" type="checkbox" id="00-checkbox">
-                <span class="uk-margin-auto-left no-bottom-margin task-title" id="00-title">
-                    Task title
-                    <span class="mandatory">
-                        *
-                    </span>
-                </span>
+            <label class="task-checkbox" id="00-checkbox">
+                <input class="uk-checkbox" type="checkbox">
             </label>
+            <span class="no-bottom-margin task-title" id="00-title">
+                Task title
+                <span class="mandatory">
+                    *
+                </span>
+            </span>
         </div>
         */
         
-        for (var i=0; i<appendTasks.length; i++) {
+        for (var i=0; i<tasksList.length; i++) {
             
             /*
             START WITH THIS PART
@@ -66,7 +67,7 @@ function closeRightPanel () {
             */
             
             var titleSpan = document.createElement("span");
-            titleSpan.setAttribute("class", "uk-margin-auto-left no-bottom-margin task-title");
+            titleSpan.setAttribute("class", "no-bottom-margin task-title");
             titleSpan.setAttribute("id", tasksList[i]['id'] + "-title");
             
             var titleText = document.createTextNode(tasksList[i]['title']);
@@ -83,18 +84,19 @@ function closeRightPanel () {
             /*THEN GO FROM INSIDE OUT*/
             
             var checkbox = document.createElement("input");
-            checkbox.setAttribute("class", "uk-checkbox task-checkbox");
+            checkbox.setAttribute("class", "uk-checkbox");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.setAttribute("id", tasksList[i]['id'] + "-checkbox");
             
             var myLabel = document.createElement("label");
             myLabel.appendChild(checkbox);
-            myLabel.appendChild(titleSpan);
+            myLabel.setAttribute("class", "task-checkbox");
+            myLabel.setAttribute("id", tasksList[i]['id'] + "-checkbox");
             
             var taskDiv = document.createElement("div");
             taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
             taskDiv.setAttribute("id", tasksList[i]['id'] + "-task");
             taskDiv.appendChild(myLabel);
+            taskDiv.appendChild(titleSpan);
             
             $(elementSelector).append(taskDiv);
         }
@@ -158,6 +160,10 @@ $(document).ready(function(){
     
     
     //Append html elements
+    console.log(tasks);
+    console.log(tasksToday);
+    console.log(tasksTomorrow);
+    console.log(tasksUpcoming);
     
     //first hide all headings, will be shown later if necessary
     $('.task-category').css('display', 'none');
@@ -189,9 +195,11 @@ $(document).ready(function(){
 
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
 
-    $(".to-do-checkbox").click(function (e) {
-
+    $(".task-checkbox").click(function (e) {
+        /*
         var buttonId = e.target.id;
+        console.log(buttonId);
+        
         var taskId = buttonId.slice(0, buttonId.length - 2);
         var itemId = "#" + taskId;
 
@@ -209,7 +217,8 @@ $(document).ready(function(){
 
             }
         });
-
+        */
     });
+    
 
 });
