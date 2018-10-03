@@ -12,7 +12,7 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
 
 /*
     VARIABLED ALREADY DEFINED (IN HTML TEMPLATE)
-        tasksString  // A list of complete tasks, in json format in a string
+        tasksString  // A list of complete tasks, in json format in a string, in order of date, most urgent first
         totalTasks  // to total number of tasks as an integer
         doneTasks  // the number of complete tasks as int
         username  // the username of the currently logged in user
@@ -35,13 +35,6 @@ function closeRightPanel () {
 }
 
 $(document).ready(function(){
-
-    /*Temporary shit*/
-    console.log(tasks);
-    console.log(totalTasks);
-    console.log(doneTasks);
-    console.log(username);
-
     
     /*SET USERNAME SPAN*/
     $('.username').text(username);
@@ -62,41 +55,129 @@ $(document).ready(function(){
 
 
     /*DYNAMICALLY ADD HTML DIVS TO SHOW TASKS*/
-    /*
-    var tasks = jsify(pyTasks);
-
-    for (i = 0; i < tasks.length; i++) {
-
-        var item = document.createElement("div");
-        item.setAttribute("class", "to-do-item");
-        item.setAttribute("id", tasks[i][0]); //set html id of this task's div to the task id in db
-
-        var checkbox = document.createElement("button");
-        checkbox.setAttribute("class", "to-do-checkbox");
-        checkbox.setAttribute("id", tasks[i][0] + "-b") //so that I can tell which one has been clicked
-        var text = document.createTextNode("Done.");
-        checkbox.appendChild(text);
-        item.appendChild(checkbox);
-
-        var title = document.createElement("span");
-        title.setAttribute("class", "to-do-title");
-        text = document.createTextNode(tasks[i][1]); //task_name
-        title.appendChild(text);
-        item.appendChild(title);
-
-        var description = document.createElement("div");
-        description.setAttribute("class", "to-do-description");
-        text = document.createTextNode(tasks[i][2]); //task_details
-        description.appendChild(text);
-        item.appendChild(description);
-
-        $("#to-to-list").append(item);
+    
+    //Sort tasks into today, tomorrow, and upcoming, and convert date from str to js date obj
+    
+    var tomorrowDate = new Date();
+    tomorrowDate.setDate(tomorrowDate.getDate()+1);
+    tomorrowDate.setHours(0, 0, 0, 0);
+    var afterTomorrowDate = new Date();
+    afterTomorrowDate.setDate(afterTomorrowDate.getDate()+1);
+    afterTomorrowDate.setHours(0, 0, 0, 0);
+    
+    var tasksToday = [];
+    var tasksTomorrow = [];
+    var tasksUpcoming = [];
+    
+    for (var i=0; i < tasks.length; i++) {
+        var taskDate = new Date(tasks[i]['deadline']);
+        tasks[i]['deadline'] = taskDate;
+        
+        //if ASAP or date is today
+        if (tasks[i]['deadline_type'] == 0 || tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < tomorrowDate) {
+            tasksToday.push(tasks[i])
+        }
+        
+        //else if deadline type is finite date, and date is tomorrow
+        else if (tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < afterTomorrowDate) {
+            tasksTomorrow.push(tasks[i]);
+        }
+        
+        //else if date is after tomorrow or there is no deadline
+        else {
+            tasksUpcoming.push(tasks[i])
+        }
     }
-
-    /*SET PROGRESS BAR*/
-    //For now...
-    //console.log("Total tasks: " + totalTasks);
-    //console.log("Completed tasks: " + doneTasks);
+    
+    
+    //Create function to append html elements
+    function appendTasks (tasksList, elementSelector) {
+        
+        /*
+        ELEMENT STRUCTURE
+        <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task">
+            <label>
+                <input class="uk-checkbox task-checkbox" type="checkbox" id="00-checkbox">
+                <span class="uk-margin-auto-left no-bottom-margin task-title" id="00-title">
+                    Task title
+                    <span class="mandatory">
+                        *
+                    </span>
+                </span>
+            </label>
+        </div>
+        */
+        
+        for (var i=0; i<appendTasks.length; i++) {
+            
+            /*
+            START WITH THIS PART
+            <span class="uk-margin-auto-left no-bottom-margin task-title" id="00-title">
+                    Task title
+                    <span class="mandatory">
+                        *
+                    </span>
+                </span>
+            */
+            
+            var titleSpan = document.createElement("span");
+            titleSpan.setAttribute("class", "uk-margin-auto-left no-bottom-margin task-title");
+            titleSpan.setAttribute("id", tasksList[i]['id'] + "-title");
+            
+            var titleText = document.createTextNode(tasksList[i]['title']);
+            titleSpan.appendChild(titleText);
+            
+            if (tasksList[i]['mandatory'] == true) {
+                var mandatorySpan = document.createElement("span");
+                mandatorySpan.setAttribute("class", "mandatory");
+                var mandatoryText = document.createTextNode(" *");
+                mandatorySpan.appendChild(mandatoryText);
+                titleSpan.appendChild(mandatorySpan);
+            }
+            
+            /*THEN GO FROM INSIDE OUT*/
+            
+            var checkbox = document.createElement("input");
+            checkbox.setAttribute("class", "uk-checkbox task-checkbox");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.setAttribute("id", tasksList[i]['id'] + "-checkbox");
+            
+            var myLabel = document.createElement("label");
+            myLabel.appendChild(checkbox);
+            myLabel.appendChild(titleSpan);
+            
+            var taskDiv = document.createElement("div");
+            taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
+            taskDiv.setAttribute("id", tasksList[i]['id'] + "-task");
+            taskDiv.appendChild(myLabel);
+            
+            $(elementSelector).append(taskDiv);
+        }
+    }
+    
+    
+    //Append html elements
+    
+    //first hide all headings, will be shown later if necessary
+    $('.task-category').css('display', 'none');
+    
+    //today section
+    if (tasksToday.length !== 0) {
+        $('#task-category-today').css('display', 'block');
+        appendTasks(tasksToday, "#task-category-today");
+    }
+    
+    //tomorrow section
+    if (tasksTomorrow.length !== 0) {
+        $('#task-category-tomorrow').css('display', 'block');
+        appendTasks(tasksTomorrow, "#task-category-tomorrow");
+    }
+    
+    //upcoming section
+    if (tasksUpcoming.length !== 0) {
+        $('#task-category-upcoming').css('display', 'block');
+        appendTasks(tasksUpcoming, "#task-category-upcoming");
+    }
 
 
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/

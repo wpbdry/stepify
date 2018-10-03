@@ -60,7 +60,7 @@
       <div class="progressDiv uk-card">
         <div class="uk-card-badge" id="percentage">
             <span class="progress-percentage">
-                70
+                0
             </span>
             %
           </div>
@@ -68,63 +68,34 @@
         <h2 class="uk-margin-medium">your progress</h2>
         <p class="uk-margin-remove uk-text-meta">
             <span class="tasks-done">
-                7
+                0
             </span>
             out of
             <span class="total-tasks">
                 10
             </span>
             tasks done! Way to go!</p>
-        <progress id="progress-bar" class="uk-progress" value="70" max="100"></progress>
+        <progress id="progress-bar" class="uk-progress" value="0" max="100"></progress>
       </div>
-      <div class="">
+      <div class="uk-card">
         <h1 class="no-bottom-margin">Upcoming Tasks:</h1>
-        <h2 class="uk-margin-medium">Today</h2>
-        <div class="uk-padding-small uk-padding-remove-top uk-padding-remove-top tasklist">
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span id="first-task" class="uk-margin-auto-left">Signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left no-bottom-margin">Meet to go to secret place.*</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div id="required-1"><h6 class="required-text">(*=required)</h6></div>
+          <div id="required-1"><h6 class="required-text uk-card-badge">(*=required)</h6></div>
+
+        <div class="task-category" id="task-category-today">
+            <h2 class="uk-margin-medium">Today</h2>
+            <div class="uk-padding-small uk-padding-remove-top uk-padding-remove-top tasklist" id="today-tasks"></div>
         </div>
-        <h2 class="uk-margin-medium">Tomorrow</h2>
-        <div class="uk-padding-small uk-padding-remove-top tasklist">
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
+
+        <div class="task-category" id="task-category-tomorrow">
+            <h2 class="uk-margin-medium">Tomorrow</h2>
+            <div class="uk-padding-small uk-padding-remove-top tasklist" id="tasks-tomorrow"></div>
         </div>
-        <h2 class="uk-margin-medium">Upcoming</h2>
-        <div class="uk-padding-small uk-padding-remove-top tasklist">
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
+
+        <div class="task-category" id="task-category-upcoming">
+            <h2 class="uk-margin-medium">Upcoming</h2>
+            <div class="uk-padding-small uk-padding-remove-top tasklist" id=tasks-upcoming></div>
         </div>
+          
       </div>
     </div>
     <div class="auto cell" style="display: none;" id="secondpanel-empty">
