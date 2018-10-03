@@ -216,8 +216,11 @@ input.uk-checkbox:checked {
 
 #firstpanel {
   overflow-y: scroll;
-  box-shadow: 10px 2px 54px 0 rgba(0,0,0,0.13);
   background: #FFFFFF;
+}
+
+.firstpanel-shadow {
+  box-shadow: 10px 2px 54px 0 rgba(0,0,0,0.13);
 }
 
 /* custom scrollbar */
@@ -239,7 +242,7 @@ input.uk-checkbox:checked {
 ::-webkit-scrollbar-thumb {
     -webkit-border-radius: 10px;
     border-radius: 10px;
-    background: #D3D3D3;
+    background: #d2d2d2;
 }
 ::-webkit-scrollbar-thumb:window-inactive {
 	background: #6f6f6f;
@@ -247,4 +250,8 @@ input.uk-checkbox:checked {
 
 .uk-progress {
   height: 10px;
+}
+
+#secondpanel {
+  background-color: #fafafa;
 }

@@ -19,7 +19,11 @@ function objectFromString (s) {
     return(ob);
 }
 
-
+function closeRightPanel () {
+  $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
+  $('#secondpanel').toggle();
+  $('#secondpanel-empty').toggle();
+}
 
 $(document).ready(function(){
 

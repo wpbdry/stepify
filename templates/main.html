@@ -34,7 +34,7 @@
 </head>
 <body>
   <div class="grid-x grid-frame" style="height: 100%">
-    <div class="small-4 show-for-medium cell" style="width: 73px; background-color: #ffff; z-index: 1 " data-sticky-container id="leftBar">
+    <div class="small-4 show-for-medium cell" style="width: 73px; background-color: #ffff; z-index: 1; box-shadow: 0 2px 14px 0 rgba(0,0,0,0.12);" data-sticky-container id="leftBar">
       <div class="grid-y uk-margin-top" data-sticky data-options="marginTop:0;" style="display: fixed">
         <div class="auto cell">
           <div class="logomain">
@@ -51,8 +51,7 @@
         </div>
       </div>
     </div>
-    <div class="auto cell" id="firstpanel">
-      <a href="" class="uk-card-badge" uk-icon="icon: close"></a>
+    <div class="auto cell firstpanel-shadow" id="firstpanel">
       <h1>Welcome, Felix Koepp</h1>
       <p id="date" class="uk-text-meta">Tuesday, 18.09.2018</p>
       <div class="progressDiv uk-card">
@@ -112,7 +111,11 @@
         </div>
       </div>
     </div>
+    <div class="auto cell" style="display: none;" id="secondpanel-empty">
+      <img src="{{ url_for('static', filename='img/main_illustration.svg') }}" style="width: auto; right: 0px; float: right; height: auto;">
+    </div>
     <div class="medium-5 cell show-for-large" id="secondpanel">
+      <a href="" onclick="closeRightPanel();return false;" class="uk-card-badge" uk-icon="icon: close"></a>
       <div class="grid-y">
         <div class="medium-4 cell">
           <div class="icon_stan"><img src="../static/img/platform-icons/personal-logo.svg" alt="go-there-yourself" style="width:3rem;height:3rem;"></div>
@@ -127,7 +130,7 @@
               <h2>Description:</h2>
             </div>
             <div class="uk-margin-top uk-margin uk-grid-small uk-child-width-auto uk-grid">
-              <label><input class="uk-checkbox" type="checkbox" checked> completed</label>
+              completed <input class="uk-checkbox uk-margin-left" type="checkbox" checked>
             </div>
           </div>
           <div class="grid-x">
