@@ -22,6 +22,12 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
 function objectFromString (s) {
     var st = s.slice(1, tasksString.length - 1); //gets rid or leading and ending "
     ob = JSON.parse(st);
+    
+    //Change string dates to date objects
+    for (var i=0; i < ob.length; i++) {
+        var taskDate = new Date(ob[i]['deadline']);
+        ob[i]['deadline'] = taskDate;
+    }
     return(ob);
 }
 
@@ -35,6 +41,42 @@ function closeRightPanel () {
   $('#secondpanel-empty').toggle();
 }
 
+//Function to sort tasks into today, tomorrow, upcoming
+
+function sortTasks (tasks) {
+    var tomorrowDate = new Date();
+    tomorrowDate.setDate(tomorrowDate.getDate()+1);
+    tomorrowDate.setHours(0, 0, 0, 0);
+    var afterTomorrowDate = new Date();
+    afterTomorrowDate.setDate(afterTomorrowDate.getDate()+1);
+    afterTomorrowDate.setHours(0, 0, 0, 0);
+    
+    var sortedTasks = {
+        today: [],
+        tomorrow: [],
+        upcoming: []
+    };
+    
+    for (var i=0; i < tasks.length; i++) {
+        
+        //if ASAP or date is today
+        if (tasks[i]['deadline_type'] == 0 || tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < tomorrowDate) {
+            sortedTasks['today'].push(tasks[i])
+        }
+        
+        //else if deadline type is finite date, and date is tomorrow
+        else if (tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < afterTomorrowDate) {
+            sortedTasks['tomorrow'].push(tasks[i]);
+        }
+        
+        //else if date is after tomorrow or there is no deadline
+        else {
+            sortedTasks['upcoming'].push(tasks[i]);
+        }
+    }
+    return sortedTasks;
+}
+
 
 //Create function to append html elements
     function appendTasks (tasksList, elementSelector) {
@@ -42,9 +84,7 @@ function closeRightPanel () {
         /*
         ELEMENT STRUCTURE
         <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task">
-            <label class="task-checkbox" id="00-checkbox">
-                <input class="uk-checkbox" type="checkbox">
-            </label>
+            <input class="uk-checkbox" type="checkbox">
             <span class="no-bottom-margin task-title" id="00-title">
                 Task title
                 <span class="mandatory">
@@ -55,6 +95,7 @@ function closeRightPanel () {
         */
         
         for (var i=0; i<tasksList.length; i++) {
+            var taskId = tasksList[i]['task_id'];
             
             /*
             START WITH THIS PART
@@ -68,7 +109,7 @@ function closeRightPanel () {
             
             var titleSpan = document.createElement("span");
             titleSpan.setAttribute("class", "no-bottom-margin task-title");
-            titleSpan.setAttribute("id", tasksList[i]['id'] + "-title");
+            titleSpan.setAttribute("id", taskId + "-title");
             
             var titleText = document.createTextNode(tasksList[i]['title']);
             titleSpan.appendChild(titleText);
@@ -81,35 +122,61 @@ function closeRightPanel () {
                 titleSpan.appendChild(mandatorySpan);
             }
             
-            /*THEN GO FROM INSIDE OUT*/
+            /*THEN DO THE REST*/
             
             var checkbox = document.createElement("input");
-            checkbox.setAttribute("class", "uk-checkbox");
+            checkbox.setAttribute("class", "uk-checkbox task-checkbox");
             checkbox.setAttribute("type", "checkbox");
-            
-            var myLabel = document.createElement("label");
-            myLabel.appendChild(checkbox);
-            myLabel.setAttribute("class", "task-checkbox");
-            myLabel.setAttribute("id", tasksList[i]['id'] + "-checkbox");
+            checkbox.setAttribute("id", taskId + "-checkbox");
             
             var taskDiv = document.createElement("div");
             taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
-            taskDiv.setAttribute("id", tasksList[i]['id'] + "-task");
-            taskDiv.appendChild(myLabel);
+            taskDiv.setAttribute("id", taskId + "-task");
+            taskDiv.appendChild(checkbox);
             taskDiv.appendChild(titleSpan);
             
             $(elementSelector).append(taskDiv);
         }
-    }
+    };
 
-$(document).ready(function(){
+function displayTasks (tasks) {
+    //Sort tasks into today, tomorrow, and upcoming
+    var sortedTasks = sortTasks (tasks);
     
-    /*SET USERNAME SPAN*/
-    $('.username').text(username);
+    //Append html elements
     
+    //first hide all headings, they will be shown later if necessary
+    $('.task-category').css('display', 'none');
     
-    /*PROGRESS BAR*/
+    //also remove all content to start fresh
+    $('.tasklist').empty();
     
+    //today section
+    if (sortedTasks['today'].length !== 0) {
+        $('#task-category-today').css('display', 'block');
+        appendTasks(sortedTasks['today'], "#tasks-today");
+    }
+    
+    //tomorrow section
+    if (sortedTasks['tomorrow'].length !== 0) {
+        $('#task-category-tomorrow').css('display', 'block');
+        appendTasks(sortedTasks['tomorrow'], "#tasks-tomorrow");
+    }
+    
+    //upcoming section
+    if (sortedTasks['upcoming'].length !== 0) {
+        $('#task-category-upcoming').css('display', 'block');
+        appendTasks(sortedTasks['upcoming'], "#tasks-upcoming");
+    }
+    
+    //In case there are no tasks
+    if (sortedTasks['today'].length == 0 && sortedTasks['tomorrow'].length == 0 && sortedTasks['upcoming'].length == 0) {
+        $('#task-category-today').css('display', 'block');
+        $('#task-category-today h2').text("Good job! You're all caught up");
+    }
+};
+
+function setProgress () {
     //Display percentage
     progressPercentage = (doneTasks / totalTasks) * 100;
     progressPercentage = Math.round(progressPercentage);
@@ -121,91 +188,66 @@ $(document).ready(function(){
     
     //Set progress bar value
     $('#progress-bar').attr('value', progressPercentage);
+}
+
+$(document).ready(function(){
+    
+    /*SET USERNAME SPAN*/
+    $('.username').text(username);
+    
+    
+    /*PROGRESS BAR*/
+    
+    setProgress();
 
 
     /*DYNAMICALLY ADD HTML ELEMENTS TO SHOW TASKS*/
     
-    //Sort tasks into today, tomorrow, and upcoming, and convert date from str to js date obj
-    
-    var tomorrowDate = new Date();
-    tomorrowDate.setDate(tomorrowDate.getDate()+1);
-    tomorrowDate.setHours(0, 0, 0, 0);
-    var afterTomorrowDate = new Date();
-    afterTomorrowDate.setDate(afterTomorrowDate.getDate()+1);
-    afterTomorrowDate.setHours(0, 0, 0, 0);
-    
-    var tasksToday = [];
-    var tasksTomorrow = [];
-    var tasksUpcoming = [];
-    
-    for (var i=0; i < tasks.length; i++) {
-        var taskDate = new Date(tasks[i]['deadline']);
-        tasks[i]['deadline'] = taskDate;
-        
-        //if ASAP or date is today
-        if (tasks[i]['deadline_type'] == 0 || tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < tomorrowDate) {
-            tasksToday.push(tasks[i])
-        }
-        
-        //else if deadline type is finite date, and date is tomorrow
-        else if (tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < afterTomorrowDate) {
-            tasksTomorrow.push(tasks[i]);
-        }
-        
-        //else if date is after tomorrow or there is no deadline
-        else {
-            tasksUpcoming.push(tasks[i])
-        }
-    }
-    
-    
-    //Append html elements
-    console.log(tasks);
-    console.log(tasksToday);
-    console.log(tasksTomorrow);
-    console.log(tasksUpcoming);
-    
-    //first hide all headings, will be shown later if necessary
-    $('.task-category').css('display', 'none');
-    
-    //today section
-    if (tasksToday.length !== 0) {
-        $('#task-category-today').css('display', 'block');
-        appendTasks(tasksToday, "#task-category-today");
-    }
-    
-    //tomorrow section
-    if (tasksTomorrow.length !== 0) {
-        $('#task-category-tomorrow').css('display', 'block');
-        appendTasks(tasksTomorrow, "#task-category-tomorrow");
-    }
-    
-    //upcoming section
-    if (tasksUpcoming.length !== 0) {
-        $('#task-category-upcoming').css('display', 'block');
-        appendTasks(tasksUpcoming, "#task-category-upcoming");
-    }
-    
-    //In case there are no tasks
-    if (tasksToday.length == 0 && tasksTomorrow.length == 0 && tasksUpcoming.length == 0) {
-        $('#task-category-today').css('display', 'block');
-        $('#task-category-today h2').text("Good job! You're all caught up");
-    }
+    displayTasks(tasks);
 
 
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
 
     $(".task-checkbox").click(function (e) {
-        /*
-        var buttonId = e.target.id;
-        console.log(buttonId);
+    
+        var checkboxId = e.target.id;
+        var taskId = checkboxId.slice(0, checkboxId.length - 9);
+        var taskDivSelector = "#" + taskId + "-task";
         
-        var taskId = buttonId.slice(0, buttonId.length - 2);
-        var itemId = "#" + taskId;
-
-        //Remove from html document
-        $(itemId).remove();
-
+        //Remove task from original tasks array
+        for (i=0; i < tasks.length; i++) {
+            if (tasks[i]['task_id'] == taskId) {
+                tasks.splice(i, 1);
+            }
+        }
+        
+        //update progress bar
+        doneTasks ++;
+        setProgress()
+        
+        //Remove tasks
+        $(taskDivSelector).remove();
+        
+        //Check if anything is empty, and hide it if it is
+        var catToday = document.getElementById("tasks-today");
+        if (!catToday.firstChild) {
+            $('#task-category-today').css('display', 'none');
+        }
+        var catTomorrow = document.getElementById("tasks-tomorrow");
+        if (!catTomorrow.firstChild) {
+            $('#task-category-tomorrow').css('display', 'none');
+        }
+        var catUpcoming = document.getElementById("tasks-upcoming");
+        if (!catUpcoming.firstChild) {
+            $('#task-category-upcoming').css('display', 'none');
+        }
+        
+        //In case there are no tasks
+        if (!catToday.firstChild && !catTomorrow.firstChild && !catUpcoming.firstChild) {
+            $('#task-category-today').css('display', 'block');
+            $('#task-category-today h2').text("Good job! You're all caught up");
+        }
+        
         //tell server to mark it as done on the db as well
         //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
         $.ajax({
@@ -216,9 +258,7 @@ $(document).ready(function(){
             success: function(result) {
 
             }
+        
         });
-        */
     });
-    
-
 });
