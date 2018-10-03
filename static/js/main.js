@@ -10,7 +10,13 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
     $, console
 */
 
-//tasksString, totalTasks, doneTasks, and username variables are already defined in html template
+/*
+    VARIABLED ALREADY DEFINED (IN HTML TEMPLATE)
+        tasksString  // A list of complete tasks, in json format in a string
+        totalTasks  // to total number of tasks as an integer
+        doneTasks  // the number of complete tasks as int
+        username  // the username of the currently logged in user
+*/
 
 //define function to convert data received from flask with '{{ data|tojson }}' into JS array / object
 function objectFromString (s) {
@@ -18,6 +24,9 @@ function objectFromString (s) {
     ob = JSON.parse(st);
     return(ob);
 }
+
+/*Convert tasks string to object*/
+var tasks = objectFromString(tasksString);
 
 function closeRightPanel () {
   $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
@@ -27,11 +36,14 @@ function closeRightPanel () {
 
 $(document).ready(function(){
 
-    console.log(objectFromString(tasksString));
+    /*Temporary shit*/
+    console.log(tasks);
     console.log(totalTasks);
     console.log(doneTasks);
     console.log(username);
 
+    
+    /*Handlebars shit (Julian)*/
     var source = $("#handlebars-test").html();
     var template = Handlebars.compile(source);
 
@@ -45,22 +57,6 @@ $(document).ready(function(){
     // Add the compiled html to the page
     $('#main').html(theCompiledHtml);
 
-    //console.log(tasksString)
-
-    //var tasks = JSON.stringify(tasksString);
-    //console.log(tasks);
-    //console.log(typeof tasks);
-    //console.log(tasks);
-    //tasks = tasks.replace(/&#34;/g, '"');1
-    //tasksObj = JSON.parse(tasks);
-
-    //console.log(tasksObj[0]);
-
-    //tasks = JSON.
-    //tasks.toString();
-    //console.log(tasksString.replace(/&#34;/g, '"'));
-    //tasks = JSON.stringify(tasks);//jsify(tasksString));
-    //console.log("tasks: " + tasks);
 
 
     /*DYNAMICALLY ADD HTML DIVS TO SHOW TASKS*/
