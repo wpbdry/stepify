@@ -43,20 +43,8 @@ $(document).ready(function(){
     console.log(username);
 
     
-    /*Handlebars shit (Julian)*/
-    var source = $("#handlebars-test").html();
-    var template = Handlebars.compile(source);
-
-    var data = {
-        twitter: 'fasdfasdf',
-        jobTitle: 'loser',
-        firstName: 'bye'
-    }
-    var theCompiledHtml = template(data);
-
-    // Add the compiled html to the page
-    $('#main').html(theCompiledHtml);
-
+    /*SET USERNAME SPAN*/
+    $('.username').text(username);
 
 
     /*DYNAMICALLY ADD HTML DIVS TO SHOW TASKS*/
