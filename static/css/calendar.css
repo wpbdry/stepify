@@ -1,0 +1,91 @@
+
+
+.edit-1 { 
+    height: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.1024);
+    border: 1px solid #fafafa;
+    margin-top: 3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 3rem;
+    border-radius: 3.75px;
+    
+}
+
+.edit-2 { 
+height: 0.5rem;
+background-color: #1485FC;
+border: 1px solid #fafafa;
+margin-top: 3rem;
+margin-left: 1rem;
+margin-right: 1rem;
+margin-bottom: 3rem;
+border-radius: 3.75px;
+
+}
+
+.edit-3 { 
+    height: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.1024);
+    border: 1px solid #fafafa;
+    margin-top: 3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 3rem;
+    border-radius: 3.75px;
+    
+    }
+
+
+
+p {
+font-family: 'Montserrat', sans-serif;
+font-size: 14px;
+line-height: 21px;
+text-align: justify;
+text-align-last: center;
+letter-spacing: 0.24px;
+margin-bottom: 1.65rem;
+
+
+
+}   
+
+
+.content-center {
+justify-content: center;
+
+}
+
+.slack-logo {
+text-align: center;
+margin-top: 1rem;
+}
+
+.calendar-logo {
+    text-align: center;
+
+}
+
+#button-adjustments {
+Display: Block;
+Margin-left: Auto;
+Margin-right: Auto;
+background-color: #1485FC;
+border: none;
+color: white;
+padding: 15px 32px;
+text-align: center;
+text-decoration: none;
+font-size: 14px;
+border-radius: 6px;
+font-family: 'Montserrat', sans-serif;
+width: 160px;
+height: 45.5px;
+
+}
+
+a {
+    color: #fafafa;
+}
+
