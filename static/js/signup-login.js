@@ -13,17 +13,20 @@ _/_/    _/_/      _/        _/_/_/    _/_/_/    _/    _/      _/  made it!
 $(document).ready(function(){
     $("#login").css("display", "none");
     $("#pw-error").css("display", "none");
+    $("#signup-username-input").focus();
     
     $("#show-login").click(function(){
         $("#signup").css("display", "none");
         $("#login").css("display", "block");
         document.title = 'Stepify | Log in';
+        $("#login-username-input").focus();
     });
     
     $("#show-signup").click(function(){
         $("#login").css("display", "none");
         $("#signup").css("display", "block");
         document.title = "Stepify | Sign up";
+        $("#signup-username-input").focus();
     });
     
     /*GOTTA STILL ADD CHECKING PASSWORDS BEFORE SUBMIT*/

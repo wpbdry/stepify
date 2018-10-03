@@ -28,69 +28,14 @@ function objectFromString (s) {
 /*Convert tasks string to object*/
 var tasks = objectFromString(tasksString);
 
+//Function to close right panel
 function closeRightPanel () {
   $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
   $('#secondpanel').toggle();
   $('#secondpanel-empty').toggle();
 }
 
-$(document).ready(function(){
-    
-    /*SET USERNAME SPAN*/
-    $('.username').text(username);
-    
-    
-    /*PROGRESS BAR*/
-    
-    //Display percentage
-    progressPercentage = doneTasks / totalTasks;
-    $('.progress-percentage').text(progressPercentage);
-    
-    //Display way to go text
-    $('.tasks-done').text(doneTasks);
-    $('.total-tasks').text(totalTasks);
-    
-    //Set progress bar value
-    $('#progress-bar').attr('value', progressPercentage);
-
-
-    /*DYNAMICALLY ADD HTML DIVS TO SHOW TASKS*/
-    
-    //Sort tasks into today, tomorrow, and upcoming, and convert date from str to js date obj
-    
-    var tomorrowDate = new Date();
-    tomorrowDate.setDate(tomorrowDate.getDate()+1);
-    tomorrowDate.setHours(0, 0, 0, 0);
-    var afterTomorrowDate = new Date();
-    afterTomorrowDate.setDate(afterTomorrowDate.getDate()+1);
-    afterTomorrowDate.setHours(0, 0, 0, 0);
-    
-    var tasksToday = [];
-    var tasksTomorrow = [];
-    var tasksUpcoming = [];
-    
-    for (var i=0; i < tasks.length; i++) {
-        var taskDate = new Date(tasks[i]['deadline']);
-        tasks[i]['deadline'] = taskDate;
-        
-        //if ASAP or date is today
-        if (tasks[i]['deadline_type'] == 0 || tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < tomorrowDate) {
-            tasksToday.push(tasks[i])
-        }
-        
-        //else if deadline type is finite date, and date is tomorrow
-        else if (tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < afterTomorrowDate) {
-            tasksTomorrow.push(tasks[i]);
-        }
-        
-        //else if date is after tomorrow or there is no deadline
-        else {
-            tasksUpcoming.push(tasks[i])
-        }
-    }
-    
-    
-    //Create function to append html elements
+//Create function to append html elements
     function appendTasks (tasksList, elementSelector) {
         
         /*
@@ -154,6 +99,62 @@ $(document).ready(function(){
             $(elementSelector).append(taskDiv);
         }
     }
+
+$(document).ready(function(){
+    
+    /*SET USERNAME SPAN*/
+    $('.username').text(username);
+    
+    
+    /*PROGRESS BAR*/
+    
+    //Display percentage
+    progressPercentage = (doneTasks / totalTasks) * 100;
+    progressPercentage = Math.round(progressPercentage);
+    $('.progress-percentage').text(progressPercentage);
+    
+    //Display way to go text
+    $('.tasks-done').text(doneTasks);
+    $('.total-tasks').text(totalTasks);
+    
+    //Set progress bar value
+    $('#progress-bar').attr('value', progressPercentage);
+
+
+    /*DYNAMICALLY ADD HTML ELEMENTS TO SHOW TASKS*/
+    
+    //Sort tasks into today, tomorrow, and upcoming, and convert date from str to js date obj
+    
+    var tomorrowDate = new Date();
+    tomorrowDate.setDate(tomorrowDate.getDate()+1);
+    tomorrowDate.setHours(0, 0, 0, 0);
+    var afterTomorrowDate = new Date();
+    afterTomorrowDate.setDate(afterTomorrowDate.getDate()+1);
+    afterTomorrowDate.setHours(0, 0, 0, 0);
+    
+    var tasksToday = [];
+    var tasksTomorrow = [];
+    var tasksUpcoming = [];
+    
+    for (var i=0; i < tasks.length; i++) {
+        var taskDate = new Date(tasks[i]['deadline']);
+        tasks[i]['deadline'] = taskDate;
+        
+        //if ASAP or date is today
+        if (tasks[i]['deadline_type'] == 0 || tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < tomorrowDate) {
+            tasksToday.push(tasks[i])
+        }
+        
+        //else if deadline type is finite date, and date is tomorrow
+        else if (tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < afterTomorrowDate) {
+            tasksTomorrow.push(tasks[i]);
+        }
+        
+        //else if date is after tomorrow or there is no deadline
+        else {
+            tasksUpcoming.push(tasks[i])
+        }
+    }
     
     
     //Append html elements
@@ -177,6 +178,12 @@ $(document).ready(function(){
     if (tasksUpcoming.length !== 0) {
         $('#task-category-upcoming').css('display', 'block');
         appendTasks(tasksUpcoming, "#task-category-upcoming");
+    }
+    
+    //In case there are no tasks
+    if (tasksToday.length == 0 && tasksTomorrow.length == 0 && tasksUpcoming.length == 0) {
+        $('#task-category-today').css('display', 'block');
+        $('#task-category-today h2').text("Good job! You're all caught up");
     }
 
 
@@ -204,10 +211,5 @@ $(document).ready(function(){
         });
 
     });
-
-    /*UPDATE LOGOUT USERNAME SPAN*/
-    //var username = pyUsername
-
-    $("#logged-in-username").text(username);
 
 });
