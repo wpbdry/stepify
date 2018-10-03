@@ -45,6 +45,20 @@ $(document).ready(function(){
     
     /*SET USERNAME SPAN*/
     $('.username').text(username);
+    
+    
+    /*PROGRESS BAR*/
+    
+    //Display percentage
+    progressPercentage = doneTasks / totalTasks;
+    $('.progress-percentage').text(progressPercentage);
+    
+    //Display way to go text
+    $('.tasks-done').text(doneTasks);
+    $('.total-tasks').text(totalTasks);
+    
+    //Set progress bar value
+    $('#progress-bar').attr('value', progressPercentage);
 
 
     /*DYNAMICALLY ADD HTML DIVS TO SHOW TASKS*/
