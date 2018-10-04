@@ -41,6 +41,31 @@ function closeRightPanel () {
   $('#secondpanel-empty').toggle();
 }
 
+//Open right panel
+function openRightPanel () {
+    $("#firstpanel").addClass("firstpanel-shadow");
+    $("#secondpanel").css("display", "");
+    $("#secondpanel-empty").css("display", "none");
+}
+
+//Show next task
+var currentlyDisplayedTaskId;
+function showNextTask() {
+    //Stop page from reloading if it's on the last task already
+    if (currentlyDisplayedTaskId == tasks[tasks.length - 1]['task_id']) {
+        return false;
+    }
+    
+    //Otherwise show next task. Page doesn't reload anyway
+    for (var i=0; i<tasks.length; i++) {
+        if (tasks[i]['task_id'] == currentlyDisplayedTaskId) {
+            var nextTaskId = tasks[i + 1]['task_id'];
+            displayTaskRight(nextTaskId);
+            break;
+        }
+    }
+}
+
 //Function to sort tasks into today, tomorrow, upcoming
 
 function sortTasks (tasks) {
@@ -221,9 +246,12 @@ function dateToString (d) {
 /*FUNCTION TO DISPLAY CORRECT TASK IN RIGHT PANEL*/
 
 function displayTaskRight (taskId) {
+    // update currently displayed task global var
+    currentlyDisplayedTaskId = taskId;
+    console.log(currentlyDisplayedTaskId);
     
     //extract selected task from tasks array
-    var t = '';
+    var t;
     for (var i=0; i < tasks.length; i++) {
         if (tasks[i]['task_id'] == taskId) {
             t = tasks[i];
@@ -314,9 +342,15 @@ function displayTaskRight (taskId) {
     //Description
     $(".task-description").html(t['details']);
     
+    //Make sure the right panel is not hidden
+    openRightPanel();
+    
 }
 
 $(document).ready(function(){
+    
+    /*HIDE RIGHT PANEL*/
+    closeRightPanel();
     
     /*SET USERNAME SPAN*/
     $('.username').text(username);
