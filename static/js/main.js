@@ -190,6 +190,72 @@ function setProgress () {
     $('#progress-bar').attr('value', progressPercentage);
 }
 
+/*FUNCTION TO DISPLAY CORRECT TASK IN RIGHT PANEL*/
+
+function displayTaskRight (taskId) {
+    
+    //extract selected task from tasks array
+    var t = '';
+    for (var i=0; i < tasks.length; i++) {
+        if (tasks[i]['task_id'] == taskId) {
+            t = tasks[i];
+        }
+    }
+    
+    //update top icon
+    
+    $('.task-type-icon').css('display', 'none');
+    
+    //HTML: <img src="../static/img/platform-icons/personal-logo.svg" alt="go-there-yourself" style="width:3rem;height:3rem;">
+    
+    if (t['wiki']) {
+        $('#wiki-icon').css('display', 'inline-block');
+    }
+    
+    if (t['slack']) {
+        $('#slack-icon').css('display', 'inline-block');
+    }
+    
+    if (t['calendar']) {
+        $('#calendar-icon').css('display', 'inline-block');
+    }
+    
+    if (t['other']) {
+        $('#other-icon').css('display', 'inline-block');
+    }
+    
+    //update title text
+    $('#right-task-title').text(t['title']);
+    
+    //update mandatory
+    if (t['mandatory']) {
+        $('.required-text').text("(required)");
+    }
+    else {
+        $('.required-text').text('(optional)');
+    }
+    
+    //update time
+    $('.time-icon').css('display', 'inline-block');
+    
+    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
+    var taskTime;
+    var d = t['deadline']
+    var dt = t['deadline_type'];
+    if (dt == 0) {
+        taskTime = 'ASAP';
+    }
+    if (dt == 1) {
+        taskTime = days[d.getDay()] + ' ' + d.getDate() + '.' + (d.getMonth()+1) + ' ' + d.getHours() + ':' + d.getMinutes();
+        console.log(taskTime);
+    }
+    if (dt == 2) {
+        $('.time-icon').css('display', 'none');
+    }
+    $('.time-icon-text').text(taskTime);
+}
+
 $(document).ready(function(){
     
     /*SET USERNAME SPAN*/
@@ -260,5 +326,16 @@ $(document).ready(function(){
             }
         
         });
+        
     });
+});
+
+//display correct task on right panel
+$(document).ready(function(){
+    
+        $(".task-title").click(function (e) {
+            var titleId = e.target.id;
+            var taskId = titleId.slice(0, titleId.length - 6);
+            displayTaskRight(taskId);
+        });
 });
