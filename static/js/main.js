@@ -41,6 +41,31 @@ function toggleRightPanel () {
   $('#secondpanel-empty').toggle();
 }
 
+//Open right panel
+function openRightPanel () {
+    $("#firstpanel").addClass("firstpanel-shadow");
+    $("#secondpanel").css("display", "");
+    $("#secondpanel-empty").css("display", "none");
+}
+
+//Show next task
+var currentlyDisplayedTaskId;
+function showNextTask() {
+    //Stop page from reloading if it's on the last task already
+    if (currentlyDisplayedTaskId == tasks[tasks.length - 1]['task_id']) {
+        return false;
+    }
+
+    //Otherwise show next task. Page doesn't reload anyway
+    for (var i=0; i<tasks.length; i++) {
+        if (tasks[i]['task_id'] == currentlyDisplayedTaskId) {
+            var nextTaskId = tasks[i + 1]['task_id'];
+            displayTaskRight(nextTaskId);
+            break;
+        }
+    }
+}
+
 //Function to sort tasks into today, tomorrow, upcoming
 
 function sortTasks (tasks) {
@@ -83,9 +108,9 @@ function sortTasks (tasks) {
 
         /*
         ELEMENT STRUCTURE
-        <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task">
-            <input class="uk-checkbox" type="checkbox">
-            <span class="no-bottom-margin task-title" id="00-title">
+        <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task" data-taskid="00">
+            <input class="uk-checkbox task-checkbox" type="checkbox" data-taskid="00">
+            <span class="no-bottom-margin task-title" data-taskid="00">
                 Task title
                 <span class="mandatory">
                     *
@@ -99,7 +124,7 @@ function sortTasks (tasks) {
 
             /*
             START WITH THIS PART
-            <span class="uk-margin-auto-left no-bottom-margin task-title" id="00-title">
+            <span class="uk-margin-auto-left no-bottom-margin task-title" data-taskid="00">
                     Task title
                     <span class="mandatory">
                         *
@@ -109,7 +134,7 @@ function sortTasks (tasks) {
 
             var titleSpan = document.createElement("span");
             titleSpan.setAttribute("class", "no-bottom-margin task-title");
-            titleSpan.setAttribute("id", taskId + "-title");
+            titleSpan.setAttribute("data-taskid", taskId);
 
             var titleText = document.createTextNode(tasksList[i]['title']);
             titleSpan.appendChild(titleText);
@@ -127,12 +152,13 @@ function sortTasks (tasks) {
             var checkbox = document.createElement("input");
             checkbox.setAttribute("class", "uk-checkbox task-checkbox");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.setAttribute("id", taskId + "-checkbox");
+            checkbox.setAttribute("data-taskid", taskId);
 
             var taskDiv = document.createElement("div");
             taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
             taskDiv.setAttribute("onclick", "toggleRightPanel()");
             taskDiv.setAttribute("id", taskId + "-task");
+            taskDiv.setAttribute("data-taskid", taskId);
             taskDiv.appendChild(checkbox);
             taskDiv.appendChild(titleSpan);
 
@@ -191,7 +217,141 @@ function setProgress () {
     $('#progress-bar').attr('value', progressPercentage);
 }
 
+function dateToString (d) {
+    var weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    var day = d.getDay();
+    day = weekDays[day];
+    var date = d.getDate();
+    if (date < 10) {
+        date = "0" + date;
+    }
+    var month = d.getMonth() + 1;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var year = d.getFullYear();
+    var hour = d.getHours();
+    if (hour < 10) {
+        hour = "0" + hour;
+    }
+    var minute = d.getMinutes();
+    if (minute < 10) {
+        minute = "0" + minute;
+    }
+
+    var r = day + " " + date + "." + month + " " + hour + ":" + minute;
+    return r;
+}
+
+/*FUNCTION TO DISPLAY CORRECT TASK IN RIGHT PANEL*/
+
+function displayTaskRight (taskId) {
+    // update currently displayed task global var
+    currentlyDisplayedTaskId = taskId;
+    console.log(currentlyDisplayedTaskId);
+
+    //extract selected task from tasks array
+    var t;
+    for (var i=0; i < tasks.length; i++) {
+        if (tasks[i]['task_id'] == taskId) {
+            t = tasks[i];
+        }
+    }
+
+    //update top icon
+
+    $('.task-type-icon').css('display', 'none');
+
+    var topIcons = [
+        [t['wiki'], '#wiki-icon'],
+        [t['slack'], '#slack-icon'],
+        [t['calendar'], '#calendar-icon'],
+        [t['other'], '#other-icon']
+    ];
+
+    for (var i=0; i<topIcons.length; i++) {
+        if (topIcons[i][0]) {
+            $(topIcons[i][1]).css('display', 'inline-block');
+        }
+    }
+
+    //update title text
+    $('#right-task-title').text(t['title']);
+
+    //update mandatory
+    if (t['mandatory']) {
+        $('#mandatory-task').text("(required)");
+    }
+    else {
+        $('#mandatory-task').text('(optional)');
+    }
+
+    //update time
+    $('.time-icon').css('display', 'inline-block');
+
+    var taskTime;
+    var d = t['deadline']
+    var dt = t['deadline_type'];
+    if (dt == 0) {
+        taskTime = 'ASAP';
+    }
+    if (dt == 1) {
+        taskTime = dateToString(d);
+    }
+    if (dt == 2) {
+        $('.time-icon').css('display', 'none');
+    }
+    $('.time-icon-text').text(taskTime);
+
+    //update location
+    $(".location-icon-text").text(t['location_text']);
+    $(".location-icon-link").attr("href", t['location_url']);
+
+    //set taskid attribute on completed checkbox
+    $("#right-panel-checkbox").attr("data-taskid", t['task_id']);
+
+    //Display correct icons
+    $('.weirdLeafIcon').css('display', 'none');
+    $('.task-property-icon').css('display', 'none');
+
+    var propertyIcons = [
+        [t['outdoor'], '#outside-icon'],
+        [t['formal'], '#formal-icon'],
+        [t['swimming'], '#swim-icon'],
+        [t['pets'], '#pets-icon'],
+        [t['tech'], '#techie-icon']
+    ];
+
+    for (var i=0; i<propertyIcons.length; i++) {
+        if (propertyIcons[i][0]) {
+            $(propertyIcons[i][1]).css('display', 'inline-block');
+            $(".weirdLeafIcon").css("display", "inline-block");
+        }
+    }
+
+    if (t['food'] == 1) {
+        $("#veg-icon").css('display', 'inline-block');
+        $(".weirdLeafIcon").css("display", "inline-block");
+    }
+
+    if (t['food'] == 2) {
+        $("#vegan-icon").css('display', 'inline-block');
+        $(".weirdLeafIcon").css("display", "inline-block");
+    }
+
+    //Description
+    $(".task-description").html(t['details']);
+
+    //Make sure the right panel is not hidden
+    openRightPanel();
+
+}
+
 $(document).ready(function(){
+
+    /*HIDE RIGHT PANEL*/
+    closeRightPanel();
 
     /*SET USERNAME SPAN*/
     $('.username').text(username);
@@ -206,13 +366,11 @@ $(document).ready(function(){
 
     displayTasks(tasks);
 
-
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
 
     $(".task-checkbox").click(function (e) {
 
-        var checkboxId = e.target.id;
-        var taskId = checkboxId.slice(0, checkboxId.length - 9);
+        var taskId = e.target.dataset.taskid;
         var taskDivSelector = "#" + taskId + "-task";
 
         //Remove task from original tasks array
@@ -261,5 +419,15 @@ $(document).ready(function(){
             }
 
         });
+
     });
+});
+
+//display correct task on right panel
+$(document).ready(function(){
+
+        $(".task-title").click(function (e) {
+            var taskId = e.target.dataset.taskid;
+            displayTaskRight(taskId);
+        });
 });

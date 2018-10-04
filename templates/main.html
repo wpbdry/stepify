@@ -120,26 +120,56 @@
       <a href="" title="Close" onclick="toggleRightPanel();return false;" class="uk-card-badge" uk-icon="icon: close"></a>
       <div class="grid-y">
         <div class="medium-4 cell">
-          <div class="icon_stan"><img src="../static/img/platform-icons/personal-logo.svg" alt="go-there-yourself" style="width:3rem;height:3rem;"></div>
+          <div class="icon_stan">
+              <img class="task-type-icon" id="slack-icon" src="{{ url_for('static', filename='img/platform-icons/Slack.svg') }}" alt="Slack task" title="This is a Slack task" style="width:3rem;height:3rem;">
+              <img class="task-type-icon" id="calendar-icon" src="{{ url_for('static', filename='img/platform-icons/Calendar.svg') }}" alt="Google calendar task" title="This is a Google calendar task" style="width:3rem;height:3rem;">
+              <img class="task-type-icon" id="wiki-icon" src="{{ url_for('static', filename='img/platform-icons/Wiki.svg') }}" alt="Code wiki task" title="This is a task on the CODE Wiki" style="width:3rem;height:3rem;">
+              <img class="task-type-icon" id="other-icon" src="{{ url_for('static', filename='img/platform-icons/personal-logo.svg') }}" alt="go-there-yourself" title="This is a task that involves meeting people" style="width:3rem;height:3rem;">
+          </div>
 
-          <h1 class="no-top-margin">Meet to go to secret place trip <span><h6 class="required-text">(required)</h6></span></h1>
+          <h1 id='right-task-title' class="no-top-margin">Meet to go to secret place trip</h1>
+          <span >
+            <h6 id="mandatory-task" class="required-text">(required)</h6>
+          </span>
 
-          <div class="icon_weather"><img src="../static/img/weather-icons/sun.svg" alt="">Sunny! 24°</div>
-        </div>
+
+            <div class="icon_weather time-icon">
+                <img src="{{ url_for('static', filename='img/weather-icons/time.svg') }}" alt="">
+                <span class="time-icon-text">
+                    Time
+                </span>
+            </div>
+            <a href="" class="icon_weather location-icon-link" target="_blank">
+                <img src="{{ url_for('static', filename='img/weather-icons/location.svg') }}" alt="">
+                <span class="location-icon-text">
+                    Location
+                </span>
+            </a>
+          </div>
         <div class="medium-8 cell" id="descriptionDiv">
           <div class="grid-x">
             <div class="medium-6 cell less-height">
               <h2>Description:</h2>
             </div>
             <div class="uk-margin-top uk-margin uk-grid-small uk-child-width-auto uk-grid">
-              completed <input class="uk-checkbox uk-margin-left" type="checkbox" checked>
+              completed <input class="uk-checkbox uk-margin-left task-checkbox" id="right-panel-checkbox" type="checkbox">
             </div>
           </div>
           <div class="grid-x">
-            <div class="weirdLeafIcon"><img src="../static/img/property-icons/outside-meeting.svg" alt=""><img src="../static/img/property-icons/pet-friendly.svg" alt=""><img src="../static/img/property-icons/vegan.svg" alt=""></div>
+            <div class="weirdLeafIcon">
+                <img id="outside-icon" class="task-property-icon" src="{{ url_for('static', filename='img/property-icons/outside-meeting.svg') }}" alt="Outdoor event" title="Outdoors">
+                <img id="formal-icon" class="task-property-icon" src="{{ url_for('static', filename='img/property-icons/dress-up.svg') }}" alt="Dress-up" title="Formal">
+                <img id="swim-icon" class="task-property-icon" src="{{ url_for('static', filename='img/property-icons/swim-suit.svg') }}" alt="Swimming" title="Swimming facilities available">
+                <img id="pets-icon" class="task-property-icon" src="{{ url_for('static', filename='img/property-icons/pet-friendly.svg') }}" alt="Pets" title="Pet friendly">
+                <img id="techie-icon" class="task-property-icon" src="{{ url_for('static', filename='img/property-icons/techie.svg') }}" alt="Tech" title="Tech">
+                <img id="veg-icon" class="task-property-icon" src="{{ url_for('static', filename='img/property-icons/vegetarian.svg') }}" alt="Veg" title="Vegetarian">
+                <img id="vegan-icon" class="task-property-icon" src="{{ url_for('static', filename='img/property-icons/vegan.svg') }}" alt="Vegan" title="Vegan">
+            </div>
           </div>
-          <p> We will all meet just outside of the Factory main entrance. Nextgen CODE t-shirts and wristbands will be handed out. We will board 3 buses that will take us to a secret destination were we will spend the next couple of days. We will be back by Thursday at 6pm.</p>
-          <a href="#" class="button">Explore next task <span uk-icon="icon: chevron-right"></span></a>
+          <p class="task-description">
+              We will all meet just outside of the Factory main entrance. Nextgen CODE t-shirts and wristbands will be handed out. We will board 3 buses that will take us to a secret destination were we will spend the next couple of days. We will be back by Thursday at 6pm.
+          </p>
+          <a href="" onclick="showNextTask()" class="button">Explore next task <span uk-icon="icon: chevron-right"></span></a>
         </div>
       </div>
     </div>

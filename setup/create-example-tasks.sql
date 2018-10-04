@@ -12,7 +12,7 @@ VALUES (
     TIMESTAMP '2018-05-16 00:00:00',    -- Replace between quotes with actual date and time (YYYY-MM-DD hh:mm:ss).
                                         -- Delete entire line above and type NULL (without quotes) if it's 0 or 1 above
     'name of location',                 -- or name of website, if "location" is online
-    'url of location',                  -- Either google maps url, or url to website
+    'url of location',                  -- Either google maps url, or url to website. Please include "https://" in URL
 
     /* Do not use quotes in the following lines */
     FALSE,  -- TRUE if this is a wiki activity, else FALSE
