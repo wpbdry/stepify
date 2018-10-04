@@ -1,3 +1,7 @@
 .task-title:hover {
     cursor: pointer;
 }
+
+#show-next-task:hover {
+    cursor: pointer;
+}
