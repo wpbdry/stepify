@@ -104,8 +104,8 @@
     </div>
     <div class="medium-5 cell show-for-large" id="secondpanel">
       <a href="" title="Close" onclick="closeRightPanel();return false;" class="uk-card-badge" uk-icon="icon: close"></a>
-      <span class="grid-y">
-        <span class="medium-4 cell">
+      <div class="grid-y">
+        <div class="medium-4 cell">
           <div class="icon_stan">
               <img class="task-type-icon" id="slack-icon" src="{{ url_for('static', filename='img/platform-icons/Slack.svg') }}" alt="Slack task" style="width:3rem;height:3rem;">
               <img class="task-type-icon" id="calendar-icon" src="{{ url_for('static', filename='img/platform-icons/Calendar.svg') }}" alt="Google calendar task" style="width:3rem;height:3rem;">
@@ -114,28 +114,31 @@
           </div>
 
           <h1 id='right-task-title' class="no-top-margin">Meet to go to secret place trip</h1>
-              <span >
-                  <h6 class="required-text">(required)</h6></span>
+          <span >
+            <h6 id="mandatory-task" class="required-text">(required)</h6>
+          </span>
 
-            <span class="icon_weather time-icon">
+
+            <div class="icon_weather time-icon">
                 <img src="{{ url_for('static', filename='img/weather-icons/time.svg') }}" alt="">
-                <span class="time-icon-text>">
+                <span class="time-icon-text">
                     Time
                 </span>
-            </span>
-            <a href="" class="icon_weather">
+            </div>
+            <a href="" class="icon_weather location-icon-link" target="_blank">
                 <img src="{{ url_for('static', filename='img/weather-icons/location.svg') }}" alt="">
                 <span class="location-icon-text">
                     Location
                 </span>
             </a>
+          </div>
         <div class="medium-8 cell" id="descriptionDiv">
           <div class="grid-x">
             <div class="medium-6 cell less-height">
               <h2>Description:</h2>
             </div>
             <div class="uk-margin-top uk-margin uk-grid-small uk-child-width-auto uk-grid">
-              completed <input class="uk-checkbox uk-margin-left" type="checkbox" checked>
+              completed <input class="uk-checkbox uk-margin-left" type="checkbox">
             </div>
           </div>
           <div class="grid-x">
@@ -144,7 +147,6 @@
           <p> We will all meet just outside of the Factory main entrance. Nextgen CODE t-shirts and wristbands will be handed out. We will board 3 buses that will take us to a secret destination were we will spend the next couple of days. We will be back by Thursday at 6pm.</p>
           <a href="#" class="button">Explore next task <span uk-icon="icon: chevron-right"></span></a>
         </div>
-        </span>
       </div>
     </div>
 

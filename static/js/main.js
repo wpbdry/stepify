@@ -190,6 +190,33 @@ function setProgress () {
     $('#progress-bar').attr('value', progressPercentage);
 }
 
+function dateToString (d) {
+    var weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
+    var day = d.getDay();
+    day = weekDays[day];
+    var date = d.getDate();
+    if (date < 10) {
+        date = "0" + date;
+    }
+    var month = d.getMonth() + 1;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    var year = d.getFullYear();
+    var hour = d.getHours();
+    if (hour < 10) {
+        hour = "0" + hour;
+    }
+    var minute = d.getMinutes();
+    if (minute < 10) {
+        minute = "0" + minute;
+    }
+    
+    var r = day + " " + date + "." + month + " " + hour + ":" + minute;
+    return r;
+}
+
 /*FUNCTION TO DISPLAY CORRECT TASK IN RIGHT PANEL*/
 
 function displayTaskRight (taskId) {
@@ -229,16 +256,14 @@ function displayTaskRight (taskId) {
     
     //update mandatory
     if (t['mandatory']) {
-        $('.required-text').text("(required)");
+        $('#mandatory-task').text("(required)");
     }
     else {
-        $('.required-text').text('(optional)');
+        $('#mandatory-task').text('(optional)');
     }
     
     //update time
     $('.time-icon').css('display', 'inline-block');
-    
-    var days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     
     var taskTime;
     var d = t['deadline']
@@ -247,13 +272,16 @@ function displayTaskRight (taskId) {
         taskTime = 'ASAP';
     }
     if (dt == 1) {
-        taskTime = days[d.getDay()] + ' ' + d.getDate() + '.' + (d.getMonth()+1) + ' ' + d.getHours() + ':' + d.getMinutes();
-        console.log(taskTime);
+        taskTime = dateToString(d);
     }
     if (dt == 2) {
         $('.time-icon').css('display', 'none');
     }
     $('.time-icon-text').text(taskTime);
+    
+    //update location
+    $(".location-icon-text").text(t['location_text']);
+    $(".location-icon-link").attr("href", t['location_url']);
 }
 
 $(document).ready(function(){
