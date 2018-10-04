@@ -35,7 +35,7 @@ function objectFromString (s) {
 var tasks = objectFromString(tasksString);
 
 //Function to close right panel
-function toggleRightPanel () {
+function closeRightPanel () {
   $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
   $('#secondpanel').toggle();
   $('#secondpanel-empty').toggle();
