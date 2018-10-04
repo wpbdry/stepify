@@ -34,7 +34,7 @@ function objectFromString (s) {
 /*Convert tasks string to object*/
 var tasks = objectFromString(tasksString);
 
-//Function to close right panel
+//Function to toggle right panel
 function closeRightPanel () {
   $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
   $('#secondpanel').toggle();
@@ -83,9 +83,9 @@ function sortTasks (tasks) {
         
         /*
         ELEMENT STRUCTURE
-        <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task">
-            <input class="uk-checkbox" type="checkbox">
-            <span class="no-bottom-margin task-title" id="00-title">
+        <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task" data-taskid="00">
+            <input class="uk-checkbox task-checkbox" type="checkbox" data-taskid="00">
+            <span class="no-bottom-margin task-title" data-taskid="00">
                 Task title
                 <span class="mandatory">
                     *
@@ -99,7 +99,7 @@ function sortTasks (tasks) {
             
             /*
             START WITH THIS PART
-            <span class="uk-margin-auto-left no-bottom-margin task-title" id="00-title">
+            <span class="uk-margin-auto-left no-bottom-margin task-title" data-taskid="00">
                     Task title
                     <span class="mandatory">
                         *
@@ -109,7 +109,7 @@ function sortTasks (tasks) {
             
             var titleSpan = document.createElement("span");
             titleSpan.setAttribute("class", "no-bottom-margin task-title");
-            titleSpan.setAttribute("id", taskId + "-title");
+            titleSpan.setAttribute("data-taskid", taskId);
             
             var titleText = document.createTextNode(tasksList[i]['title']);
             titleSpan.appendChild(titleText);
@@ -127,11 +127,12 @@ function sortTasks (tasks) {
             var checkbox = document.createElement("input");
             checkbox.setAttribute("class", "uk-checkbox task-checkbox");
             checkbox.setAttribute("type", "checkbox");
-            checkbox.setAttribute("id", taskId + "-checkbox");
+            checkbox.setAttribute("data-taskid", taskId);
             
             var taskDiv = document.createElement("div");
             taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
             taskDiv.setAttribute("id", taskId + "-task");
+            taskDiv.setAttribute("data-taskid", taskId);
             taskDiv.appendChild(checkbox);
             taskDiv.appendChild(titleSpan);
             
@@ -233,22 +234,17 @@ function displayTaskRight (taskId) {
     
     $('.task-type-icon').css('display', 'none');
     
-    //HTML: <img src="../static/img/platform-icons/personal-logo.svg" alt="go-there-yourself" style="width:3rem;height:3rem;">
+    var topIcons = [
+        [t['wiki'], '#wiki-icon'],
+        [t['slack'], '#slack-icon'],
+        [t['calendar'], '#calendar-icon'],
+        [t['other'], '#other-icon']
+    ];
     
-    if (t['wiki']) {
-        $('#wiki-icon').css('display', 'inline-block');
-    }
-    
-    if (t['slack']) {
-        $('#slack-icon').css('display', 'inline-block');
-    }
-    
-    if (t['calendar']) {
-        $('#calendar-icon').css('display', 'inline-block');
-    }
-    
-    if (t['other']) {
-        $('#other-icon').css('display', 'inline-block');
+    for (var i=0; i<topIcons.length; i++) {
+        if (topIcons[i][0]) {
+            $(topIcons[i][1]).css('display', 'inline-block');
+        }
     }
     
     //update title text
@@ -282,6 +278,42 @@ function displayTaskRight (taskId) {
     //update location
     $(".location-icon-text").text(t['location_text']);
     $(".location-icon-link").attr("href", t['location_url']);
+    
+    //set taskid attribute on completed checkbox
+    $("#right-panel-checkbox").attr("data-taskid", t['task_id']);
+    
+    //Display correct icons
+    $('.weirdLeafIcon').css('display', 'none');
+    $('.task-property-icon').css('display', 'none');
+    
+    var propertyIcons = [
+        [t['outdoor'], '#outside-icon'],
+        [t['formal'], '#formal-icon'],
+        [t['swimming'], '#swim-icon'],
+        [t['pets'], '#pets-icon'],
+        [t['tech'], '#techie-icon']
+    ];
+    
+    for (var i=0; i<propertyIcons.length; i++) {
+        if (propertyIcons[i][0]) {
+            $(propertyIcons[i][1]).css('display', 'inline-block');
+            $(".weirdLeafIcon").css("display", "inline-block");
+        }
+    }
+    
+    if (t['food'] == 1) {
+        $("#veg-icon").css('display', 'inline-block');
+        $(".weirdLeafIcon").css("display", "inline-block");
+    }
+    
+    if (t['food'] == 2) {
+        $("#vegan-icon").css('display', 'inline-block');
+        $(".weirdLeafIcon").css("display", "inline-block");
+    }
+    
+    //Description
+    $(".task-description").html(t['details']);
+    
 }
 
 $(document).ready(function(){
@@ -299,13 +331,11 @@ $(document).ready(function(){
     
     displayTasks(tasks);
 
-
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
 
     $(".task-checkbox").click(function (e) {
     
-        var checkboxId = e.target.id;
-        var taskId = checkboxId.slice(0, checkboxId.length - 9);
+        var taskId = e.target.dataset.taskid;
         var taskDivSelector = "#" + taskId + "-task";
         
         //Remove task from original tasks array
@@ -362,8 +392,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     
         $(".task-title").click(function (e) {
-            var titleId = e.target.id;
-            var taskId = titleId.slice(0, titleId.length - 6);
+            var taskId = e.target.dataset.taskid;
             displayTaskRight(taskId);
         });
 });
