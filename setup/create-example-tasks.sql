@@ -8,7 +8,7 @@ VALUES (
     'task description',                 -- Replace text between quotes with task description. Use <br> for line break and use it twice to start a new paragraph
     -- Other HTML markup is also possible, but single quotes must be properly escaped for postgresql
 
-    2,                                  -- 0 if ASAP, 1 if deadline is finite time, 2 if there is no deadline.
+    1,                                  -- 0 if ASAP, 1 if deadline is finite time, 2 if there is no deadline.
     TIMESTAMP '2018-05-16 00:00:00',    -- Replace between quotes with actual date and time (YYYY-MM-DD hh:mm:ss).
                                         -- Delete entire line above and type NULL (without quotes) if it's 0 or 1 above
     'name of location',                 -- or name of website, if "location" is online

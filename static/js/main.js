@@ -73,7 +73,7 @@ function sortTasks (tasks) {
     tomorrowDate.setDate(tomorrowDate.getDate()+1);
     tomorrowDate.setHours(0, 0, 0, 0);
     var afterTomorrowDate = new Date();
-    afterTomorrowDate.setDate(afterTomorrowDate.getDate()+1);
+    afterTomorrowDate.setDate(afterTomorrowDate.getDate()+2);
     afterTomorrowDate.setHours(0, 0, 0, 0);
 
     var sortedTasks = {
