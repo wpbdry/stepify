@@ -249,7 +249,6 @@ function dateToString (d) {
 function displayTaskRight (taskId) {
     // update currently displayed task global var
     currentlyDisplayedTaskId = taskId;
-    console.log(currentlyDisplayedTaskId);
 
     //extract selected task from tasks array
     var t;
@@ -378,6 +377,11 @@ $(document).ready(function(){
             if (tasks[i]['task_id'] == taskId) {
                 tasks.splice(i, 1);
             }
+        }
+
+        //hide right panel if it was that task being displayed
+        if (taskId == currentlyDisplayedTaskId) {
+            closeRightPanel();
         }
 
         //update progress bar
