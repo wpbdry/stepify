@@ -80,7 +80,7 @@ h5 {
   background-color: #e3f2fd;
   margin: 2rem;
   padding: 2rem;
-  border-radius: 7px;
+  border-radius: 12px;
 }
 
 .progressDiv h2 {
@@ -106,8 +106,8 @@ body {
 }
 
 
-#firstpanel {
-  padding: 4rem;
+#firstpanel > div > div {
+    padding: 4rem;
 }
 
 #firstpanel h1 {

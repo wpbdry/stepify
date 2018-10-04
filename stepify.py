@@ -177,7 +177,7 @@ def sp():
     if request.method == 'POST':
         p = request.form['study-program']
         set_user_sp_and_tasks(p)
-        return redirect("/welcome")
+        return redirect("/slack")
 
     # the code below is executed if the request method was GET
     return render_template('studyprograms.html', error=error)

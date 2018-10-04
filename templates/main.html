@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/help.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/will-did-some-stuff-that-he-probably-shouldnt-have.css') }}">
     <script>
       $(document).foundation();
     </script>
@@ -46,22 +47,41 @@
         </div>
         <div class="medium-2 cell">
           <div class="uk-margin-bottom uk-margin-left" style="position: absolute;bottom: 0;">
-            <a href="/logout" class="center" uk-icon="icon: sign-out; ratio: 4" style="width: 30px"></a>
+            <a href="/logout" title="Logout" class="center" uk-icon="icon: sign-out; ratio: 4" style="width: 30px"></a>
           </div>
         </div>
       </div>
     </div>
-    <div class="auto cell firstpanel-shadow" id="firstpanel">
-      <h1>Welcome, Felix Koepp</h1>
-      <p id="date" class="uk-text-meta">Tuesday, 18.09.2018</p>
-      <div class="progressDiv uk-card">
-        <div class="uk-card-badge" id="percentage">75 %</div>
+    <div class="auto cell firstpanel-shadow uk-padding-remove-right" id="firstpanel">
+      <div class="grid-x">
+      <div class="auto cell">
+        <h1>Welcome,
+          <span class="username">
+              Felix Koepp
+          </span>
+        </h1>
+      <div class="progressDiv uk-card uk-margin-remove-left">
+        <div class="uk-card-badge" id="percentage">
+            <span class="progress-percentage">
+                0
+            </span>
+            %
+          </div>
         <br class="show-for-small-only">
-        <h2 class="uk-margin-medium">your progress</h2>
-        <p class="uk-margin-remove uk-text-meta">Three quarters done! Way to go!</p>
-        <progress class="uk-progress" value="70" max="100"></progress>
+        <h2 class="uk-margin-medium">Your progress</h2>
+        <p class="uk-margin-remove uk-text-meta">
+            <span class="tasks-done">
+                0
+            </span>
+            out of
+            <span class="total-tasks">
+                10
+            </span>
+            tasks done! Way to go!</p>
+        <progress id="progress-bar" class="uk-progress" value="0" max="100"></progress>
       </div>
-      <div class="">
+      <div class="uk-card">
+        <span class="uk-card-badge uk-text-muted uk-margin-small-top">(*=required)</span>
         <h1 class="no-bottom-margin">Upcoming Tasks:</h1>
         <h2 class="uk-margin-medium">Today</h2>
         <div class="uk-padding-small uk-padding-remove-top uk-padding-remove-top tasklist">
@@ -69,23 +89,7 @@
             <label><input class="uk-checkbox" type="checkbox" checked> <span id="first-task" class="uk-margin-auto-left">Signup to stepify</span></label>
           </div>
           <div class="uk-margin-auto-left uk-grid-small uk-child-width-auto uk-grid">
-            <input class="uk-checkbox" type="checkbox" checked> <span class="no-bottom-margin" style="cursor: pointer;" onclick="closeRightPanel()">Meet to go to secret place.*</span>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div id="required-1"><h6 class="required-text">(*=required)</h6></div>
-        </div>
-        <h2 class="uk-margin-medium">Tomorrow</h2>
-        <div class="uk-padding-small uk-padding-remove-top tasklist">
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
+            <input class="uk-checkbox" type="checkbox" checked> <span class="no-bottom-margin" style="cursor: pointer;" onclick="toggleRightPanel()">Meet to go to secret place.*</span>
           </div>
           <div class="uk-grid-small uk-child-width-auto uk-grid">
             <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
@@ -94,28 +98,26 @@
             <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
           </div>
         </div>
-        <h2 class="uk-margin-medium">Upcoming</h2>
-        <div class="uk-padding-small uk-padding-remove-top tasklist">
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
-          <div class="uk-grid-small uk-child-width-auto uk-grid">
-            <label><input class="uk-checkbox" type="checkbox" checked> <span class="uk-margin-auto-left">signup to stepify</span></label>
-          </div>
+
+        <div class="task-category" id="task-category-tomorrow">
+            <h2 class="uk-margin-medium">Tomorrow</h2>
+            <div class="uk-padding-small uk-padding-remove-top tasklist" id="tasks-tomorrow"></div>
         </div>
+
+        <div class="task-category" id="task-category-upcoming">
+            <h2 class="uk-margin-medium">Upcoming</h2>
+            <div class="uk-padding-small uk-padding-remove-top tasklist" id=tasks-upcoming></div>
+        </div>
+
       </div>
     </div>
-    <div class="auto cell" style="display: none;" id="secondpanel-empty">
-      <img src="{{ url_for('static', filename='img/main_illustration.svg') }}" style="width: auto; right: 0px; float: right; height: auto;">
+      <div class="auto cell show-for-medium uk-padding-left uk-padding-remove-top uk-padding-remove-bottom uk-padding-remove-right"  style="float: right; display: none; overflow: hidden; overflow-x: hidden; float: right;" id="secondpanel-empty">
+        <img src="{{ url_for('static', filename='img/main_illustration.svg') }}" style="top: 0px; right: 0px; ">
+      </div>
+    </div>
     </div>
     <div class="medium-5 cell show-for-large" id="secondpanel">
-      <a href="" onclick="closeRightPanel();return false;" class="uk-card-badge" uk-icon="icon: close"></a>
+      <a href="" title="Close" onclick="toggleRightPanel();return false;" class="uk-card-badge" uk-icon="icon: close"></a>
       <div class="grid-y">
         <div class="medium-4 cell">
           <div class="icon_stan"><img src="../static/img/platform-icons/personal-logo.svg" alt="go-there-yourself" style="width:3rem;height:3rem;"></div>
@@ -125,7 +127,7 @@
           <div class="icon_weather"><img src="../static/img/weather-icons/sun.svg" alt="">Sunny! 24°</div>
         </div>
         <div class="medium-8 cell" id="descriptionDiv">
-          <div class="grid-x tasklist">
+          <div class="grid-x">
             <div class="medium-6 cell less-height">
               <h2>Description:</h2>
             </div>
@@ -144,30 +146,6 @@
 
   </div>
 
-
-        <!--THE DIV ABOVE ("#TO-DO-LIST") GETS POPULATED BY JavaScript IN THE FOLLOWING WAY
-
-        <div id="to-to-list">
-            <div class="to-do-item" id="1">
-                <button class="to-do-checkbox" id="1-b">
-                    Done.
-                </button>
-                <span class="to-do-title">
-                    task1
-                </span>
-                <div class="to-do-description">
-                    se task example
-                </div>
-            </div>
-         </div>
-
-        You can set styles on .to-do-item and .to-do-title and .to-do-description
-        or even change the element to a different type of element
-        and you can move the entire div (.to-do-list) inside another div if you want
-        but if you want to change the structure inside this div,
-        I have to do this in the JavaScript.
-
-        -->
 
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
