@@ -162,7 +162,6 @@ function sortTasks (tasks) {
 
             var taskDiv = document.createElement("div");
             taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid task-title-left-panel");
-            taskDiv.setAttribute("onclick", "toggleRightPanel()");
             taskDiv.setAttribute("id", taskId + "-task");
             taskDiv.setAttribute("data-taskid", taskId);
             taskDiv.appendChild(checkbox);
