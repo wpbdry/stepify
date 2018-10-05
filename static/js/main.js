@@ -33,33 +33,51 @@ function objectFromString (s) {
 
 /*Convert tasks string to object*/
 var tasks = objectFromString(tasksString);
+
 $("#secondpanel").addClass("animated");
 $("#secondpanel-empty").addClass("animated");
+
+var taskSelected = false;
+
+$( window ).resize(function() {
+    if(taskSelected) {
+      openRightPanel();
+    } else {
+      closeRightPanel();
+    }
+});
+
 //Function to close right panel
 function closeRightPanel () {
+    taskSelected = false;
     $("#secondpanel-empty").removeClass("fadeOutLeft");
-
     $("#secondpanel").addClass("fadeOutLeft");
     $("#secondpanel-empty").addClass("fadeInRight");
-
-    setTimeout(() => {
+    setTimeout(() => {        
+        if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+            $("#firstpanel").show();
+        }
         $('#secondpanel').hide();
-    $('#secondpanel-empty').show();
+        $('#secondpanel-empty').show();
     }, 200);
 }
 
 //Open right panel
 function openRightPanel () {
+    taskSelected = true;
     $("#secondpanel").removeClass("fadeOutLeft");
-
     $("#secondpanel-empty").addClass("fadeOutLeft");
     $("#secondpanel").addClass("fadeInRight");
 
     setTimeout(() => {
-        $("#secondpanel").css("display", "");
-    $("#secondpanel-empty").css("display", "none");
+        if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+            $("#secondpanel").attr('style','display: block !important');
+            $("#firstpanel").hide();
+          } else {
+            $("#secondpanel").css("display", "");
+            $("#secondpanel-empty").css("display", "none");
+          }
     }, 200);
-
 }
 
 //Show next task
