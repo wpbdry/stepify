@@ -43,9 +43,12 @@ function closeRightPanel () {
 
 //Open right panel
 function openRightPanel () {
-    $("#firstpanel").addClass("firstpanel-shadow");
     $("#secondpanel").css("display", "");
     $("#secondpanel-empty").css("display", "none");
+    $("#secondpanel").addClass("animated");
+    $("#secondpanel-empty").addClass("animated");
+    $("#secondpanel").addClass("fadeInRight");
+    $("#secondpanel-empty").addClass("fadeInRight");
 }
 
 //Show next task
