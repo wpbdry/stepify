@@ -210,12 +210,15 @@ function sortTasks (tasks) {
 function markTaskAsDone (taskId) {
         
     for (i=0; i < tasks.length; i++) {
-        //Mark task as done in tasks array
         if (tasks[i]['task_id'] == taskId) {
+            
+            //Mark task as done in tasks array
             tasks[i]['completion'] = true;
+            
+            //set completion date
+            var completionDate = new Date();
+            tasks[i]['completion_date'] = completionDate;
         }
-        
-        //set completion date
     }
 
     //Redisplay tasks
@@ -226,6 +229,7 @@ function markTaskAsDone (taskId) {
 function displayTasks (tasks) {
     //Sort tasks into today, tomorrow, and upcoming
     var sortedTasks = sortTasks (tasks);
+    var tempCompletedTasks = []; //not sorted by completion date
 
     //Append html elements
 
@@ -311,6 +315,40 @@ function dateToString (d) {
     }
 
     var r = day + " " + date + "." + month + " " + hour + ":" + minute;
+    return r;
+}
+
+function dateToSqlString (d) {
+    
+    var date = d.getDate();
+    if (date < 10) {
+        date = "0" + date;
+    }
+    
+    var month = d.getMonth() + 1;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    
+    var year = d.getFullYear();
+    
+    var hour = d.getHours();
+    if (hour < 10) {
+        hour = "0" + hour;
+    }
+    
+    var minute = d.getMinutes();
+    if (minute < 10) {
+        minute = "0" + minute;
+    }
+    
+    var second = d.getSeconds();
+    if (second < 10) {
+        second = "0" + second;
+    }
+    
+    //We want this format 2018-05-16 00:00:00
+    var r = year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
     return r;
 }
 
