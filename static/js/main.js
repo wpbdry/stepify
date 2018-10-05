@@ -48,36 +48,56 @@ $( window ).resize(function() {
 });
 
 //Function to close right panel
+var x = Number
+
 function closeRightPanel () {
     taskSelected = false;
-    $("#secondpanel-empty").removeClass("fadeOutLeft");
-    $("#secondpanel").addClass("fadeOutLeft");
-    $("#secondpanel-empty").addClass("fadeInRight");
+    $("#secondpanel").addClass("fadeOutRight");
     setTimeout(() => {        
         if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
             $("#firstpanel").show();
         }
         $('#secondpanel').hide();
         $('#secondpanel-empty').show();
-    }, 200);
+    }, 700);
+    x=0
 }
 
 //Open right panel
 function openRightPanel () {
-    taskSelected = true;
-    $("#secondpanel").removeClass("fadeOutLeft");
-    $("#secondpanel-empty").addClass("fadeOutLeft");
-    $("#secondpanel").addClass("fadeInRight");
 
-    setTimeout(() => {
-        if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
-            $("#secondpanel").attr('style','display: block !important');
-            $("#firstpanel").hide();
-          } else {
-            $("#secondpanel").css("display", "");
-            $("#secondpanel-empty").css("display", "none");
-          }
-    }, 200);
+    if (x==0){
+        taskSelected = true;
+        $("#secondpanel").removeClass("fadeOutRight");
+        $("#secondpanel").addClass("fadeInRight");
+        $("#secondpanel-empty").css("display", "none");
+        $("#secondpanel").css("display", "");
+
+        setTimeout(() => {
+            if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+                $("#secondpanel").attr('style','display: block !important');
+                $("#firstpanel").hide();
+            } else {            
+            }
+            $("#secondpanel").removeClass("fadeInRight");
+        }, 700);
+        x=1
+    } else if (x==1){
+        taskSelected = true;
+        $("#secondpanel").removeClass("fadeOutRight");
+        $("#secondpanel").addClass("fadeIn");
+        $("#secondpanel-empty").css("display", "none");
+        $("#secondpanel").css("display", "");
+
+        setTimeout(() => {
+            if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+                $("#secondpanel").attr('style','display: block !important');
+                $("#firstpanel").hide();
+            } else {            
+            }
+            $("#secondpanel").removeClass("fadeIn");
+        }, 700);        
+    }
 }
 
 //Show next task
