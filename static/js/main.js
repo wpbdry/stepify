@@ -139,8 +139,16 @@ function sortTasks (tasks) {
         //else if date is after tomorrow or there is no deadline
         else {
             sortedTasks['upcoming'].push(tasks[i]);
-        }
+        } 
     }
+    
+    //Sort completed tasks by date
+    
+    sortedTasks['completed'].sort(function(a, b) {
+        //return new Date(b.date) - new Date(a.date);
+        return b['completion_date'] - a['completion_date'];
+    });
+    
     return sortedTasks;
 }
 
@@ -229,7 +237,6 @@ function markTaskAsDone (taskId) {
 function displayTasks (tasks) {
     //Sort tasks into today, tomorrow, and upcoming
     var sortedTasks = sortTasks (tasks);
-    var tempCompletedTasks = []; //not sorted by completion date
 
     //Append html elements
 
