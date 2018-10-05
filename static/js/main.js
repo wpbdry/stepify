@@ -48,7 +48,7 @@ $( window ).resize(function() {
 });
 
 //Open right panel
-var x = Number
+var x = 0
 function openRightPanel () {
         taskSelected = true;
         if (Foundation.MediaQuery.current == 'large') {
