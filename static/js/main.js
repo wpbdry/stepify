@@ -34,18 +34,39 @@ function objectFromString (s) {
 /*Convert tasks string to object*/
 var tasks = objectFromString(tasksString);
 
+var taskSelected = false;
+
+$( window ).resize(function() {
+    if(taskSelected) {
+      openRightPanel();
+    } else {
+      closeRightPanel();
+    }
+});
+
 //Function to close right panel
 function closeRightPanel () {
-  $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
-  $('#secondpanel').toggle();
-  $('#secondpanel-empty').toggle();
+  taskSelected = false;
+  $('#secondpanel').hide();
+  $('#secondpanel-empty').show();
+  if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+    $("#firstpanel").show();
+  }
 }
 
 //Open right panel
 function openRightPanel () {
-    $("#firstpanel").addClass("firstpanel-shadow");
+  taskSelected = true;
     $("#secondpanel").css("display", "");
     $("#secondpanel-empty").css("display", "none");
+    $("#secondpanel-empty").css("display", "none");
+    if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+      $("#secondpanel").attr('style','display: block !important');
+      $("#firstpanel").hide();
+    } else {
+      $("#secondpanel").css("display");
+      $("#firstpanel").show();
+    }
 }
 
 //Show next task
