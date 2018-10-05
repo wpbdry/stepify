@@ -39,6 +39,9 @@ function closeRightPanel () {
   $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
   $('#secondpanel').toggle();
   $('#secondpanel-empty').toggle();
+    
+    //remove highlighting from task in left panel
+    $(".task-title-left-panel").removeClass("selected-task");
 }
 
 //Open right panel
@@ -111,7 +114,7 @@ function sortTasks (tasks) {
 
         /*
         ELEMENT STRUCTURE
-        <div class="uk-grid-small uk-child-width-auto uk-grid" id="00-task" data-taskid="00">
+        <div class="uk-grid-small uk-child-width-auto uk-grid task-title-left-panel" id="00-task" data-taskid="00">
             <input class="uk-checkbox task-checkbox" type="checkbox" data-taskid="00">
             <span class="no-bottom-margin task-title" data-taskid="00">
                 Task title
@@ -158,7 +161,7 @@ function sortTasks (tasks) {
             checkbox.setAttribute("data-taskid", taskId);
 
             var taskDiv = document.createElement("div");
-            taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
+            taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid task-title-left-panel");
             taskDiv.setAttribute("onclick", "toggleRightPanel()");
             taskDiv.setAttribute("id", taskId + "-task");
             taskDiv.setAttribute("data-taskid", taskId);
@@ -247,11 +250,16 @@ function dateToString (d) {
     return r;
 }
 
-/*FUNCTION TO DISPLAY CORRECT TASK IN RIGHT PANEL*/
+/*FUNCTION TO DISPLAY CORRECT TASK IN RIGHT PANEL AND HIGHLIGHT TASK IN LEFT PANEL*/
 
 function displayTaskRight (taskId) {
     // update currently displayed task global var
     currentlyDisplayedTaskId = taskId;
+    
+    //update highlighted task in left panes
+    $(".task-title-left-panel").removeClass("selected-task");
+    var taskTitleLeftSelector = "#" + taskId + "-task";
+    $(taskTitleLeftSelector).addClass("selected-task");
 
     //extract selected task from tasks array
     var t;
