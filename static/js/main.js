@@ -48,7 +48,7 @@ $( window ).resize(function() {
 });
 
 //Open right panel
-var x = 0
+var x = Number
 function openRightPanel () {
         taskSelected = true;
         if (Foundation.MediaQuery.current == 'large') {
@@ -77,25 +77,22 @@ function openRightPanel () {
 
             setTimeout(() => {
                 $("#secondpanel").removeClass("fadeInRight");
-            }, 700);
+            }, 1001);
         }
     } 
 
 //Function to close right panel
 
 function closeRightPanel () {
-    console.log(Foundation.MediaQuery.current);
     taskSelected = false;
 
     if (Foundation.MediaQuery.current == 'large') {
-        console.log('i am big and closing');
         $("#secondpanel").addClass("fadeOutRight");
         setTimeout(() => {       
             $('#secondpanel').hide();
             $('#secondpanel-empty').show();
         }, 700);
     } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
-        console.log('i am small-med and closing');
         $("#secondpanel").addClass("fadeOutRight");
         setTimeout(() => {       
             $('#secondpanel-empty').show();
@@ -103,7 +100,7 @@ function closeRightPanel () {
             $("#firstpanel").show();
         }, 700);
     }
-
+    x =0    
     //remove highlighting from task in left panel
     $(".task-title-left-panel").removeClass("selected-task");
 }
