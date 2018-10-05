@@ -26,6 +26,7 @@ body {
     height: 100%;
     padding: 0px;
     margin: 0px;
+    overflow: hidden;
 }
 
 h2 {
@@ -224,8 +225,8 @@ input.uk-checkbox:checked {
 }
 
 #firstpanel {
-  overflow-y: scroll;
-  background: #FFFFFF;
+    overflow-y: scroll;
+    background: #FFFFFF;
 }
 
 /* custom scrollbar */

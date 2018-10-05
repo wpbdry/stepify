@@ -33,22 +33,33 @@ function objectFromString (s) {
 
 /*Convert tasks string to object*/
 var tasks = objectFromString(tasksString);
-
+$("#secondpanel").addClass("animated");
+$("#secondpanel-empty").addClass("animated");
 //Function to close right panel
 function closeRightPanel () {
-  $( "#firstpanel" ).toggleClass( "firstpanel-shadow" );
-  $('#secondpanel').toggle();
-  $('#secondpanel-empty').toggle();
+    $("#secondpanel-empty").removeClass("fadeOutLeft");
+
+    $("#secondpanel").addClass("fadeOutLeft");
+    $("#secondpanel-empty").addClass("fadeInRight");
+
+    setTimeout(() => {
+        $('#secondpanel').hide();
+    $('#secondpanel-empty').show();
+    }, 200);
 }
 
 //Open right panel
 function openRightPanel () {
-    $("#secondpanel").css("display", "");
-    $("#secondpanel-empty").css("display", "none");
-    $("#secondpanel").addClass("animated");
-    $("#secondpanel-empty").addClass("animated");
+    $("#secondpanel").removeClass("fadeOutLeft");
+
+    $("#secondpanel-empty").addClass("fadeOutLeft");
     $("#secondpanel").addClass("fadeInRight");
-    $("#secondpanel-empty").addClass("fadeInRight");
+
+    setTimeout(() => {
+        $("#secondpanel").css("display", "");
+    $("#secondpanel-empty").css("display", "none");
+    }, 200);
+
 }
 
 //Show next task
