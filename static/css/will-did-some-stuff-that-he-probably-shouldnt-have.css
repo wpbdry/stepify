@@ -5,3 +5,8 @@
 #show-next-task:hover {
     cursor: pointer;
 }
+
+.checked-task-title {
+    text-decoration: line-through;
+    color: #757575;
+}

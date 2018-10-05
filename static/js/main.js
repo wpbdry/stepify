@@ -269,6 +269,9 @@ function displayTasks (tasks) {
         $('#task-category-completed').css('display', 'block');
         appendTasks(sortedTasks['completed'], "#tasks-completed");
     }
+    
+    $("#task-category-completed .task-checkbox").attr("checked", "");
+    $("#task-category-completed .task-title").addClass("checked-task-title");
 
     //In case there are no tasks
     if (sortedTasks['today'].length == 0 && sortedTasks['tomorrow'].length == 0 && sortedTasks['upcoming'].length == 0 && sortedTasks['completed'].length == 0) {
