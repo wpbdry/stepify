@@ -285,6 +285,33 @@ function displayTaskRight (taskId) {
     else {
         $('#mandatory-task').text('(optional)');
     }
+    
+    //update weather
+    $(".weather-icon").css("display", "none");
+    switch(t['weather']) {
+        case 0:
+            break
+        case 1:
+            $("#cloudy-icon").css("display", "inline-block");
+            break;
+        case 2:
+            $("#lightning-icon").css("display", "inline-block");
+            break;
+        case 3:
+            $("#rain-icon").css("display", "inline-block");
+            break;
+        case 4:
+            $("#snow-icon").css("display", "inline-block");
+            break;
+        case 5:
+            $("#sun-icon").css("display", "inline-block");
+            break;
+        case 6:
+            $("#wind-icon").css("display", "inline-block");
+            break;
+        default:
+            break;
+    }   
 
     //update time
     $('.time-icon').css('display', 'inline-block');
