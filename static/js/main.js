@@ -33,6 +33,7 @@ function objectFromString (s) {
 
 /*Convert tasks string to object*/
 var tasks = objectFromString(tasksString);
+console.log(tasks);
 
 $("#secondpanel").addClass("animated");
 $("#secondpanel-empty").addClass("animated");
@@ -101,7 +102,7 @@ function showNextTask() {
     }
 }
 
-//Function to sort tasks into today, tomorrow, upcoming
+//Function to sort tasks into today, tomorrow, upcoming, and completed
 
 function sortTasks (tasks) {
     var tomorrowDate = new Date();
@@ -114,14 +115,20 @@ function sortTasks (tasks) {
     var sortedTasks = {
         today: [],
         tomorrow: [],
-        upcoming: []
+        upcoming: [],
+        completed: []
     };
 
     for (var i=0; i < tasks.length; i++) {
+        
+        //if task is complete
+        if (tasks[i]['completion']) {
+            sortedTasks['completed'].push(tasks[i]);
+        }
 
         //if ASAP or date is today
-        if (tasks[i]['deadline_type'] == 0 || tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < tomorrowDate) {
-            sortedTasks['today'].push(tasks[i])
+        else if (tasks[i]['deadline_type'] == 0 || tasks[i]['deadline_type'] == 1 && tasks[i]['deadline'] < tomorrowDate) {
+            sortedTasks['today'].push(tasks[i]);
         }
 
         //else if deadline type is finite date, and date is tomorrow
@@ -200,6 +207,22 @@ function sortTasks (tasks) {
         }
     };
 
+function markTaskAsDone (taskId) {
+        
+    for (i=0; i < tasks.length; i++) {
+        //Mark task as done in tasks array
+        if (tasks[i]['task_id'] == taskId) {
+            tasks[i]['completion'] = true;
+        }
+        
+        //set completion date
+    }
+
+    //Redisplay tasks
+    displayTasks(tasks);
+
+}
+
 function displayTasks (tasks) {
     //Sort tasks into today, tomorrow, and upcoming
     var sortedTasks = sortTasks (tasks);
@@ -229,12 +252,25 @@ function displayTasks (tasks) {
         $('#task-category-upcoming').css('display', 'block');
         appendTasks(sortedTasks['upcoming'], "#tasks-upcoming");
     }
+    
+    //completed section
+    if (sortedTasks['completed'].length !== 0) {
+        $('#task-category-completed').css('display', 'block');
+        appendTasks(sortedTasks['completed'], "#tasks-completed");
+    }
 
     //In case there are no tasks
-    if (sortedTasks['today'].length == 0 && sortedTasks['tomorrow'].length == 0 && sortedTasks['upcoming'].length == 0) {
+    if (sortedTasks['today'].length == 0 && sortedTasks['tomorrow'].length == 0 && sortedTasks['upcoming'].length == 0 && sortedTasks['completed'].length == 0) {
         $('#task-category-today').css('display', 'block');
-        $('#task-category-today h2').text("Good job! You're all caught up");
+        $('#task-category-today h2').text("You have no tasks yet");
     }
+    
+    //Set up event listener for tasks
+    $(".task-checkbox").click(function (e) {
+
+        var taskId = e.target.dataset.taskid;
+        markTaskAsDone(taskId);
+    });
 };
 
 function setProgress () {
@@ -432,7 +468,28 @@ $(document).ready(function(){
     displayTasks(tasks);
 
     /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
+    
+    function markTaskAsDone (taskId) {
+        
+        //Mark task as done in tasks array
+        for (i=0; i < tasks.length; i++) {
+            if (tasks[i]['task_id'] == taskId) {
+                tasks[i]['completion'] = true;
+            }
+        }
+        
+        //Redisplay tasks
+        displayTasks(tasks);
 
+    }
+    
+    $(".task-checkbox").click(function (e) {
+
+        var taskId = e.target.dataset.taskid;
+        markTaskAsDone(taskId);
+    });
+
+    /*
     $(".task-checkbox").click(function (e) {
 
         var taskId = e.target.dataset.taskid;
@@ -491,6 +548,7 @@ $(document).ready(function(){
         });
 
     });
+    */
 });
 
 //display correct task on right panel
