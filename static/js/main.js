@@ -101,6 +101,101 @@ function showNextTask() {
     }
 }
 
+
+// Handle marking of tasks as done and not done
+function setEventListenerForTaskTitles() {
+    $(".task-checkbox").click(function (e) {
+        var taskId = e.target.dataset.taskid;
+        
+        //If task is not done
+        for (i=0; i < tasks.length; i++) {
+            if (!tasks[i]['completion']) {
+                //Mark as done
+                tasks[i]['completion'] = true;
+            }
+        }
+        
+        //If task is done
+        for (i=0; i < tasks.length; i++) {
+            if (tasks[i]['completion']) {
+                //Mark as not done
+                tasks[i]['completion'] = false;
+            }
+        }
+        
+        //Redisplay tasks
+        displayTasks(tasks);
+    });
+}
+
+/*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
+    
+
+    
+    //
+ 
+
+    /*
+    $(".task-checkbox").click(function (e) {
+
+        var taskId = e.target.dataset.taskid;
+        var taskDivSelector = "#" + taskId + "-task";
+
+        //Remove task from original tasks array
+        for (i=0; i < tasks.length; i++) {
+            if (tasks[i]['task_id'] == taskId) {
+                tasks.splice(i, 1);
+            }
+        }
+
+        //hide right panel if it was that task being displayed
+        if (taskId == currentlyDisplayedTaskId) {
+            closeRightPanel();
+        }
+
+        //update progress bar
+        doneTasks ++;
+        setProgress()
+
+        //Remove tasks
+        $(taskDivSelector).remove();
+
+        //Check if anything is empty, and hide it if it is
+        var catToday = document.getElementById("tasks-today");
+        if (!catToday.firstChild) {
+            $('#task-category-today').css('display', 'none');
+        }
+        var catTomorrow = document.getElementById("tasks-tomorrow");
+        if (!catTomorrow.firstChild) {
+            $('#task-category-tomorrow').css('display', 'none');
+        }
+        var catUpcoming = document.getElementById("tasks-upcoming");
+        if (!catUpcoming.firstChild) {
+            $('#task-category-upcoming').css('display', 'none');
+        }
+
+        //In case there are no tasks
+        if (!catToday.firstChild && !catTomorrow.firstChild && !catUpcoming.firstChild) {
+            $('#task-category-today').css('display', 'block');
+            $('#task-category-today h2').text("Good job! You're all caught up");
+        }
+
+        //tell server to mark it as done on the db as well
+        //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
+        $.ajax({
+            type : "POST",
+            url : "/task-done",
+            data: JSON.stringify(taskId, null, '\t'),
+            contentType: 'application/json;charset=UTF-8',
+            success: function(result) {
+
+            }
+
+        });
+
+    });
+    */
+
 //Function to sort tasks into today, tomorrow, upcoming, and completed
 
 function sortTasks (tasks) {
@@ -231,7 +326,18 @@ function markTaskAsDone (taskId) {
 
     //Redisplay tasks
     displayTasks(tasks);
+}
 
+function markTaskAsNotDone (taskId) {
+    
+    //In tasks array
+    for (i=0; i < tasks.length; i++) {
+        if (tasks[i]['task_id'] == taskId) {
+            
+            //Mark task as not done
+            tasks[i]['completion'] = false;
+        }
+    }
 }
 
 function displayTasks (tasks) {
@@ -280,11 +386,7 @@ function displayTasks (tasks) {
     }
     
     //Set up event listener for tasks
-    $(".task-checkbox").click(function (e) {
-
-        var taskId = e.target.dataset.taskid;
-        markTaskAsDone(taskId);
-    });
+    setEventListenerForTaskTitles();
 };
 
 function setProgress () {
@@ -494,7 +596,6 @@ function displayTaskRight (taskId) {
 
     //Make sure the right panel is not hidden
     openRightPanel();
-
 }
 
 $(document).ready(function(){
@@ -514,96 +615,13 @@ $(document).ready(function(){
     /*DYNAMICALLY ADD HTML ELEMENTS TO SHOW TASKS*/
 
     displayTasks(tasks);
-
-    /*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
-    
-    function markTaskAsDone (taskId) {
-        
-        //Mark task as done in tasks array
-        for (i=0; i < tasks.length; i++) {
-            if (tasks[i]['task_id'] == taskId) {
-                tasks[i]['completion'] = true;
-            }
-        }
-        
-        //Redisplay tasks
-        displayTasks(tasks);
-
-    }
-    
-    $(".task-checkbox").click(function (e) {
-
-        var taskId = e.target.dataset.taskid;
-        markTaskAsDone(taskId);
-    });
-
-    /*
-    $(".task-checkbox").click(function (e) {
-
-        var taskId = e.target.dataset.taskid;
-        var taskDivSelector = "#" + taskId + "-task";
-
-        //Remove task from original tasks array
-        for (i=0; i < tasks.length; i++) {
-            if (tasks[i]['task_id'] == taskId) {
-                tasks.splice(i, 1);
-            }
-        }
-
-        //hide right panel if it was that task being displayed
-        if (taskId == currentlyDisplayedTaskId) {
-            closeRightPanel();
-        }
-
-        //update progress bar
-        doneTasks ++;
-        setProgress()
-
-        //Remove tasks
-        $(taskDivSelector).remove();
-
-        //Check if anything is empty, and hide it if it is
-        var catToday = document.getElementById("tasks-today");
-        if (!catToday.firstChild) {
-            $('#task-category-today').css('display', 'none');
-        }
-        var catTomorrow = document.getElementById("tasks-tomorrow");
-        if (!catTomorrow.firstChild) {
-            $('#task-category-tomorrow').css('display', 'none');
-        }
-        var catUpcoming = document.getElementById("tasks-upcoming");
-        if (!catUpcoming.firstChild) {
-            $('#task-category-upcoming').css('display', 'none');
-        }
-
-        //In case there are no tasks
-        if (!catToday.firstChild && !catTomorrow.firstChild && !catUpcoming.firstChild) {
-            $('#task-category-today').css('display', 'block');
-            $('#task-category-today h2').text("Good job! You're all caught up");
-        }
-
-        //tell server to mark it as done on the db as well
-        //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
-        $.ajax({
-            type : "POST",
-            url : "/task-done",
-            data: JSON.stringify(taskId, null, '\t'),
-            contentType: 'application/json;charset=UTF-8',
-            success: function(result) {
-
-            }
-
-        });
-
-    });
-    */
 });
 
 //display correct task on right panel
 $(document).ready(function(){
 
-        $(".task-title").click(function (e) {
-            var taskId = e.target.dataset.taskid;
-            displayTaskRight(taskId);
-        });
+    $(".task-title").click(function (e) {
+        var taskId = e.target.dataset.taskid;
+        displayTaskRight(taskId);
+    });
 });
