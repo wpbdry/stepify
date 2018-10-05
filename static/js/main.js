@@ -52,6 +52,7 @@ var x = Number
 
 function closeRightPanel () {
     taskSelected = false;
+
     $("#secondpanel").addClass("fadeOutRight");
     setTimeout(() => {        
         if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
