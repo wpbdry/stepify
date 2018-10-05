@@ -1,9 +1,25 @@
 
+h2 {
+  font-size: 2rem;
+}
+
 .callout h2{
   text-align: left;
   color: #fafafa;
   font-family: Nunito Sans, sans-serif;
   font-weight: 700;
+}
+
+.square {
+  border-radius: 14px;
+  border-style: none;
+  box-shadow: 0 0.3rem 1rem rgba(0,0,0,0.22);
+  height: 17rem;
+  width: 17rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 2rem;
 }
 
 .id {
@@ -165,17 +181,6 @@ body {
   color: #212121;
 }
 
-.icon_stan {
-  /* height: 1.5rem;
-  width: 1.5rem;
-  border-style: solid;
-  border-color: blue;
-  border-radius: 0.1rem;
-  background-color: none;
-  border-width: 1rem;
-  margin-bottom: 1rem; */
-}
-
 .icon_weather {
   display: inline-block;
   white-space: nowrap;
@@ -192,10 +197,6 @@ body {
 }
 
 .weirdLeafIcon {
-  /* background-color: #43a047;
-  height: 1rem;
-  width: 4rem;
-  border-radius: 0.1rem;*/
   margin-top: 0.5rem;
 }
 .weirdLeafIcon img{
