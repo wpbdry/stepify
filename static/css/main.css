@@ -200,8 +200,17 @@ input.uk-checkbox {
   border-radius: 6px !important;
   height: 21px !important;
   width: 21px !important;
-  border: 2px solid #1485FC !important;
+  border: 2px solid rgba(151, 151, 151, 0.5343) !important;
 }
+
+div.selected-task {
+  color: #1485FC !important;
+}
+
+div.selected-task > input.uk-checkbox {
+  border-color: #1485FC !important;
+}
+
 input.uk-checkbox:checked {
   background-color: #1485FC;
 }

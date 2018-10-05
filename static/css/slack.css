@@ -2,26 +2,33 @@
 
 .edit-1 {
     height: 0.5rem;
-    background-color: #1485FC        ;
-    border: 1px solid #fafafa;
+    background-color: #1485FC;
+   
     margin-top: 3rem;
     margin-left: 1rem;
     margin-right: 1rem;
     margin-bottom: 3rem;
     border-radius: 3.75px;
+    transition: ease-in-out all 400ms;
 
+}
+
+.edit-2:hover{
+    transform: scaleX(1.05) scaleY(1.05);
+    box-shadow: inset 2px 3px 14px 1px rgba(148, 148, 148, 0.39);
+    
 }
 
 .edit-2 {
 height: 0.5rem;
 background-color: rgba(0, 0, 0, 0.1024);
-border: 1px solid #fafafa;
+
 margin-top: 3rem;
 margin-left: 1rem;
 margin-right: 1rem;
 margin-bottom: 3rem;
 border-radius: 3.75px;
-
+transition: ease-in-out all 400ms;
 }
 
 
@@ -68,12 +75,16 @@ font-family: 'Montserrat', sans-serif;
 width: 160px;
 height: 46px;
 transition: ease-in-out all 300ms;
+box-shadow: 0 0.2rem 1rem rgba(108, 193, 250, 0.493);
 }
 
 #button-adjustments:hover {
-  transform: scaleX(1.05) scaleY(1.05);
+  transform: scaleX(1.02) scaleY(1.02);
+  box-shadow: 0.1rem 0.1rem 1rem rgba(108, 193, 250, 0.493);
+  background-color:  rgb(57, 150, 250);
 }
 
 a {
 color: #fafafa;
 }
+
