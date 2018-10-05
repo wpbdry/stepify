@@ -33,7 +33,6 @@ function objectFromString (s) {
 
 /*Convert tasks string to object*/
 var tasks = objectFromString(tasksString);
-console.log(tasks);
 
 $("#secondpanel").addClass("animated");
 $("#secondpanel-empty").addClass("animated");
@@ -216,11 +215,12 @@ function sortTasks (tasks) {
     };
 
 function markTaskAsDone (taskId) {
-        
+    
+    //In tasks array
     for (i=0; i < tasks.length; i++) {
         if (tasks[i]['task_id'] == taskId) {
             
-            //Mark task as done in tasks array
+            //Mark task as done
             tasks[i]['completion'] = true;
             
             //set completion date
