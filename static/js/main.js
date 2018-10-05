@@ -47,60 +47,65 @@ $( window ).resize(function() {
     }
 });
 
-//Function to close right panel
+//Open right panel
 var x = Number
+function openRightPanel () {
+        taskSelected = true;
+        if (Foundation.MediaQuery.current == 'large') {
+            if (x==0){
+                $("#secondpanel").removeClass("fadeOutRight");
+                $("#secondpanel").addClass("fadeInRight");
+                $("#secondpanel-empty").css("display", "none");
+                $("#secondpanel").css("display", "");
+
+                setTimeout(() => {
+                    $("#secondpanel").removeClass("fadeInRight");
+                }, 700);
+                x=1     
+            } else if (x==1){
+                $("#secondpanel").removeClass("fadeOutRight");
+                $("#secondpanel").addClass("fadeIn");
+                $("#secondpanel-empty").css("display", "none");
+                $("#secondpanel").css("display", "");    
+            }
+        } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
+            $("#secondpanel").attr('style','display: block !important');
+            $("#firstpanel").hide();
+
+            $("#secondpanel").removeClass("fadeOutRight");
+            $("#secondpanel").addClass("fadeInRight");
+
+            setTimeout(() => {
+                $("#secondpanel").removeClass("fadeInRight");
+            }, 700);
+        }
+    } 
+
+//Function to close right panel
 
 function closeRightPanel () {
+    console.log(Foundation.MediaQuery.current);
     taskSelected = false;
 
-    $("#secondpanel").addClass("fadeOutRight");
-    setTimeout(() => {        
-        if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+    if (Foundation.MediaQuery.current == 'large') {
+        console.log('i am big and closing');
+        $("#secondpanel").addClass("fadeOutRight");
+        setTimeout(() => {       
+            $('#secondpanel').hide();
+            $('#secondpanel-empty').show();
+        }, 700);
+    } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
+        console.log('i am small-med and closing');
+        $("#secondpanel").addClass("fadeOutRight");
+        setTimeout(() => {       
+            $('#secondpanel-empty').show();
+            $('#secondpanel').hide();
             $("#firstpanel").show();
-        }
-        $('#secondpanel').hide();
-        $('#secondpanel-empty').show();
-    }, 700);
-    x=0
+        }, 700);
+    }
+
     //remove highlighting from task in left panel
     $(".task-title-left-panel").removeClass("selected-task");
-}
-
-//Open right panel
-function openRightPanel () {
-
-    if (x==0){
-        taskSelected = true;
-        $("#secondpanel").removeClass("fadeOutRight");
-        $("#secondpanel").addClass("fadeInRight");
-        $("#secondpanel-empty").css("display", "none");
-        $("#secondpanel").css("display", "");
-
-        setTimeout(() => {
-            if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
-                $("#secondpanel").attr('style','display: block !important');
-                $("#firstpanel").hide();
-            } else {            
-            }
-            $("#secondpanel").removeClass("fadeInRight");
-        }, 700);
-        x=1
-    } else if (x==1){
-        taskSelected = true;
-        $("#secondpanel").removeClass("fadeOutRight");
-        $("#secondpanel").addClass("fadeIn");
-        $("#secondpanel-empty").css("display", "none");
-        $("#secondpanel").css("display", "");
-
-        setTimeout(() => {
-            if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
-                $("#secondpanel").attr('style','display: block !important');
-                $("#firstpanel").hide();
-            } else {            
-            }
-            $("#secondpanel").removeClass("fadeIn");
-        }, 700);        
-    }
 }
 
 //Show next task
