@@ -10,3 +10,25 @@
     text-decoration: line-through;
     color: #757575;
 }
+
+/*Copied from slack.css*/
+.button-adjustments {
+    Margin-left: Auto;
+    Margin-right: Auto;
+    background-color: #1485FC;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    height: 46px;
+    transition: ease-in-out all 300ms;
+    box-shadow: 0 0.2rem 1rem rgba(108, 193, 250, 0.493);
+}
+
+.next-button-adjustments {
+    Display: inline-block;
+}
