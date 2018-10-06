@@ -259,9 +259,8 @@ height: 10px;
 }
 
 #secondpanel {
-position: absolute;
-margin-left: 100%;
-transform: translateX(-100%);
+position: absolute !important;
+right: 0% !important;
 background-color: #fafafa;
 padding: 4rem;
 overflow: scroll;
