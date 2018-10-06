@@ -47,54 +47,69 @@ $( window ).resize(function() {
     }
 });
 
-//Function to close right panel
+//Open right panel
 var x = Number
+function openRightPanel () {
+    console.log(Foundation.MediaQuery.current);
+        taskSelected = true;
+        if (Foundation.MediaQuery.current == 'large' || Foundation.MediaQuery.current == 'xlarge' || Foundation.MediaQuery.current == 'xxlarge') {
+            if (x==0){
+                console.log('x equals zero!');
+                $("#secondpanel").css("display", "block");
+                // $("#secondpanel").removeClass("fadeInRight");
+                // $("#secondpanel").addClass("fadeInRight");                
+                setTimeout(() => {
+                    console.log('funny timeout...');
+                    // $("#secondpanel").removeClass("fadeInRight");
+                }, 701);
+                x=1     
+            } else if (x==1){
+                $("#secondpanel-empty").css("visibility", "hidden");
+                $("#secondpanel").addClass("fadeIn");
+                $("#secondpanel").css("display", "");    
+
+                setTimeout(() => {
+                    $("#secondpanel").removeClass("fadeIn");
+                }, 701);
+            }
+        } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
+            $("#secondpanel").attr('style','display: block !important');
+            $("#firstpanel").hide();
+
+            $("#secondpanel").removeClass("fadeOutRight");
+            $("#secondpanel").addClass("fadeInRight");
+
+            setTimeout(() => {
+                $("#secondpanel").removeClass("fadeInRight");
+            }, 701);
+        }
+    } 
+
+// //Function to close right panel
 
 function closeRightPanel () {
     taskSelected = false;
-    $("#secondpanel-empty").css("visibility", "visible");
-    $("#secondpanel").addClass("fadeOutRight");
-    setTimeout(() => {        
-        if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
+    
+    if (Foundation.MediaQuery.current == 'large' || Foundation.MediaQuery.current == 'xlarge' || Foundation.MediaQuery.current == 'xxlarge') {
+        $("#secondpanel-empty").css("visibility", "visible");
+        $("#secondpanel").addClass("fadeOutRight");
+        setTimeout(() => {       
+            $('#secondpanel').hide();
+            $('#secondpanel-empty').show();
+            $("#secondpanel").removeClass("fadeOutRight");
+        }, 401);
+    } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
+        $("#secondpanel").addClass("fadeOutRight");
+        setTimeout(() => {       
+            $('#secondpanel-empty').show();
+            $('#secondpanel').hide();
             $("#firstpanel").show();
-        }
-        $('#secondpanel').hide();
-        $('#secondpanel-empty').show();
-        $("#secondpanel").removeClass("fadeOutRight");
-    }, 701);
-    x=0
-}
-
-//Open right panel
-function openRightPanel () {
-
-    if (x==0){
-        taskSelected = true;
-        $("#secondpanel").addClass("fadeInRight");
-        $("#secondpanel").css("display", "block");
-
-        setTimeout(() => {
-            if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
-                $("#secondpanel").attr('style','display: block !important');
-                $("#firstpanel").hide();
-            }
-            $("#secondpanel").removeClass("fadeInRight");
-        }, 701);
-        x=1
-    } else if (x==1){
-        taskSelected = true;
-        $("#secondpanel").addClass("fadeIn");
-        $("#secondpanel-empty").css("visibility", "hidden");
-        $("#secondpanel").css("display", "");
-
-        setTimeout(() => {
-            if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
-                $("#secondpanel").attr('style','display: block !important');
-                $("#firstpanel").hide();
-            }
-            $("#secondpanel").removeClass("fadeIn");
-        }, 701);        
+            $("#secondpanel").removeClass("fadeOutRight");
+        }, 401);
     }
+    x =0    
+    //remove highlighting from task in left panel
+    $(".task-title-left-panel").removeClass("selected-task");
 }
 
 //Show next task
@@ -205,7 +220,6 @@ function sortTasks (tasks) {
 
             var taskDiv = document.createElement("div");
             taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
-            taskDiv.setAttribute("onclick", "toggleRightPanel()");
             taskDiv.setAttribute("id", taskId + "-task");
             taskDiv.setAttribute("data-taskid", taskId);
             taskDiv.appendChild(checkbox);
