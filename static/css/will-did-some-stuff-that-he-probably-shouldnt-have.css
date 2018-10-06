@@ -11,6 +11,10 @@
     color: #757575;
 }
 
+div.selected-task > span.checked-task-title {
+    color: #1485FC !important;
+}
+
 /*Copied from slack.css*/
 .button-adjustments {
     Margin-left: Auto;
