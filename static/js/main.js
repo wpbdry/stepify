@@ -27,6 +27,8 @@ function objectFromString (s) {
     for (var i=0; i < ob.length; i++) {
         var taskDate = new Date(ob[i]['deadline']);
         ob[i]['deadline'] = taskDate;
+        var taskDateCompletion = new Date(ob[i]['completion_date']);
+        ob[i]['completion_date'] = taskDateCompletion;
     }
     return(ob);
 }
@@ -119,26 +121,19 @@ function setEventListenerCheckboxes (elSelector) {
                     
                     //tell server to mark it as done on the db as well
                     //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
+                    var taskData = {
+                        "taskid": taskId,
+                        "compdate": dateToSqlString(completionDate)
+                    };
                     $.ajax({
                         type : "POST",
-                        url : "/task-done-id",
-                        data: JSON.stringify(taskId, null, '\t'),
+                        url : "/task-done",
+                        data: JSON.stringify(taskData, null, '\t'),
                         contentType: 'application/json;charset=UTF-8',
                         success: function(result) {
 
                         }
                     });
-                    
-                    //Set completion date in db
-                    $.ajax({
-                        type : "POST",
-                        url : "/task-done-date",
-                        data: JSON.stringify(dateToSqlString(completionDate), null, '\t'),
-                        contentType: 'application/json;charset=UTF-8',
-                        success: function(result) {
-
-                        }
-                    }); 
                 }
                 
                 //If task is being marked as not done

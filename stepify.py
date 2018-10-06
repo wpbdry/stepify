@@ -183,19 +183,20 @@ def sp():
     return render_template('studyprograms.html', error=error)
 
 
-@app.route('/task-done-id', methods=['POST', 'GET'])
+@app.route('/task-done', methods=['POST', 'GET'])
 def task_done_id():
     error = None
     if request.method == 'POST':
-        task_id = str(request.json)
+        task_data = request.json
         # mark task completion as yes in db
         # get user id
         uname = check_login()
         uid = str(find_user_from_uname(uname))
 
         dbconnect.write(
-            "UPDATE stepify.users_tasks SET completion = TRUE WHERE user_id = '"
-            + uid + "' AND task_id = '" + task_id + "';")
+            "UPDATE stepify.users_tasks SET completion = TRUE, completion_date = TIMESTAMP '"
+            + task_data['compdate'] + "' WHERE user_id = "
+            + uid + " AND task_id = '" + task_data['taskid'] + "';")
 
     # the code below is executed if the request method was GET
     return render_template('404.html', error=error)
@@ -212,8 +213,8 @@ def task_undone():
         uid = str(find_user_from_uname(uname))
 
         dbconnect.write(
-            "UPDATE stepify.users_tasks SET completion = FALSE WHERE user_id = '"
-            + uid + "' AND task_id = '" + task_id + "';")
+            "UPDATE stepify.users_tasks SET completion = FALSE WHERE user_id = "
+            + uid + " AND task_id = '" + task_id + "';")
 
     # the code below is executed if the request method was GET
     return render_template('404.html', error=error)
