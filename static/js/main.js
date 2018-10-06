@@ -101,7 +101,7 @@ function showNextTask() {
     }
 }
 
-//Function to set event listener on checkboxes and set task title right line through and update progress var doneTasks
+//Function to set event listener on checkboxes and set task title right line through and update progress var doneTasks and send info to backend
 function setEventListenerCheckboxes (elSelector) {
     $(elSelector).click(function (e) {
         var taskId = e.target.dataset.taskid;
@@ -116,12 +116,36 @@ function setEventListenerCheckboxes (elSelector) {
                     tasks[i]['completion'] = true;
                     var completionDate = new Date();
                     tasks[i]['completion_date'] = completionDate;
+                    
+                    //tell server to mark it as done on the db as well
+                    //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
+                    $.ajax({
+                        type : "POST",
+                        url : "/task-done",
+                        data: JSON.stringify(taskId, null, '\t'),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+
+                        }
+                    }); 
                 }
                 
                 //If task is being marked as not done
                 else if (tasks[i]['completion']) {
                     doneTasks -= 1;
                     tasks[i]['completion'] = false;
+                    
+                    //tell server to mark it as not done on the db as well
+                    //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
+                    $.ajax({
+                        type : "POST",
+                        url : "/task-undone",
+                        data: JSON.stringify(taskId, null, '\t'),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+
+                        }
+                    }); 
                 }
                 
                 //if this is the task that's currently displayed in right panel

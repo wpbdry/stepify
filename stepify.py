@@ -201,6 +201,24 @@ def task_done():
     return render_template('404.html', error=error)
 
 
+@app.route('/task-undone', methods=['POST', 'GET'])
+def task_undone():
+    error = None
+    if request.method == 'POST':
+        task_id = str(request.json)
+        # mark task completion as yes in db
+        # get user id
+        uname = check_login()
+        uid = str(find_user_from_uname(uname))
+
+        dbconnect.write(
+            "UPDATE stepify.users_tasks SET completion = FALSE WHERE user_id = '"
+            + uid + "' AND task_id = '" + task_id + "';")
+
+    # the code below is executed if the request method was GET
+    return render_template('404.html', error=error)
+
+
 @app.route('/welcome')
 def welcome():
     return render_template('welcome.html')
