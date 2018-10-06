@@ -364,6 +364,16 @@ function displayTasks (tasks) {
     
     //Update progress bar
     setProgress();
+    
+    //Update highlighted title on the left
+    
+    //if a task is currently displayed in right panel
+    if ($("#secondpanel")[0].style.display !== "none") {
+        var currentlyDisplayedTaskId = $("#right-panel-checkbox")[0].dataset.taskid;
+        var divSelector = "#" + currentlyDisplayedTaskId + "-task";
+        $(divSelector).addClass("selected-task");
+    }
+    
 };
 
 function setProgress () {
