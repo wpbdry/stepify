@@ -73,6 +73,12 @@ a {
   color: #BDBDBD;
 }
 
+p {
+  text-align: center;
+}
+
+
+
 .study-program:hover {
   cursor: pointer;
 }
@@ -151,9 +157,11 @@ a {
 }
 
 #not-decided{
-  margin-left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: rgb(160, 148, 148);
+
 }
 
 #top-block {
