@@ -50,23 +50,26 @@ $( window ).resize(function() {
 //Open right panel
 var x = Number
 function openRightPanel () {
+    console.log('Foundation.MediaQuery.current', Foundation.MediaQuery.current);
         taskSelected = true;
-        if (Foundation.MediaQuery.current == 'large') {
+        if (Foundation.MediaQuery.current == 'large' || Foundation.MediaQuery.current == 'xlarge' || Foundation.MediaQuery.current == 'xxlarge') {
             if (x==0){
-                $("#secondpanel").removeClass("fadeOutRight");
                 $("#secondpanel").addClass("fadeInRight");
                 $("#secondpanel-empty").css("display", "none");
                 $("#secondpanel").css("display", "");
 
                 setTimeout(() => {
                     $("#secondpanel").removeClass("fadeInRight");
-                }, 700);
+                }, 1001);
                 x=1     
             } else if (x==1){
-                $("#secondpanel").removeClass("fadeOutRight");
                 $("#secondpanel").addClass("fadeIn");
                 $("#secondpanel-empty").css("display", "none");
                 $("#secondpanel").css("display", "");    
+
+                setTimeout(() => {
+                    $("#secondpanel").removeClass("fadeIn");
+                }, 1001);
             }
         } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
             $("#secondpanel").attr('style','display: block !important');
@@ -86,19 +89,21 @@ function openRightPanel () {
 function closeRightPanel () {
     taskSelected = false;
 
-    if (Foundation.MediaQuery.current == 'large') {
+    if (Foundation.MediaQuery.current == 'large' || Foundation.MediaQuery.current == 'xlarge' || Foundation.MediaQuery.current == 'xxlarge') {
         $("#secondpanel").addClass("fadeOutRight");
         setTimeout(() => {       
             $('#secondpanel').hide();
             $('#secondpanel-empty').show();
-        }, 700);
+            $("#secondpanel").removeClass("fadeOutRight");
+        }, 1001);
     } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
         $("#secondpanel").addClass("fadeOutRight");
         setTimeout(() => {       
             $('#secondpanel-empty').show();
             $('#secondpanel').hide();
             $("#firstpanel").show();
-        }, 700);
+            $("#secondpanel").removeClass("fadeOutRight");
+        }, 1001);
     }
     x =0    
     //remove highlighting from task in left panel
