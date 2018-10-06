@@ -121,8 +121,19 @@ function setEventListenerCheckboxes (elSelector) {
                     //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
                     $.ajax({
                         type : "POST",
-                        url : "/task-done",
+                        url : "/task-done-id",
                         data: JSON.stringify(taskId, null, '\t'),
+                        contentType: 'application/json;charset=UTF-8',
+                        success: function(result) {
+
+                        }
+                    });
+                    
+                    //Set completion date in db
+                    $.ajax({
+                        type : "POST",
+                        url : "/task-done-date",
+                        data: JSON.stringify(dateToSqlString(completionDate), null, '\t'),
                         contentType: 'application/json;charset=UTF-8',
                         success: function(result) {
 
@@ -403,36 +414,8 @@ function dateToString (d) {
 
 function dateToSqlString (d) {
     
-    var date = d.getDate();
-    if (date < 10) {
-        date = "0" + date;
-    }
-    
-    var month = d.getMonth() + 1;
-    if (month < 10) {
-        month = "0" + month;
-    }
-    
-    var year = d.getFullYear();
-    
-    var hour = d.getHours();
-    if (hour < 10) {
-        hour = "0" + hour;
-    }
-    
-    var minute = d.getMinutes();
-    if (minute < 10) {
-        minute = "0" + minute;
-    }
-    
-    var second = d.getSeconds();
-    if (second < 10) {
-        second = "0" + second;
-    }
-    
-    //We want this format 2018-05-16 00:00:00
-    var r = year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" + second;
-    return r;
+    //We want this format 2018-5-16 00:00:00
+    return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate() + " " + d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
 }
 
 /*FUNCTION TO DISPLAY CORRECT TASK IN RIGHT PANEL AND HIGHLIGHT TASK IN LEFT PANEL*/

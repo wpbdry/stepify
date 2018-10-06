@@ -183,8 +183,8 @@ def sp():
     return render_template('studyprograms.html', error=error)
 
 
-@app.route('/task-done', methods=['POST', 'GET'])
-def task_done():
+@app.route('/task-done-id', methods=['POST', 'GET'])
+def task_done_id():
     error = None
     if request.method == 'POST':
         task_id = str(request.json)
