@@ -149,46 +149,7 @@ function setEventListenerForTaskTitles() {
     });
 }
 
-/*HANDLE DELETION OF TASKS (MARKING AS DONE)*/
-    
-
-    
-    //
- 
-
-    /*
-    $(".task-checkbox").click(function (e) {
-
-        
-
-        
-
-        //update progress bar
-        doneTasks ++;
-        setProgress()
-
-        //Remove tasks
-        $(taskDivSelector).remove();
-
-        //Check if anything is empty, and hide it if it is
-        var catToday = document.getElementById("tasks-today");
-        if (!catToday.firstChild) {
-            $('#task-category-today').css('display', 'none');
-        }
-        var catTomorrow = document.getElementById("tasks-tomorrow");
-        if (!catTomorrow.firstChild) {
-            $('#task-category-tomorrow').css('display', 'none');
-        }
-        var catUpcoming = document.getElementById("tasks-upcoming");
-        if (!catUpcoming.firstChild) {
-            $('#task-category-upcoming').css('display', 'none');
-        }
-
-        //In case there are no tasks
-        if (!catToday.firstChild && !catTomorrow.firstChild && !catUpcoming.firstChild) {
-            $('#task-category-today').css('display', 'block');
-            $('#task-category-today h2').text("Good job! You're all caught up");
-        }
+/*HANDLE DELETION OF TASKS (MARKING AS DONE) TO DO
 
         //tell server to mark it as done on the db as well
         //copied from https://stackoverflow.com/questions/14908864/how-can-i-use-data-posted-from-ajax-in-flask
@@ -202,8 +163,6 @@ function setEventListenerForTaskTitles() {
             }
 
         });
-
-    });
     */
 
 //Function to sort tasks into today, tomorrow, upcoming, and completed
