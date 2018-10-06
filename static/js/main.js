@@ -104,27 +104,39 @@ function showNextTask() {
 
 // Handle marking of tasks as done and not done
 function setEventListenerForTaskTitles() {
+    
+    //Task checkboxes
     $(".task-checkbox").click(function (e) {
         var taskId = e.target.dataset.taskid;
         
-        //If task is not done
+        //Find task in tasks array
         for (i=0; i < tasks.length; i++) {
-            if (!tasks[i]['completion']) {
-                //Mark as done
-                tasks[i]['completion'] = true;
-            }
+            if (tasks[i]['task_id'] == taskId) {
+                
+                //If task is not done
+                if (!tasks[i]['completion']) {
+                    tasks[i]['completion'] = true;
+                    var completionDate = new Date();
+                    tasks[i]['completion_date'] = completionDate;
+                }
+                
+                //If task is already done
+                else if (tasks[i]['completion']) {
+                    tasks[i]['completion'] = false;
+                }
+            } 
         }
         
-        //If task is done
-        for (i=0; i < tasks.length; i++) {
-            if (tasks[i]['completion']) {
-                //Mark as not done
-                tasks[i]['completion'] = false;
-            }
-        }
+        
         
         //Redisplay tasks
         displayTasks(tasks);
+    });
+    
+    //Task titles
+    $(".task-title").click(function (e) {
+        var taskId = e.target.dataset.taskid;
+        displayTaskRight(taskId);
     });
 }
 
@@ -617,11 +629,10 @@ $(document).ready(function(){
     displayTasks(tasks);
 });
 
+/*
 //display correct task on right panel
 $(document).ready(function(){
 
-    $(".task-title").click(function (e) {
-        var taskId = e.target.dataset.taskid;
-        displayTaskRight(taskId);
-    });
+    
 });
+*/
