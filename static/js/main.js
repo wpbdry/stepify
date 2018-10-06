@@ -60,7 +60,7 @@ function openRightPanel () {
 
                 setTimeout(() => {
                     $("#secondpanel").removeClass("fadeInRight");
-                }, 1001);
+                }, 701);
                 x=1     
             } else if (x==1){
                 $("#secondpanel").addClass("fadeIn");
@@ -69,7 +69,7 @@ function openRightPanel () {
 
                 setTimeout(() => {
                     $("#secondpanel").removeClass("fadeIn");
-                }, 1001);
+                }, 701);
             }
         } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
             $("#secondpanel").attr('style','display: block !important');
@@ -80,7 +80,7 @@ function openRightPanel () {
 
             setTimeout(() => {
                 $("#secondpanel").removeClass("fadeInRight");
-            }, 1001);
+            }, 701);
         }
     } 
 
@@ -95,7 +95,7 @@ function closeRightPanel () {
             $('#secondpanel').hide();
             $('#secondpanel-empty').show();
             $("#secondpanel").removeClass("fadeOutRight");
-        }, 1001);
+        }, 401);
     } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
         $("#secondpanel").addClass("fadeOutRight");
         setTimeout(() => {       
@@ -103,7 +103,7 @@ function closeRightPanel () {
             $('#secondpanel').hide();
             $("#firstpanel").show();
             $("#secondpanel").removeClass("fadeOutRight");
-        }, 1001);
+        }, 401);
     }
     x =0    
     //remove highlighting from task in left panel
