@@ -34,8 +34,18 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
+  
 }
+
+#imgstepf {
+  height: 9rem;
+  Display: Block;
+Margin-left: Auto;
+Margin-right: Auto;
+}
+
+
 
 h5 {
   text-align: center;
@@ -52,10 +62,24 @@ h5 {
   margin-bottom: 3rem;
 }
 
-#not-decided a {
+#not-decided {
   margin-top: 30rem;
   color: #727272;
   text-decoration: underline;
+}
+
+
+
+#undecided {
+  color: #afa2a2;
+  text-decoration: underline;
+  margin-top: 2rem;
+  transition: ease-in-out all 300ms;
+}
+
+#undecided:hover{
+  transform: scaleX(1.05) scaleY(1.05);
+
 }
 
 #errorpage h1 {
