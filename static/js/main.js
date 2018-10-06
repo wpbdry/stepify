@@ -112,7 +112,6 @@ function setEventListenerCheckboxes (elSelector) {
                 
                 //If task is being marked as done
                 if (!tasks[i]['completion']) {
-                    $("#right-task-title").css("text-decoration", "line-through");
                     doneTasks ++;
                     tasks[i]['completion'] = true;
                     var completionDate = new Date();
@@ -122,8 +121,13 @@ function setEventListenerCheckboxes (elSelector) {
                 //If task is being marked as not done
                 else if (tasks[i]['completion']) {
                     doneTasks -= 1;
-                    $("#right-task-title").css("text-decoration", "initial");
                     tasks[i]['completion'] = false;
+                }
+                
+                //if this is the task that's currently displayed in right panel
+                var currentlyDisplayedTaskId = $("#right-panel-checkbox")[0].dataset.taskid;
+                if (taskId == currentlyDisplayedTaskId && $("#secondpanel")[0].style.display !== "none") {
+                    displayTaskRight(taskId);
                 }
             } 
         }
