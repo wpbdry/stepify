@@ -35,7 +35,7 @@ function objectFromString (s) {
 var tasks = objectFromString(tasksString);
 
 $("#secondpanel").addClass("animated");
-$("#secondpanel-empty").addClass("animated");
+$("#firstpanel-image").addClass("animated");
 
 var taskSelected = false;
 
@@ -50,56 +50,65 @@ $( window ).resize(function() {
 //Open right panel
 var x = Number
 function openRightPanel () {
-    console.log('Foundation.MediaQuery.current', Foundation.MediaQuery.current);
+
         taskSelected = true;
         if (Foundation.MediaQuery.current == 'large' || Foundation.MediaQuery.current == 'xlarge' || Foundation.MediaQuery.current == 'xxlarge') {
+            $("#secondpanel").css('width', `45vw`);
             if (x==0){
-                $("#secondpanel").addClass("fadeInRight");
-                $("#secondpanel-empty").css("display", "none");
+                $("#secondpanel").addClass("fadeInRight");               
                 $("#secondpanel").css("display", "");
-
                 setTimeout(() => {
                     $("#secondpanel").removeClass("fadeInRight");
                 }, 701);
                 x=1     
             } else if (x==1){
+                $("#firstpanel-image").css("visibility", "hidden");
                 $("#secondpanel").addClass("fadeIn");
-                $("#secondpanel-empty").css("display", "none");
                 $("#secondpanel").css("display", "");    
-
                 setTimeout(() => {
                     $("#secondpanel").removeClass("fadeIn");
                 }, 701);
             }
-        } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
+        } else if (Foundation.MediaQuery.current == 'medium'){    
+            w = window.innerWidth
+            thisW = w-73
             $("#secondpanel").attr('style','display: block !important');
+            $("#secondpanel").css('width', `${thisW}px`);
             $("#firstpanel").hide();
-
-            $("#secondpanel").removeClass("fadeOutRight");
-            $("#secondpanel").addClass("fadeInRight");
-
+            $("#secondpanel").addClass("fadeInRight");  
+            
             setTimeout(() => {
-                $("#secondpanel").removeClass("fadeInRight");
+            $("#secondpanel").addClass("fadeInRight");  
+            }, 701);
+        } else if (Foundation.MediaQuery.current == 'small'){    
+            $("#secondpanel").attr('style','display: block !important');
+            $("#secondpanel").css('width', `100vw`);
+            $("#firstpanel").hide();
+            $("#secondpanel").addClass("fadeInRight");  
+            
+            setTimeout(() => {
+            $("#secondpanel").addClass("fadeInRight");  
             }, 701);
         }
     } 
 
-//Function to close right panel
+// //Function to close right panel
 
 function closeRightPanel () {
     taskSelected = false;
-
+    
     if (Foundation.MediaQuery.current == 'large' || Foundation.MediaQuery.current == 'xlarge' || Foundation.MediaQuery.current == 'xxlarge') {
+        $("#firstpanel-image").css("visibility", "visible");
         $("#secondpanel").addClass("fadeOutRight");
         setTimeout(() => {       
             $('#secondpanel').hide();
-            $('#secondpanel-empty').show();
+            $('#firstpanel-image').show();
             $("#secondpanel").removeClass("fadeOutRight");
         }, 401);
     } else if (Foundation.MediaQuery.current == 'medium' || Foundation.MediaQuery.current == 'small'){    
         $("#secondpanel").addClass("fadeOutRight");
         setTimeout(() => {       
-            $('#secondpanel-empty').show();
+            $('#firstpanel-image').show();
             $('#secondpanel').hide();
             $("#firstpanel").show();
             $("#secondpanel").removeClass("fadeOutRight");
@@ -217,7 +226,9 @@ function sortTasks (tasks) {
             checkbox.setAttribute("data-taskid", taskId);
 
             var taskDiv = document.createElement("div");
-            taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid task-title-left-panel");
+
+            // taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid task-title-left-panel");
+            taskDiv.setAttribute("class", "uk-grid-small uk-child-width-auto uk-grid");
             taskDiv.setAttribute("id", taskId + "-task");
             taskDiv.setAttribute("data-taskid", taskId);
             taskDiv.appendChild(checkbox);
