@@ -101,12 +101,9 @@ function showNextTask() {
     }
 }
 
-
-// Handle marking of tasks as done and not done
-function setEventListenerForTaskTitles() {
-    
-    //Task checkboxes
-    $(".task-checkbox").click(function (e) {
+//Function to set event listener on checkboxes
+function setEventListenerCheckboxes (elSelector) {
+    $(elSelector).click(function (e) {
         var taskId = e.target.dataset.taskid;
         
         //Find task in tasks array
@@ -127,11 +124,19 @@ function setEventListenerForTaskTitles() {
             } 
         }
         
-        
-        
         //Redisplay tasks
         displayTasks(tasks);
+        
     });
+}
+
+
+// Set event listeners on titles and checkboxes left when they are dynamically created
+function setEventListenerForTaskTitles() {
+    
+    //Task checkboxes
+    setEventListenerCheckboxes(".task-checkbox");
+    
     
     //Task titles
     $(".task-title").click(function (e) {
@@ -573,6 +578,15 @@ function displayTaskRight (taskId) {
         $("#vegan-icon").css('display', 'inline-block');
         $(".weirdLeafIcon").css("display", "inline-block");
     }
+    
+    //Check box
+    $("#right-panel-checkbox").attr("data-taskid", taskId);
+    if (t['completion']) {
+        $("#right-panel-checkbox").prop("checked", true);
+    }
+    else {
+        $("#right-panel-checkbox").prop("checked", false);
+    }
 
     //Description
     $(".task-description").html(t['details']);
@@ -598,6 +612,9 @@ $(document).ready(function(){
     /*DYNAMICALLY ADD HTML ELEMENTS TO SHOW TASKS*/
 
     displayTasks(tasks);
+    
+    //Set event listener on checkbox in right panel
+    setEventListenerCheckboxes("#right-panel-checkbox");
 });
 
 /*
