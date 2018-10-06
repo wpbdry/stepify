@@ -280,8 +280,8 @@ height: 100vh;
 .fab {
 display: inline-block;
 position: absolute;
-bottom: 25px;
-right: 15px;
+bottom: 5px;
+right: 30px;
 outline: none;
 -webkit-user-select: none;
 user-select: none;
@@ -292,10 +292,11 @@ height: 60px;
 text-align: center;
 font-size: 32px;
 z-index: 999;
-background: #39f;
-color: #336699;
-border-radius: 50%;
-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+/* background: #39f;
+color: #336699; */
+color: #6f6f6f;
+/* border-radius: 50%; */
+/* box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); */
 transition: 0.2s opacity ease-in-out;
 -webkit-transition: 0.2s opacity ease-in-out;
 border: 0;
