@@ -60,7 +60,8 @@ function closeRightPanel () {
         }
         $('#secondpanel').hide();
         $('#secondpanel-empty').show();
-    }, 700);
+        $("#secondpanel").removeClass("fadeOutRight");
+    }, 701);
     x=0
 }
 
@@ -69,23 +70,19 @@ function openRightPanel () {
 
     if (x==0){
         taskSelected = true;
-        $("#secondpanel").removeClass("fadeOutRight");
         $("#secondpanel").addClass("fadeInRight");
-        // $("#secondpanel-empty").css("display", "none");
-        $("#secondpanel").css("display", "");
+        $("#secondpanel").css("display", "block");
 
         setTimeout(() => {
             if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
                 $("#secondpanel").attr('style','display: block !important');
                 $("#firstpanel").hide();
-            } else {            
             }
             $("#secondpanel").removeClass("fadeInRight");
-        }, 700);
+        }, 701);
         x=1
     } else if (x==1){
         taskSelected = true;
-        $("#secondpanel").removeClass("fadeOutRight");
         $("#secondpanel").addClass("fadeIn");
         $("#secondpanel-empty").css("visibility", "hidden");
         $("#secondpanel").css("display", "");
@@ -96,7 +93,7 @@ function openRightPanel () {
                 $("#firstpanel").hide();
             }
             $("#secondpanel").removeClass("fadeIn");
-        }, 700);        
+        }, 701);        
     }
 }
 
