@@ -122,17 +122,34 @@ function closeRightPanel () {
 }
 
 //Show next task
-var currentlyDisplayedTaskId;
+var lastTaskOnLeftPanelId; //Used in display task right function
 function showNextTask() {
-    //Stop page from reloading if it's on the last task already
-    if (currentlyDisplayedTaskId == tasks[tasks.length - 1]['task_id']) {
-        return false;
+    
+    //Create new variable of task ids in the order that they are displayed in left panel
+    var categorizedTasks = sortTasks(tasks);
+    var taskIdsInOrder = [];
+    
+    for (var i=0; i<categorizedTasks['today'].length; i++) {
+        taskIdsInOrder.push(categorizedTasks['today'][i]['task_id']);
     }
-
-    //Otherwise show next task. Page doesn't reload anyway
-    for (var i=0; i<tasks.length; i++) {
-        if (tasks[i]['task_id'] == currentlyDisplayedTaskId) {
-            var nextTaskId = tasks[i + 1]['task_id'];
+    for (var i=0; i<categorizedTasks['tomorrow'].length; i++) {
+        taskIdsInOrder.push(categorizedTasks['tomorrow'][i]['task_id']);
+    }
+    for (var i=0; i<categorizedTasks['upcoming'].length; i++) {
+        taskIdsInOrder.push(categorizedTasks['upcoming'][i]['task_id']);
+    }
+    for (var i=0; i<categorizedTasks['completed'].length; i++) {
+        taskIdsInOrder.push(categorizedTasks['completed'][i]['task_id']);
+    }
+    lastTaskOnLeftPanelId = taskIdsInOrder[taskIdsInOrder.length - 1];
+    
+    //Get currently displayed task
+    var curTaskId = $("#right-panel-checkbox")[0].dataset.taskid;
+    
+    //Get next task to display
+    for (var i=0; i<taskIdsInOrder.length; i++) {
+        if (taskIdsInOrder[i] == curTaskId) {
+            var nextTaskId = taskIdsInOrder[i + 1];
             displayTaskRight(nextTaskId);
             break;
         }
@@ -607,6 +624,14 @@ function displayTaskRight (taskId) {
 
     //Description
     $(".task-description").html(t['details']);
+    
+    //Explore next task button
+    if (taskId == lastTaskOnLeftPanelId) {
+        $("#next-task-button").css("display", "none");
+    }
+    else {
+        $("#next-task-button").css("display", "");
+    }
 
     //Make sure the right panel is not hidden
     openRightPanel();
