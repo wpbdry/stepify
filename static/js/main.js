@@ -144,6 +144,9 @@ function setEventListenerCheckboxes (elSelector) {
     $(elSelector).click(function (e) {
         var taskId = e.target.dataset.taskid;
         
+        $("#" + taskId + "-task").addClass('animated');
+        $("#" + taskId + "-task").addClass('fadeOut');
+        
         //Find task in tasks array
         for (i=0; i < tasks.length; i++) {
             if (tasks[i]['task_id'] == taskId) {
@@ -199,7 +202,9 @@ function setEventListenerCheckboxes (elSelector) {
         }
         
         //Redisplay tasks
-        displayTasks(tasks);
+        setTimeout(() => {
+           displayTasks(tasks);
+        }, 701);
         
     });
 }
