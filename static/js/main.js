@@ -101,7 +101,7 @@ function showNextTask() {
     }
 }
 
-//Function to set event listener on checkboxes
+//Function to set event listener on checkboxes and set task title right line through
 function setEventListenerCheckboxes (elSelector) {
     $(elSelector).click(function (e) {
         var taskId = e.target.dataset.taskid;
@@ -112,6 +112,7 @@ function setEventListenerCheckboxes (elSelector) {
                 
                 //If task is not done
                 if (!tasks[i]['completion']) {
+                    $("#right-task-title").css("text-decoration", "line-through");
                     tasks[i]['completion'] = true;
                     var completionDate = new Date();
                     tasks[i]['completion_date'] = completionDate;
@@ -119,6 +120,7 @@ function setEventListenerCheckboxes (elSelector) {
                 
                 //If task is already done
                 else if (tasks[i]['completion']) {
+                    $("#right-task-title").css("text-decoration", "initial");
                     tasks[i]['completion'] = false;
                 }
             } 
@@ -134,7 +136,7 @@ function setEventListenerCheckboxes (elSelector) {
 // Set event listeners on titles and checkboxes left when they are dynamically created
 function setEventListenerForTaskTitles() {
     
-    //Task checkboxes
+    //Task checkboxes left and task title right
     setEventListenerCheckboxes(".task-checkbox");
     
     
@@ -490,7 +492,16 @@ function displayTaskRight (taskId) {
 
     //update title text
     $('#right-task-title').text(t['title']);
-
+    
+    //update title line-through
+    if (t['completion']) {
+        $("#right-task-title").css("text-decoration", "line-through");
+    }
+    else {
+        $("#right-task-title").css("text-decoration", "initial");
+    }
+    
+    
     //update mandatory
     if (t['mandatory']) {
         $('#mandatory-task').text("(required)");
