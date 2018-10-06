@@ -52,6 +52,7 @@ var x = Number
 
 function closeRightPanel () {
     taskSelected = false;
+    $("#secondpanel-empty").css("visibility", "visible");
     $("#secondpanel").addClass("fadeOutRight");
     setTimeout(() => {        
         if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
@@ -70,7 +71,7 @@ function openRightPanel () {
         taskSelected = true;
         $("#secondpanel").removeClass("fadeOutRight");
         $("#secondpanel").addClass("fadeInRight");
-        $("#secondpanel-empty").css("display", "none");
+        // $("#secondpanel-empty").css("display", "none");
         $("#secondpanel").css("display", "");
 
         setTimeout(() => {
@@ -86,14 +87,13 @@ function openRightPanel () {
         taskSelected = true;
         $("#secondpanel").removeClass("fadeOutRight");
         $("#secondpanel").addClass("fadeIn");
-        $("#secondpanel-empty").css("display", "none");
+        $("#secondpanel-empty").css("visibility", "hidden");
         $("#secondpanel").css("display", "");
 
         setTimeout(() => {
             if (Foundation.MediaQuery.current === 'medium' || Foundation.MediaQuery.current === 'small') {
                 $("#secondpanel").attr('style','display: block !important');
                 $("#firstpanel").hide();
-            } else {            
             }
             $("#secondpanel").removeClass("fadeIn");
         }, 700);        
