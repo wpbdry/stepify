@@ -101,7 +101,7 @@ function showNextTask() {
     }
 }
 
-//Function to set event listener on checkboxes and set task title right line through
+//Function to set event listener on checkboxes and set task title right line through and update progress var doneTasks
 function setEventListenerCheckboxes (elSelector) {
     $(elSelector).click(function (e) {
         var taskId = e.target.dataset.taskid;
@@ -110,16 +110,18 @@ function setEventListenerCheckboxes (elSelector) {
         for (i=0; i < tasks.length; i++) {
             if (tasks[i]['task_id'] == taskId) {
                 
-                //If task is not done
+                //If task is being marked as done
                 if (!tasks[i]['completion']) {
                     $("#right-task-title").css("text-decoration", "line-through");
+                    doneTasks ++;
                     tasks[i]['completion'] = true;
                     var completionDate = new Date();
                     tasks[i]['completion_date'] = completionDate;
                 }
                 
-                //If task is already done
+                //If task is being marked as not done
                 else if (tasks[i]['completion']) {
+                    doneTasks -= 1;
                     $("#right-task-title").css("text-decoration", "initial");
                     tasks[i]['completion'] = false;
                 }
@@ -157,20 +159,9 @@ function setEventListenerForTaskTitles() {
     /*
     $(".task-checkbox").click(function (e) {
 
-        var taskId = e.target.dataset.taskid;
-        var taskDivSelector = "#" + taskId + "-task";
+        
 
-        //Remove task from original tasks array
-        for (i=0; i < tasks.length; i++) {
-            if (tasks[i]['task_id'] == taskId) {
-                tasks.splice(i, 1);
-            }
-        }
-
-        //hide right panel if it was that task being displayed
-        if (taskId == currentlyDisplayedTaskId) {
-            closeRightPanel();
-        }
+        
 
         //update progress bar
         doneTasks ++;
@@ -377,6 +368,9 @@ function displayTasks (tasks) {
     
     //Set up event listener for tasks
     setEventListenerForTaskTitles();
+    
+    //Update progress bar
+    setProgress();
 };
 
 function setProgress () {
@@ -613,11 +607,6 @@ $(document).ready(function(){
 
     /*SET USERNAME SPAN*/
     $('.username').text(username);
-
-
-    /*PROGRESS BAR*/
-
-    setProgress();
 
 
     /*DYNAMICALLY ADD HTML ELEMENTS TO SHOW TASKS*/
