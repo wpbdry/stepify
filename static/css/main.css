@@ -73,12 +73,6 @@ a {
   color: #BDBDBD;
 }
 
-p {
-  text-align: left;
-}
-
-
-
 .study-program:hover {
   cursor: pointer;
 }
