@@ -321,36 +321,7 @@ function sortTasks (tasks) {
         }
     };
 
-function markTaskAsDone (taskId) {
-    
-    //In tasks array
-    for (i=0; i < tasks.length; i++) {
-        if (tasks[i]['task_id'] == taskId) {
-            
-            //Mark task as done
-            tasks[i]['completion'] = true;
-            
-            //set completion date
-            var completionDate = new Date();
-            tasks[i]['completion_date'] = completionDate;
-        }
-    }
-
-    //Redisplay tasks
-    displayTasks(tasks);
-}
-
-function markTaskAsNotDone (taskId) {
-    
-    //In tasks array
-    for (i=0; i < tasks.length; i++) {
-        if (tasks[i]['task_id'] == taskId) {
-            
-            //Mark task as not done
-            tasks[i]['completion'] = false;
-        }
-    }
-}
+//Display tasks in left panel
 
 function displayTasks (tasks) {
     //Sort tasks into today, tomorrow, and upcoming
