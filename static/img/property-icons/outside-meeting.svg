@@ -1,22 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
-    <title>Outside meeting</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Desktop-HD" transform="translate(-186.000000, -147.000000)">
-            <g id="Outside-meeting" transform="translate(186.000000, 147.000000)">
-                <g id="Outside-Meeting">
-                    <rect id="Rectangle-19" fill-opacity="0.220844656" fill="#7ED321" fill-rule="nonzero" x="0" y="0" width="60" height="60" rx="8"></rect>
-                    <g id="tree-1" transform="translate(16.000000, 6.000000)" stroke="#74C020" stroke-linejoin="round" stroke-width="2">
-                        <polygon id="Shape" points="25 36 13 44 1 36 1 24 13 1 25 24"></polygon>
-                        <path d="M13,17 L13,47" id="Shape" stroke-linecap="round"></path>
-                        <polyline id="Shape" stroke-linecap="round" points="20 29 13 35 6 29"></polyline>
-                        <polyline id="Shape" stroke-linecap="round" points="18 23 13 27 8 23"></polyline>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M26 0H4C1.79086 0 0 1.79086 0 4V26C0 28.2091 1.79086 30 4 30H26C28.2091 30 30 28.2091 30 26V4C30 1.79086 28.2091 0 26 0Z" fill="#388E3C" fill-opacity="0.11849"/>
+<path d="M15.5 3C18.8014 8.85242 18.2672 12.653 15 18.5C20.0266 17.553 22.1974 15.4452 23 10.5C21.9463 5.60943 20.4104 3.91717 15.5 3Z" fill="#388E3C" fill-opacity="0.22"/>
+<path d="M16 25V21.5V18H17V25L16 25Z" fill="#388E3C" fill-opacity="0.22"/>
+<path d="M13 18V21V24C13 24.5523 13.4477 25 14 25H16C16.5523 25 17 24.5523 17 24V21V18" stroke="#388E3C"/>
+<path d="M22.5 11C22.5 13.1016 21.7857 15.1014 20.5053 16.5077C19.2351 17.9028 17.3899 18.7365 15.0498 18.5025C12.1352 18.211 10.2715 17.3455 9.1304 16.0958C7.99071 14.8476 7.5 13.1373 7.5 11C7.5 8.85614 7.98643 6.99257 9.12845 5.66991C10.2586 4.36097 12.1024 3.5 15 3.5C18.3326 3.5 20.1535 4.37235 21.1683 5.65358C22.2037 6.96094 22.5 8.81164 22.5 11Z" stroke="#388E3C"/>
 </svg>
