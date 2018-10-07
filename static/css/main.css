@@ -26,7 +26,6 @@ body {
   height: 100%;
   padding: 0px;
   margin: 0px;
-  overflow: hidden;
 }
 
 h2 {
@@ -381,3 +380,7 @@ background: #643de4; }
 
 .fab.fab-dark:after {
 background: #2b2b2b; }
+
+.task-title {
+  max-width: 80%;
+}
