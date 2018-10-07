@@ -144,16 +144,16 @@ function setEventListenerCheckboxes (elSelector) {
     $(elSelector).click(function (e) {
         var taskId = e.target.dataset.taskid;
         
-        $("#" + taskId + "-task").addClass('animated');
-        $("#" + taskId + "-task").addClass('fadeOut');
-        $("#" + taskId + "-task").css('position', 'absolute');
-        
         //Find task in tasks array
         for (i=0; i < tasks.length; i++) {
             if (tasks[i]['task_id'] == taskId) {
                 
                 //If task is being marked as done
                 if (!tasks[i]['completion']) {
+                    $("#" + taskId + "-task").addClass('animated');
+                    $("#" + taskId + "-task").addClass('fadeOut');
+                    $("#" + taskId + "-task").css('position', 'absolute');
+                    
                     doneTasks ++;
                     tasks[i]['completion'] = true;
                     var completionDate = new Date();
@@ -174,6 +174,10 @@ function setEventListenerCheckboxes (elSelector) {
 
                         }
                     });
+                    //Redisplay tasks
+                    setTimeout(() => {
+                        displayTasks(tasks);
+                     }, 701);
                 }
                 
                 //If task is being marked as not done
@@ -192,6 +196,8 @@ function setEventListenerCheckboxes (elSelector) {
 
                         }
                     }); 
+                    //Redisplay tasks
+                    displayTasks(tasks);
                 }
                 
                 //if this is the task that's currently displayed in right panel
@@ -203,9 +209,9 @@ function setEventListenerCheckboxes (elSelector) {
         }
         
         //Redisplay tasks
-        setTimeout(() => {
-           displayTasks(tasks);
-        }, 701);
+        // setTimeout(() => {
+        //    displayTasks(tasks);
+        // }, 701);
         
     });
 }
