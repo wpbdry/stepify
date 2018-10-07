@@ -13,8 +13,9 @@ app = Flask(__name__)
 
 
 def find_user_from_uname(un):  # finds user by username and returns id
-    uid = dbconnect.query("SELECT id FROM stepify.users WHERE username = '" + un + "'",
-                   "one")
+    uid = dbconnect.query("SELECT id FROM stepify.users WHERE username = %;",
+                          (un,),
+                          "one")
     if uid:
         uid = uid[0]
     return uid
@@ -31,8 +32,10 @@ def show_main_page():
     # get list of tasks
     tasks = dbconnect.query_json(open("get-tasks.sql", "r").read() % uid)
     # get data for progress bar
-    total_tasks = dbconnect.query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "'", "one")[0]
-    done_tasks = dbconnect.query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = '" + str(uid) + "' AND completion = TRUE", "one")[0]
+    total_tasks = dbconnect.query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = %;",
+                                  (uid,),
+                                  "one")[0]
+    done_tasks = dbconnect.query("SELECT COUNT(id) FROM stepify.users_tasks WHERE user_id = %;", (str(uid),),  "'" + str(uid) + "' AND completion = TRUE", "one")[0]
 
     # load page and send task info to js
     # also send completed tasks and total tasks to that front end can calculate progress

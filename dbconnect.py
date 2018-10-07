@@ -15,14 +15,14 @@ def datetime_to_string(dt):
 
 
 # For SELECT statements. returns cursor.fetchall() if type is 'all' or cursor.fetchone if type is 'one'
-def query(sql, r_type):
+def query(sql, inputs, r_type):
     conn = psycopg2.connect(host="horton.elephantsql.com",
                             port="5432",
                             dbname="wxwcglba",
                             user="wxwcglba",
                             password=open("db-password.txt", "r").read())
     cur = conn.cursor()
-    cur.execute(sql)
+    cur.execute(sql, inputs)
     r = 'Invalid type parsed'
     if r_type == 'all':
         r = cur.fetchall()
@@ -34,14 +34,14 @@ def query(sql, r_type):
 
 
 # For other SQL queries
-def write(sql):  # For changing data. returns nothing.
+def write(sql, inputs):  # For changing data. returns nothing.
     conn = psycopg2.connect(host="horton.elephantsql.com",
                             port="5432",
                             dbname="wxwcglba",
                             user="wxwcglba",
                             password=open("db-password.txt", "r").read())
     cur = conn.cursor()
-    cur.execute(sql)
+    cur.execute(sql, inputs)
     conn.commit()
     cur.close()
     conn.close()
@@ -49,14 +49,14 @@ def write(sql):  # For changing data. returns nothing.
 
 # SQL query that returns table as json string
 # copied from https://www.peterbe.com/plog/from-postgres-to-json-strings
-def query_json(sql):
+def query_json(sql, inputs):
     conn = psycopg2.connect(host="horton.elephantsql.com",
                             port="5432",
                             dbname="wxwcglba",
                             user="wxwcglba",
                             password=open("db-password.txt", "r").read())
     cur = conn.cursor(cursor_factory=RealDictCursor)
-    cur.execute(sql)
+    cur.execute(sql, inputs)
     r = json.dumps(cur.fetchall(), default=datetime_to_string)
     cur.close()
     conn.close()
