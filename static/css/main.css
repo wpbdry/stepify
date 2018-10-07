@@ -123,9 +123,6 @@ a {
   padding-bottom: 25px;
 }
 
-#second-container{
-}
-
 .code-uni-subject-btn {
   display: inline-block;
   position: relative;
@@ -185,13 +182,6 @@ a {
   margin: auto;
 }
 
-#signup{
-
-}
-
-#show-signup{
-
-}
 .tasklist label {
 line-height: normal !important;
 font-size: 18px !important;
