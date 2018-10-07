@@ -146,6 +146,7 @@ function setEventListenerCheckboxes (elSelector) {
         
         $("#" + taskId + "-task").addClass('animated');
         $("#" + taskId + "-task").addClass('fadeOut');
+        $("#" + taskId + "-task").css('position', 'absolute');
         
         //Find task in tasks array
         for (i=0; i < tasks.length; i++) {
