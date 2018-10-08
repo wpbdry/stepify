@@ -11,11 +11,12 @@
     <script src="{{ url_for('static', filename='js/cal-slack-wiki/foundation.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cal-slack-wiki/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='js/cal-slack-wiki/what-input.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mobile.css') }}">
     <script> $(document).foundation(); </script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/calendar.css') }}">
- 
+
 </head>
 
 <body>
@@ -25,14 +26,14 @@
     <div class="empty small-4">
         <div class="lines-container">
             <div class="grid-x content-center">
-                
+
                     <a href="/slack" class="cell small-1 edit-1"></a>
                     <div class="cell small-1 edit-2"></div>
                     <a href="/code-wiki" class="cell small-1 edit-3"></a>
 
             </div>
         </div>
-    </div>  
+    </div>
     <div class="empty small-4"></div>
 </div>
 </div>
@@ -68,7 +69,7 @@
                     <a href="/code-wiki" class="button" id="button-adjustments">
                         Next Step
                     </a>
-                        
+
             </div>
 
             <div class="empty small-4"></div>
@@ -79,5 +80,5 @@
 
 
 </div>
-</body> 
+</body>
 </html>
