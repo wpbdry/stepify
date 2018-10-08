@@ -278,9 +278,9 @@ padding-left: 2px;
 font-size: 32px!important;
 z-index: 999!important;
 /* background: #39f; */
-color: #336699;
-border-radius: 50% !important;
-box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+color: grey;
+/* border-radius: 50% !important;
+box-shadow: 0 0 5px rgba(0, 0, 0, 0.15); */
 transition: 0.2s opacity ease-in-out;
 -webkit-transition: 0.2s opacity ease-in-out;
 border: 0 !important;
