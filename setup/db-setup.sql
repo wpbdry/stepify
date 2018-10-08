@@ -6,9 +6,9 @@ CREATE TABLE stepify.users (
     PRIMARY KEY (id));
 
 CREATE TABLE stepify.logins (
-    id SERIAL NOT NULL
-    username VARCHAR(500)
-    ip VARCHAR(40)
+    id SERIAL NOT NULL,
+    username text,
+    ip text,
     PRIMARY KEY (id));
 
 CREATE TABLE stepify.tasks (
@@ -42,5 +42,6 @@ CREATE TABLE stepify.users_tasks (
     user_id INT NOT NULL,
     task_id INT NOT NULL,
     completion bool,
+    completion_date TIMESTAMP,
     PRIMARY KEY (id));
 

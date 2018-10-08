@@ -13,13 +13,15 @@ def datetime_to_string(dt):
 
 # FUNCTIONS TO CONNECT TO DB (IMPORTANT THAT WE ALWAYS CLOSE CONN. DB ONLY ALLOWS UP TO 5 CONNECTIONS ###
 
+conn = psycopg2.connect(host="localhost", port="5433", dbname="stepify", user="postgres", password="password")
+
 
 # For SELECT statements. returns cursor.fetchall() if type is 'all' or cursor.fetchone if type is 'one'
 def query(sql, inputs, r_type):
-    conn = psycopg2.connect(host="horton.elephantsql.com",
-                            port="5432",
-                            dbname="wxwcglba",
-                            user="wxwcglba",
+    conn = psycopg2.connect(host="localhost",
+                            port="5433",
+                            dbname="stepify",
+                            user="postgres",
                             password=open("db-password.txt", "r").read())
     cur = conn.cursor()
     cur.execute(sql, inputs)
@@ -35,10 +37,10 @@ def query(sql, inputs, r_type):
 
 # For other SQL queries
 def write(sql, inputs):  # For changing data. returns nothing.
-    conn = psycopg2.connect(host="horton.elephantsql.com",
-                            port="5432",
-                            dbname="wxwcglba",
-                            user="wxwcglba",
+    conn = psycopg2.connect(host="localhost",
+                            port="5433",
+                            dbname="stepify",
+                            user="postgres",
                             password=open("db-password.txt", "r").read())
     cur = conn.cursor()
     cur.execute(sql, inputs)
@@ -50,10 +52,10 @@ def write(sql, inputs):  # For changing data. returns nothing.
 # SQL query that returns table as json string
 # copied from https://www.peterbe.com/plog/from-postgres-to-json-strings
 def query_json(sql, inputs):
-    conn = psycopg2.connect(host="horton.elephantsql.com",
-                            port="5432",
-                            dbname="wxwcglba",
-                            user="wxwcglba",
+    conn = psycopg2.connect(host="localhost",
+                            port="5433",
+                            dbname="stepify",
+                            user="postgres",
                             password=open("db-password.txt", "r").read())
     cur = conn.cursor(cursor_factory=RealDictCursor)
     cur.execute(sql, inputs)
